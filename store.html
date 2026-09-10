@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store — CyberNovaWorks.store</title>
+    <meta name="description" content="Download free apps and games or purchase premium digital products at CyberNovaWorks.store Store.">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .store-hero {
+            padding: 160px 10% 60px;
+            text-align: center;
+            position: relative;
+        }
+        .store-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .store-hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Filter Tabs */
+        .store-filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            padding: 0 10%;
+        }
+        .filter-btn {
+            padding: 10px 24px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.6);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover {
+            border-color: rgba(0,229,255,0.3);
+            color: #fff;
+            background: rgba(0,229,255,0.08);
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(138,43,226,0.1));
+            border-color: rgba(0,229,255,0.4);
+            color: var(--vibrant-blue);
+            box-shadow: 0 0 15px rgba(0,229,255,0.12);
+        }
+
+        /* Store Grid */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            padding: 0 10% 80px;
+        }
+
+        .app-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .app-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-color);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+        }
+
+        .app-icon-wrapper {
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(0,229,255,0.08), rgba(138,43,226,0.05));
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .app-icon-wrapper .app-icon {
+            font-size: 3.5rem;
+            opacity: 0.9;
+        }
+        .app-icon-wrapper.game-gradient {
+            background: linear-gradient(135deg, rgba(255,0,127,0.1), rgba(138,43,226,0.08));
+        }
+        .app-icon-wrapper.tool-gradient {
+            background: linear-gradient(135deg, rgba(0,123,255,0.1), rgba(0,229,255,0.08));
+        }
+        .app-icon-wrapper.edu-gradient {
+            background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(0,229,255,0.08));
+        }
+        .app-icon-wrapper.social-gradient {
+            background: linear-gradient(135deg, rgba(138,43,226,0.12), rgba(255,0,127,0.08));
+        }
+
+        /* Badge */
+        .app-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-free {
+            background: rgba(16,185,129,0.15);
+            color: #10B981;
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+        .badge-paid {
+            background: rgba(232,17,45,0.15);
+            color: #E8112D;
+            border: 1px solid rgba(232,17,45,0.3);
+        }
+        .badge-new {
+            background: rgba(0,229,255,0.15);
+            color: var(--vibrant-blue);
+            border: 1px solid rgba(0,229,255,0.3);
+        }
+
+        .app-info {
+            padding: 18px;
+        }
+        .app-info h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+        .app-info .app-category {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        .app-info .app-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .app-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .app-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .app-meta .stars {
+            color: #FFD700;
+        }
+
+        .app-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .app-price {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .app-price.free {
+            color: #10B981;
+        }
+        .app-price.paid {
+            color: var(--vibrant-blue);
+        }
+
+        .app-download-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-download-free {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+        }
+        .btn-download-free:hover {
+            box-shadow: 0 4px 15px rgba(16,185,129,0.4);
+            transform: translateY(-1px);
+        }
+        .btn-download-paid {
+            background: linear-gradient(135deg, var(--neon-blue), var(--vibrant-blue));
+            color: white;
+        }
+        .btn-download-paid:hover {
+            box-shadow: 0 4px 15px rgba(0,229,255,0.4);
+            transform: translateY(-1px);
+        }
+
+        /* Ad inside store */
+        .store-ad {
+            padding: 20px 10%;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .store-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .store-hero h1 {
+                font-size: 2rem;
+            }
+            .store-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 5% 60px;
+            }
+        }
+        @media (max-width: 480px) {
+            .store-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="top-bar" id="topBar">
+        <div class="top-bar-content">
+            <span class="top-bar-text"><i class="fa-solid fa-bolt"></i> Welcome to CyberNovaWorks.store — Transforming Ideas into Digital Reality!</span>
+            <button class="top-bar-close" id="topBarClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+            </a>
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#about">About Us</a>
+            <a href="index.html#services">Services</a>
+            <a href="store.html" class="nav-store-link active"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+            <a href="index.html#portfolio">Portfolio</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+        <div class="nav-action">
+            <a href="index.html#quote" class="btn btn-outline glow-blue">Get a Quote</a>
+        </div>
+    </header>
+
+    <!-- Store Hero -->
+    <section class="store-hero">
+        <h1><i class="fa-solid fa-bag-shopping text-blue"></i> Digital Store</h1>
+        <p>Discover free and premium apps, games, and digital tools built by CyberNovaWorks.store</p>
+    </section>
+
+    <!-- Filter Tabs -->
+    <div class="store-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="app">Apps</button>
+        <button class="filter-btn" data-filter="game">Games</button>
+        <button class="filter-btn" data-filter="tool">Tools</button>
+        <button class="filter-btn" data-filter="free">Free</button>
+        <button class="filter-btn" data-filter="paid">Paid</button>
+    </div>
+
+    <!-- Store Grid -->
+    <div class="store-grid" id="storeGrid">
+
+        <!-- App 1 -->
+        <div class="app-card" data-type="app" data-price="free">
+            <div class="app-icon-wrapper">
+                <i class="fa-solid fa-cloud-sun app-icon text-blue"></i>
+                <span class="app-badge badge-free">Free</span>
+            </div>
+            <div class="app-info">
+                <h3>Weather Now</h3>
+                <p class="app-category">App > Utility</p>
+                <p class="app-desc">Real-time weather forecasts with beautiful animated backgrounds and location-based updates.</p>
+                <div class="app-meta">
+                    <span class="stars"><i class="fa-solid fa-star"></i> 4.5</span>
+                    <span><i class="fa-solid fa-download"></i> 12K</span>
+                    <span><i class="fa-solid fa-moon"></i> 15 MB</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-price free">FREE</span>
+                    <a href="#" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Download</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 1 -->
+        <div class="app-card" data-type="game" data-price="paid">
+            <div class="app-icon-wrapper game-gradient">
+                <i class="fa-solid fa-gamepad app-icon" style="color: #FF007F;"></i>
+                <span class="app-badge badge-new">New</span>
+            </div>
+            <div class="app-info">
+                <h3>Neon Racer</h3>
+                <p class="app-category">Game > Racing</p>
+                <p class="app-desc">High-speed neon-themed racing game with customizable cars and challenging tracks.</p>
+                <div class="app-meta">
+                    <span class="stars"><i class="fa-solid fa-star"></i> 4.8</span>
+                    <span><i class="fa-solid fa-download"></i> 8.5K</span>
+                    <span><i class="fa-solid fa-moon"></i> 85 MB</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-price paid">$2.99</span>
+                    <a href="#" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool 1 -->
+        <div class="app-card" data-type="tool" data-price="free">
+            <div class="app-icon-wrapper tool-gradient">
+                <i class="fa-solid fa-file-code app-icon text-blue"></i>
+                <span class="app-badge badge-free">Free</span>
+            </div>
+            <div class="app-info">
+                <h3>CodeLite Editor</h3>
+                <p class="app-category">Tool > Developer</p>
+                <p class="app-desc">Lightweight code editor with syntax highlighting for 50+ languages and built-in terminal.</p>
+                <div class="app-meta">
+                    <span class="stars"><i class="fa-solid fa-star"></i> 4.6</span>
+                    <span><i class="fa-solid fa-download"></i> 25K</span>
+                    <span><i class="fa-solid fa-moon"></i> 32 MB</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-price free">FREE</span>
+                    <a href="#" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Download</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 2 -->
+        <div class="app-card" data-type="game" data-price="free">
+            <div class="app-icon-wrapper game-gradient">
+                <i class="fa-solid fa-chess app-icon" style="color: #FF007F;"></i>
+                <span class="app-badge badge-free">Free</span>
+            </div>
+            <div class="app-info">
+                <h3>Chess Master AI</h3>
+                <p class="app-category">Game > Strategy</p>
+                <p class="app-desc">Play chess against AI with adjustable difficulty levels. Supports online multiplayer.</p>
+                <div class="app-meta">
+                    <span class="stars"><i class="fa-solid fa-star"></i> 4.7</span>
+                    <span><i class="fa-solid fa-download"></i> 18K</span>
+                    <span><i class="fa-solid fa-moon"></i> 28 MB</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-price free">FREE</span>
+                    <a href="#" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Download</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- App 2 -->
+        <div class="app-card" data-type="app" data-price="paid">
+            <div class="app-icon-wrapper edu-gradient">
+                <i class="fa-solid fa-book-open app-icon" style="color: #10B981;"></i>
+                <span class="app-badge badge-paid">Premium</span>
+            </div>
+            <div class="app-info">
+                <h3>StudyPro</h3>
+                <p class="app-category">App > Education</p>
+                <p class="app-desc">Smart study planner with AI-powered flashcards, progress tracking, and focus timer.</p>
+                <div class="app-meta">
+                    <span class="stars"><i class="fa-solid fa-star"></i> 4.9</span>
+                    <span><i class="fa-solid fa-download"></i> 5.2K</span>
+                    <span><i class="fa-solid fa-moon"></i> 40 MB</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-price paid">$4.99</span>
+                    <a href="#" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- App 3 -->
+        <div class="app-card" data-type="app" data-price="free">
+            <div class="app-icon-wrapper social-gradient">
+                <i class="fa-solid fa-comments app-icon" style="color: #8A2BE2;"></i>
+                <span class="app-badge badge-free">Free</span>
+            </div>
+            <div class="app-info">
+                <h3>ChatPulse</h3>
+                <p class="app-category">App > Social</p>
+                <p class="app-desc">End-to-end encrypted messaging with voice notes, stories, and group video calls.</p>
+                <div class="app-meta">
+                    <span class="stars"><i class="fa-solid fa-star"></i> 4.4</span>
+                    <span><i class="fa-solid fa-download"></i> 30K</span>
+                    <span><i class="fa-solid fa-moon"></i> 45 MB</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-price free">FREE</span>
+                    <a href="#" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Download</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game 3 -->
+        <div class="app-card" data-type="game" data-price="paid">
+            <div class="app-icon-wrapper game-gradient">
+                <i class="fa-solid fa-dragon app-icon" style="color: #FF007F;"></i>
+                <span class="app-badge badge-new">New</span>
+            </div>
+            <div class="app-info">
+                <h3>Dungeon Quest</h3>
+                <p class="app-category">Game > RPG</p>
+                <p class="app-desc">Epic dungeon crawler with procedurally generated levels, loot system, and boss battles.</p>
+                <div class="app-meta">
+                    <span class="stars"><i class="fa-solid fa-star"></i> 4.7</span>
+                    <span><i class="fa-solid fa-download"></i> 6.8K</span>
+                    <span><i class="fa-solid fa-moon"></i> 120 MB</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-price paid">$3.99</span>
+                    <a href="#" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool 2 -->
+        <div class="app-card" data-type="tool" data-price="paid">
+            <div class="app-icon-wrapper tool-gradient">
+                <i class="fa-solid fa-wand-magic-sparkles app-icon text-blue"></i>
+                <span class="app-badge badge-paid">Premium</span>
+            </div>
+            <div class="app-info">
+                <h3>PixelForge Pro</h3>
+                <p class="app-category">Tool > Design</p>
+                <p class="app-desc">Professional image editor with AI background removal, filters, and batch processing.</p>
+                <div class="app-meta">
+                    <span class="stars"><i class="fa-solid fa-star"></i> 4.8</span>
+                    <span><i class="fa-solid fa-download"></i> 9.1K</span>
+                    <span><i class="fa-solid fa-moon"></i> 55 MB</span>
+                </div>
+                <div class="app-footer">
+                    <span class="app-price paid">$5.99</span>
+                    <a href="#" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Store Ad -->
+    <div class="store-ad">
+        <div class="ad-spot ad-banner">
+            <div class="ad-inner">
+                <span class="ad-label">Advertisement</span>
+                <div class="ad-placeholder">
+                    <i class="fa-solid fa-ad"></i>
+                    <span>Your Ad Here — 728x90</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="index.html" style="text-decoration: none;">
+                    <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+                </a>
+            </div>
+            <div class="footer-nav">
+                <a href="index.html#about">About</a>
+                <a href="index.html#services">Services</a>
+                <a href="store.html">Store</a>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-socials">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 CyberNovaWorks.store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="stars-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Top bar close
+            const topBar = document.getElementById('topBar');
+            const topBarClose = document.getElementById('topBarClose');
+            const navbar = document.getElementById('navbar');
+            if (topBarClose && topBar && navbar) {
+                topBarClose.addEventListener('click', () => {
+                    topBar.classList.add('hidden');
+                    navbar.classList.add('top-bar-hidden');
+                });
+            }
+
+            // Mobile menu
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinksContainer = document.querySelector('.nav-links');
+            const menuIcon = mobileMenu.querySelector('i');
+            mobileMenu.addEventListener('click', () => {
+                navLinksContainer.classList.toggle('active-menu');
+                if (navLinksContainer.classList.contains('active-menu')) {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-xmark');
+                } else {
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars');
+                }
+            });
+
+            // Navbar scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const appCards = document.querySelectorAll('.app-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.getAttribute('data-filter');
+
+                    appCards.forEach(card => {
+                        const type = card.getAttribute('data-type');
+                        const price = card.getAttribute('data-price');
+
+                        if (filter === 'all') {
+                            card.style.display = 'block';
+                        } else if (filter === 'free' || filter === 'paid') {
+                            card.style.display = price === filter ? 'block' : 'none';
+                        } else {
+                            card.style.display = type === filter ? 'block' : 'none';
+                        }
+                    });
+                });
+            });
+
+            // Stars
+            const starsContainer = document.getElementById('stars-container');
+            if (starsContainer) {
+                for (let i = 0; i < 80; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    const size = Math.random() * 1.5 + 0.5;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    star.style.animationDuration = `${Math.random() * 5 + 3}s`;
+                    star.style.animationDelay = `${Math.random() * 5}s`;
+                    starsContainer.appendChild(star);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
