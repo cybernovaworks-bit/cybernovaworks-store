@@ -1191,6 +1191,7 @@ select:focus {
     height: 28px;
     border-radius: 6px;
     padding: 3px;
+    margin-top: 5px;
 }
 
 .footer-nav {
