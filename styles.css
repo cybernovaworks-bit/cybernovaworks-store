@@ -520,6 +520,36 @@ section {
     animation: twinkle 2.5s ease-in-out infinite 1s;
 }
 
+/* ========== MOBILE PERFORMANCE ========== */
+/* Heavy rotating/globe animations are disabled on smaller screens
+   so the page scrolls and runs smoothly on mobile devices. */
+@media (max-width: 1024px) {
+    .planet-core {
+        animation: none;
+    }
+    .ring-1,
+    .ring-2,
+    .about-orbit,
+    .orbit-1,
+    .orbit-2 {
+        animation: none;
+    }
+    .planet .star,
+    #stars-container .star {
+        animation: none;
+    }
+}
+
+/* Respect users who prefer reduced motion (also pauses glow pulses) */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001s !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
 /* Section Common */
 .section-header {
     text-align: center;
