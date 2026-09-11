@@ -17,11 +17,17 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Adsterra: Popunder + Social Bar -->
-    <script src="https://pl31285794.profitableratecpmnetwork.com/74/c2/ee/74c2ee295e5c7455bcbaf86c1ea9d1ee.js"></script>
-    <script src="https://pl31285796.profitableratecpmnetwork.com/54/3a/ca/543aca82f228e8d8494eab734cc12847.js"></script>
-    <!-- Adsterra: Popunder Direct Link -->
-    <script src="https://www.profitableratecpmnetwork.com/ithvpcgyn4?key=c066925269df9e284a5bd0a02831fd8e"></script>
+<!-- Ad-block: protect navigation from ad hijacking -->
+    <script>
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a[href]');
+            if (!link) return;
+            var href = link.getAttribute('href');
+            if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
+            e.stopPropagation();
+            window.location.href = href;
+        }, true);
+    </script>
 </head>
 <body>
     <script>try{if(localStorage.getItem('cn-theme')==='light'){document.documentElement.classList.add('theme-light');}}catch(e){}</script>
@@ -51,7 +57,7 @@
             <a href="#home" class="active">Home</a>
             <a href="#about">About Us</a>
             <a href="#services">Services</a>
-            <a href="store.html" class="nav-store-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+            <a href="store.html" class="nav-store-link" onclick="event.stopPropagation(); window.location.href='store.html'; return false;"><i class="fa-solid fa-bag-shopping"></i> Store</a>
             <a href="#portfolio">Portfolio</a>
             <a href="#contact">Contact</a>
         </nav>
@@ -508,7 +514,7 @@
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
                 <a href="#portfolio">Portfolio</a>
-                <a href="privacy.html">Privacy Policy</a>
+                <a href="privacy.html" onclick="event.stopPropagation(); window.location.href='privacy.html'; return false;">Privacy Policy</a>
                 <a href="#contact">Contact</a>
             </div>
             <div class="footer-socials">

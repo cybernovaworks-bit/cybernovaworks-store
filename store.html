@@ -10,6 +10,17 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Ad-block: protect navigation from ad hijacking -->
+    <script>
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a[href]');
+            if (!link) return;
+            var href = link.getAttribute('href');
+            if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
+            e.stopPropagation();
+            window.location.href = href;
+        }, true);
+    </script>
 
     <style>
         .store-hero {
@@ -421,12 +432,12 @@
         </div>
 
         <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="index.html#about">About Us</a>
-            <a href="index.html#services">Services</a>
+            <a href="index.html" onclick="event.stopPropagation(); window.location.href='index.html'; return false;">Home</a>
+            <a href="index.html#about" onclick="event.stopPropagation(); window.location.href='index.html#about'; return false;">About Us</a>
+            <a href="index.html#services" onclick="event.stopPropagation(); window.location.href='index.html#services'; return false;">Services</a>
             <a href="store.html" class="nav-store-link active"><i class="fa-solid fa-bag-shopping"></i> Store</a>
-            <a href="index.html#portfolio">Portfolio</a>
-            <a href="index.html#contact">Contact</a>
+            <a href="index.html#portfolio" onclick="event.stopPropagation(); window.location.href='index.html#portfolio'; return false;">Portfolio</a>
+            <a href="index.html#contact" onclick="event.stopPropagation(); window.location.href='index.html#contact'; return false;">Contact</a>
         </nav>
         <div class="nav-action">
             <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-sun"></i></button>
@@ -691,12 +702,12 @@
                 </a>
             </div>
             <div class="footer-nav">
-                <a href="index.html#about">About</a>
-                <a href="index.html#services">Services</a>
+                <a href="index.html#about" onclick="event.stopPropagation(); window.location.href='index.html#about'; return false;">About</a>
+                <a href="index.html#services" onclick="event.stopPropagation(); window.location.href='index.html#services'; return false;">Services</a>
                 <a href="store.html">Store</a>
-                <a href="index.html#portfolio">Portfolio</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="index.html#portfolio" onclick="event.stopPropagation(); window.location.href='index.html#portfolio'; return false;">Portfolio</a>
+                <a href="privacy.html" onclick="event.stopPropagation(); window.location.href='privacy.html'; return false;">Privacy Policy</a>
+                <a href="index.html#contact" onclick="event.stopPropagation(); window.location.href='index.html#contact'; return false;">Contact</a>
             </div>
             <div class="footer-socials">
                 <a href="https://www.facebook.com/profile.php?id=61593993853617" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
@@ -748,6 +759,30 @@
                 } else {
                     navbar.classList.remove('scrolled');
                 }
+            });
+
+            // Protect nav links from ad hijacking
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    var href = this.getAttribute('href');
+                    if (href && !href.startsWith('#')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.location.href = href;
+                    }
+                }, true);
+            });
+
+            // Protect footer links from ad hijacking
+            document.querySelectorAll('.footer-nav a, .footer-logo a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    var href = this.getAttribute('href');
+                    if (href && !href.startsWith('#')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.location.href = href;
+                    }
+                }, true);
             });
 
             // Filter functionality (tabs + price chips)

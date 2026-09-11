@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = this.getAttribute('href');
 
             if (!targetId || !targetId.startsWith('#')) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = targetId;
                 return;
             }
 
@@ -55,13 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
-    });
+    }, true);
 
     // --- Footer Nav Smooth Scroll ---
     document.querySelectorAll('.footer-nav a').forEach(link => {
         link.addEventListener('click', function (e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
+
+            if (!targetId || !targetId.startsWith('#')) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = targetId;
+                return;
+            }
+
+            e.preventDefault();
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 window.scrollTo({
