@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("CyberNovaWorks.store website loaded.");
+    console.log("www.CyberNovaWorks.store website loaded.");
 
     // --- Top Announcement Bar Close ---
     const topBar = document.getElementById('topBar');
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            alert('Thank you for contacting CyberNovaWorks.store! Your message has been sent successfully.');
+            alert('Thank you for contacting www.CyberNovaWorks.store! Your message has been sent successfully.');
             this.reset();
         });
     }
