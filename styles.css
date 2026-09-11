@@ -1399,8 +1399,8 @@ select:focus {
 
 /* ========== THEME TOGGLE ========== */
 .theme-toggle {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.15);
@@ -1410,7 +1410,7 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-font-size: 1rem;
+    font-size: 0.75rem;
     margin-right: 0;
     transition: all 0.3s ease;
 }
@@ -1421,12 +1421,16 @@ font-size: 1rem;
 
 /* ========== LIGHT THEME ========== */
 html.theme-light {
-    --bg-dark: #f2f5fb;
-    --bg-card: rgba(255,255,255,0.92);
-    --border-color: rgba(59,130,246,0.3);
+    --bg-dark: #eef2fb;
+    --bg-card: #ffffff;
+    --border-color: rgba(59,130,246,0.35);
     --text-main: #0f172a;
-    --text-muted: #55637a;
-    background-color: #f2f5fb;
+    --text-muted: #5b6b85;
+    background-color: #eef2fb;
+}
+html.theme-light body {
+    background: linear-gradient(160deg, #e8eefb 0%, #f7f9fd 35%, #fbeef5 70%, #eef4ff 100%);
+    background-attachment: fixed;
 }
 html.theme-light .top-bar {
     background: linear-gradient(90deg, #e8eefc, #e4efff, #f0e8ff, #e4efff, #e8eefc);
@@ -1443,11 +1447,18 @@ html.theme-light .top-bar-text i {
 }
 html.theme-light .navbar {
     background: rgba(255,255,255,0.88);
-    background-image: linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88));
-    box-shadow: 0 4px 24px rgba(15,23,42,0.08);
+    background-image: linear-gradient(rgba(255,255,255,0.92), rgba(240,247,255,0.9)),
+                      linear-gradient(90deg, rgba(0,229,255,0.35), rgba(138,43,226,0.35), rgba(0,229,255,0.35));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    box-shadow: 0 4px 24px rgba(15,23,42,0.1);
 }
 html.theme-light .navbar.scrolled {
     background: rgba(255,255,255,0.97);
+    background-image: linear-gradient(rgba(255,255,255,0.97), rgba(255,255,255,0.97)),
+                      linear-gradient(90deg, rgba(0,229,255,0.35), rgba(138,43,226,0.35), rgba(0,229,255,0.35));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
 }
 html.theme-light .nav-links {
     background: rgba(15,23,42,0.04);
@@ -1480,12 +1491,15 @@ html.theme-light #stars-container .star {
 }
 html.theme-light .service-card,
 html.theme-light .portfolio-card,
-html.theme-light .app-card {
-    border-color: rgba(15,23,42,0.08);
+html.theme-light .app-card,
+html.theme-light .box-glass {
+    background: #ffffff;
+    border-color: rgba(59,130,246,0.18);
+    box-shadow: 0 6px 18px rgba(15,23,42,0.07);
 }
 html.theme-light .service-card:hover,
 html.theme-light .portfolio-card:hover {
-    box-shadow: 0 12px 30px rgba(15,23,42,0.12);
+    box-shadow: 0 14px 34px rgba(59,130,246,0.18);
 }
 html.theme-light .img-1 { background: linear-gradient(135deg, rgba(138,43,226,0.15), rgba(226,232,240,0.7)); }
 html.theme-light .img-2 { background: linear-gradient(135deg, rgba(0,0,128,0.12), rgba(226,232,240,0.7)); }
@@ -1506,8 +1520,8 @@ html.theme-light .form-group textarea:focus {
     background: #ffffff;
 }
 html.theme-light .footer {
-    background: #e9edf6;
-    border-top-color: rgba(15,23,42,0.08);
+    background: linear-gradient(135deg, #dbe4f5, #ece3f7);
+    border-top-color: rgba(59,130,246,0.2);
 }
 html.theme-light .footer .logo-text {
     color: #0f172a;
@@ -1538,9 +1552,9 @@ html.theme-light .divider {
     .nav-action .btn-outline {
         display: none;
     }
-    .theme-toggle {
-        width: 36px;
-        height: 36px;
-        margin-right: 8px;
+.theme-toggle {
+        width: 30px;
+        height: 30px;
+        margin-right: 6px;
     }
 }
