@@ -262,7 +262,11 @@ section {
     height: 64px;
     width: auto;
     margin-right: 14px;
-    border-radius: 8px;
+    border-radius: 12px;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.2);
 }
 
 .logo-text {
@@ -1182,6 +1186,8 @@ select:focus {
 
 .footer-logo .logo-img {
     height: 40px;
+    border-radius: 8px;
+    padding: 4px;
 }
 
 .footer-nav {
