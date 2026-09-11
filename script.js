@@ -155,7 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const starsContainer = document.getElementById('stars-container');
         if (!starsContainer) return;
 
-        const numStars = 100;
+        const isMobile = window.innerWidth < 820;
+        const numStars = isMobile ? 18 : 100;
         for (let i = 0; i < numStars; i++) {
             const star = document.createElement('div');
             star.classList.add('star');

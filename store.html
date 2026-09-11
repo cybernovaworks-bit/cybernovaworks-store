@@ -599,7 +599,9 @@
             // Stars
             const starsContainer = document.getElementById('stars-container');
             if (starsContainer) {
-                for (let i = 0; i < 80; i++) {
+                const isMobile = window.innerWidth < 820;
+                const starCount = isMobile ? 15 : 80;
+                for (let i = 0; i < starCount; i++) {
                     const star = document.createElement('div');
                     star.classList.add('star');
                     star.style.left = `${Math.random() * 100}%`;
