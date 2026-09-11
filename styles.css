@@ -259,9 +259,9 @@ section {
 }
 
 .logo-img {
-    height: 32px;
+    height: 48px;
     width: auto;
-    margin-right: 10px;
+    margin-right: 12px;
     border-radius: 8px;
 }
 
@@ -1181,7 +1181,7 @@ select:focus {
 }
 
 .footer-logo .logo-img {
-    height: 40px;
+    height: 56px;
 }
 
 .footer-nav {
