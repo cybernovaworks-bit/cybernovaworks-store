@@ -246,6 +246,7 @@ section {
     align-items: center;
     cursor: pointer;
     position: relative;
+    margin-left: 16px;
 }
 
 .logo a {
