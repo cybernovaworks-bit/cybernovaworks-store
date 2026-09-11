@@ -1187,16 +1187,6 @@ select:focus {
     color: var(--maroon);
 }
 
-.nav-apps-link i {
-    margin-right: 5px;
-    color: var(--vibrant-blue);
-}
-
-.nav-games-link i {
-    margin-right: 5px;
-    color: #FF007F;
-}
-
 /* ========== STARRY BG ========== */
 #stars-container {
     position: fixed;
