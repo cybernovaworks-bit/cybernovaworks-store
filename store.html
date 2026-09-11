@@ -296,9 +296,48 @@
                 grid-template-columns: 1fr;
             }
         }
+        html.theme-light .app-card {
+            border-color: rgba(15,23,42,0.08);
+        }
+        html.theme-light .store-tabs-bar {
+            background: rgba(15,23,42,0.04);
+            border-color: rgba(15,23,42,0.08);
+        }
+        html.theme-light .store-tab {
+            color: rgba(15,23,42,0.6);
+        }
+        html.theme-light .store-tab:hover {
+            color: #0f172a;
+            background: rgba(0,229,255,0.1);
+        }
+        html.theme-light .store-chip {
+            color: rgba(15,23,42,0.65);
+            border-color: rgba(15,23,42,0.15);
+            background: rgba(15,23,42,0.03);
+        }
+        html.theme-light .store-chip:hover {
+            color: #0f172a;
+            border-color: rgba(0,229,255,0.6);
+        }
+        html.theme-light .app-icon-wrapper {
+            background: rgba(15,23,42,0.04);
+        }
+        html.theme-light .app-icon-wrapper.game-gradient {
+            background: rgba(255,0,127,0.06);
+        }
+        html.theme-light .app-icon-wrapper.tool-gradient {
+            background: rgba(0,123,255,0.06);
+        }
+        html.theme-light .app-icon-wrapper.edu-gradient {
+            background: rgba(16,185,129,0.06);
+        }
+        html.theme-light .app-icon-wrapper.social-gradient {
+            background: rgba(138,43,226,0.07);
+        }
     </style>
 </head>
 <body>
+    <script>try{if(localStorage.getItem('cn-theme')==='light'){document.documentElement.classList.add('theme-light');}}catch(e){}</script>
 
     <!-- Top Announcement Bar -->
     <div class="top-bar" id="topBar">
@@ -330,6 +369,7 @@
             <a href="index.html#contact">Contact</a>
         </nav>
         <div class="nav-action">
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-sun"></i></button>
             <a href="index.html#quote" class="btn btn-outline glow-blue">Get a Quote</a>
         </div>
     </header>
@@ -689,6 +729,23 @@
                     star.style.animationDelay = `${Math.random() * 5}s`;
                     starsContainer.appendChild(star);
                 }
+            }
+
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const setThemeIcon = () => {
+                if (!themeToggleBtn) return;
+                const isLight = document.documentElement.classList.contains('theme-light');
+                themeToggleBtn.innerHTML = isLight
+                    ? '<i class="fa-solid fa-moon"></i>'
+                    : '<i class="fa-solid fa-sun"></i>';
+            };
+            setThemeIcon();
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const isLight = document.documentElement.classList.toggle('theme-light');
+                    try { localStorage.setItem('cn-theme', isLight ? 'light' : 'dark'); } catch (e) {}
+                    setThemeIcon();
+                });
             }
         });
     </script>

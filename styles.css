@@ -1387,3 +1387,151 @@ select:focus {
         justify-content: center;
     }
 }
+
+/* ========== THEME TOGGLE ========== */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    margin-right: 14px;
+    transition: all 0.3s ease;
+}
+.theme-toggle:hover {
+    border-color: var(--vibrant-blue);
+    box-shadow: 0 0 12px rgba(0,229,255,0.35);
+}
+
+/* ========== LIGHT THEME ========== */
+html.theme-light {
+    --bg-dark: #f2f5fb;
+    --bg-card: rgba(255,255,255,0.92);
+    --border-color: rgba(59,130,246,0.3);
+    --text-main: #0f172a;
+    --text-muted: #55637a;
+    background-color: #f2f5fb;
+}
+html.theme-light .top-bar {
+    background: linear-gradient(90deg, #e8eefc, #e4efff, #f0e8ff, #e4efff, #e8eefc);
+    border-bottom: 1px solid rgba(59,130,246,0.25);
+    box-shadow: 0 2px 14px rgba(59,130,246,0.15);
+}
+html.theme-light .top-bar-text {
+    color: #1e293b;
+    text-shadow: none;
+}
+html.theme-light .top-bar-text i {
+    color: var(--neon-blue);
+    filter: none;
+}
+html.theme-light .navbar {
+    background: rgba(255,255,255,0.88);
+    background-image: linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88));
+    box-shadow: 0 4px 24px rgba(15,23,42,0.08);
+}
+html.theme-light .navbar.scrolled {
+    background: rgba(255,255,255,0.97);
+}
+html.theme-light .nav-links {
+    background: rgba(15,23,42,0.04);
+    border-color: rgba(15,23,42,0.08);
+}
+html.theme-light .nav-links a {
+    color: rgba(15,23,42,0.65);
+}
+html.theme-light .nav-links a:hover,
+html.theme-light .nav-links a.active {
+    color: var(--neon-blue);
+}
+html.theme-light .logo-text {
+    color: #0f172a;
+}
+html.theme-light .theme-toggle {
+    color: #0f172a;
+    border-color: rgba(15,23,42,0.2);
+    background: rgba(15,23,42,0.05);
+}
+html.theme-light .theme-toggle:hover {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 12px rgba(0,123,255,0.25);
+}
+html.theme-light .btn-outline {
+    color: #0f172a;
+}
+html.theme-light #stars-container .star {
+    opacity: 0.25;
+}
+html.theme-light .service-card,
+html.theme-light .portfolio-card,
+html.theme-light .app-card {
+    border-color: rgba(15,23,42,0.08);
+}
+html.theme-light .service-card:hover,
+html.theme-light .portfolio-card:hover {
+    box-shadow: 0 12px 30px rgba(15,23,42,0.12);
+}
+html.theme-light .img-1 { background: linear-gradient(135deg, rgba(138,43,226,0.15), rgba(226,232,240,0.7)); }
+html.theme-light .img-2 { background: linear-gradient(135deg, rgba(0,0,128,0.12), rgba(226,232,240,0.7)); }
+html.theme-light .img-3 { background: linear-gradient(135deg, rgba(0,123,255,0.15), rgba(226,232,240,0.7)); }
+html.theme-light select,
+html.theme-light .form-group input,
+html.theme-light .form-group textarea {
+    background: #ffffff;
+    color: #0f172a;
+    border-color: rgba(15,23,42,0.15);
+}
+html.theme-light select option {
+    background: #ffffff;
+    color: #0f172a;
+}
+html.theme-light .form-group input:focus,
+html.theme-light .form-group textarea:focus {
+    background: #ffffff;
+}
+html.theme-light .footer {
+    background: #e9edf6;
+    border-top-color: rgba(15,23,42,0.08);
+}
+html.theme-light .footer .logo-text {
+    color: #0f172a;
+}
+html.theme-light .footer-nav a,
+html.theme-light .footer-bottom p {
+    color: #55637a;
+}
+html.theme-light .nav-links.active-menu {
+    background: #ffffff;
+    border-bottom: 1px solid rgba(15,23,42,0.08);
+}
+html.theme-light .ad-placeholder {
+    background: rgba(15,23,42,0.03);
+    border-color: rgba(15,23,42,0.1);
+    color: rgba(15,23,42,0.35);
+}
+html.theme-light .divider {
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .nav-action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .nav-action .btn-outline {
+        display: none;
+    }
+    .theme-toggle {
+        width: 36px;
+        height: 36px;
+        margin-right: 8px;
+    }
+}

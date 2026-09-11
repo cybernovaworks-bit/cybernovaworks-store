@@ -177,4 +177,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     generateStars();
+
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const setThemeIcon = () => {
+        if (!themeToggleBtn) return;
+        const isLight = document.documentElement.classList.contains('theme-light');
+        themeToggleBtn.innerHTML = isLight
+            ? '<i class="fa-solid fa-moon"></i>'
+            : '<i class="fa-solid fa-sun"></i>';
+    };
+    setThemeIcon();
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const isLight = document.documentElement.classList.toggle('theme-light');
+            try { localStorage.setItem('cn-theme', isLight ? 'light' : 'dark'); } catch (e) {}
+            setThemeIcon();
+        });
+    }
 });
