@@ -209,7 +209,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 10% 18px 0;
+    padding: 18px 10% 18px 5%;
     background: rgba(8, 8, 24, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -1315,7 +1315,7 @@ select:focus {
 
     .navbar {
         flex-direction: row;
-        padding: 15px 5% 15px 0;
+        padding: 15px 5% 15px 3%;
         justify-content: space-between;
         top: 38px;
     }
