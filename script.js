@@ -127,9 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', highlightNavOnScroll);
 
     // --- Scroll Reveal Animations ---
-    const revealElements = document.querySelectorAll('.reveal, .service-card, .portfolio-card, .feature-item, .testimonial-card, .blog-card');
+    const revealElements = document.querySelectorAll('.reveal, .service-card, .portfolio-card, .feature-item, .testimonial-card');
 
-    document.querySelectorAll('.service-card, .portfolio-card, .feature-item, .testimonial-card, .blog-card').forEach((el, index) => {
+    document.querySelectorAll('.service-card, .portfolio-card, .feature-item, .testimonial-card').forEach((el, index) => {
         if (!el.classList.contains('reveal')) {
             el.classList.add('reveal');
             el.style.transitionDelay = `${(index % 3) * 0.15}s`;
