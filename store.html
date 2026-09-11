@@ -272,6 +272,8 @@
             <a href="index.html">Home</a>
             <a href="index.html#about">About Us</a>
             <a href="index.html#services">Services</a>
+            <a href="store.html?filter=app" class="nav-apps-link"><i class="fa-solid fa-mobile-screen-button"></i> Apps</a>
+            <a href="store.html?filter=game" class="nav-games-link"><i class="fa-solid fa-gamepad"></i> Games</a>
             <a href="store.html" class="nav-store-link active"><i class="fa-solid fa-bag-shopping"></i> Store</a>
             <a href="index.html#portfolio">Portfolio</a>
             <a href="index.html#contact">Contact</a>
@@ -560,26 +562,39 @@
             const filterBtns = document.querySelectorAll('.filter-btn');
             const appCards = document.querySelectorAll('.app-card');
 
+            function applyFilter(filter) {
+                let activeBtn = Array.from(filterBtns).find(b => b.getAttribute('data-filter') === filter);
+                if (!activeBtn) {
+                    filter = 'all';
+                    activeBtn = filterBtns[0];
+                }
+                filterBtns.forEach(b => b.classList.remove('active'));
+                activeBtn.classList.add('active');
+
+                appCards.forEach(card => {
+                    const type = card.getAttribute('data-type');
+                    const price = card.getAttribute('data-price');
+
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                    } else if (filter === 'free' || filter === 'paid') {
+                        card.style.display = price === filter ? 'block' : 'none';
+                    } else {
+                        card.style.display = type === filter ? 'block' : 'none';
+                    }
+                });
+            }
+
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    const filter = btn.getAttribute('data-filter');
-
-                    appCards.forEach(card => {
-                        const type = card.getAttribute('data-type');
-                        const price = card.getAttribute('data-price');
-
-                        if (filter === 'all') {
-                            card.style.display = 'block';
-                        } else if (filter === 'free' || filter === 'paid') {
-                            card.style.display = price === filter ? 'block' : 'none';
-                        } else {
-                            card.style.display = type === filter ? 'block' : 'none';
-                        }
-                    });
+                    applyFilter(btn.getAttribute('data-filter'));
                 });
             });
+
+            const urlFilter = new URLSearchParams(window.location.search).get('filter');
+            if (urlFilter) {
+                applyFilter(urlFilter);
+            }
 
             // Stars
             const starsContainer = document.getElementById('stars-container');

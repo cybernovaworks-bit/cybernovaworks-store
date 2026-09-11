@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navLinks.forEach(link => {
         link.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+
+            if (!targetId || !targetId.startsWith('#')) {
+                return;
+            }
+
             e.preventDefault();
             navLinks.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
@@ -41,15 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
             menuIcon.classList.remove('fa-xmark');
             menuIcon.classList.add('fa-bars');
 
-            const targetId = this.getAttribute('href');
-            if (targetId.startsWith('#')) {
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 120,
-                        behavior: 'smooth'
-                    });
-                }
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 120,
+                    behavior: 'smooth'
+                });
             }
         });
     });
