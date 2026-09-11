@@ -258,6 +258,13 @@ section {
     position: relative;
 }
 
+.logo-img {
+    height: 32px;
+    width: auto;
+    margin-right: 10px;
+    border-radius: 8px;
+}
+
 .logo-text {
     color: #FFFFFF;
     font-weight: 800;
@@ -1171,6 +1178,10 @@ select:focus {
 .footer-logo {
     display: flex;
     align-items: center;
+}
+
+.footer-logo .logo-img {
+    height: 40px;
 }
 
 .footer-nav {
