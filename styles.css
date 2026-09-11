@@ -1201,6 +1201,32 @@ select:focus {
     margin-bottom: 6px;
 }
 
+.ad-banner {
+    display: block;
+}
+
+.ad-mobile-banner {
+    display: none;
+}
+
+.ad-skyscraper, .ad-halfpage {
+    text-align: center;
+    padding: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .ad-banner {
+        display: none;
+    }
+    .ad-mobile-banner {
+        display: block;
+        text-align: center;
+    }
+    .ad-skyscraper, .ad-halfpage {
+        display: none;
+    }
+}
+
 .ad-placeholder {
     background: rgba(255,255,255,0.02);
     border: 1px dashed rgba(255,255,255,0.08);
