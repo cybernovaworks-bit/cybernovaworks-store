@@ -1432,11 +1432,11 @@ html.theme-light {
     background-color: #eef2fb;
 }
 html.theme-light body {
-    background: linear-gradient(160deg, #e8eefb 0%, #f7f9fd 35%, #fbeef5 70%, #eef4ff 100%);
+    background: linear-gradient(160deg, #edf1f8 0%, #f7f9fc 45%, #eef2f9 100%);
     background-attachment: fixed;
 }
 html.theme-light .top-bar {
-    background: linear-gradient(90deg, #e8eefc, #e4efff, #f0e8ff, #e4efff, #e8eefc);
+    background: linear-gradient(90deg, #e9edf5, #eaf0fa, #eceef6, #eaf0fa, #e9edf5);
     border-bottom: 1px solid rgba(59,130,246,0.25);
     box-shadow: 0 2px 14px rgba(59,130,246,0.15);
 }
@@ -1523,7 +1523,7 @@ html.theme-light .form-group textarea:focus {
     background: #ffffff;
 }
 html.theme-light .footer {
-    background: linear-gradient(135deg, #dbe4f5, #ece3f7);
+    background: linear-gradient(135deg, #e6ebf4, #eceef6);
     border-top-color: rgba(59,130,246,0.2);
 }
 html.theme-light .footer .logo-text {
