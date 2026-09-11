@@ -28,36 +28,88 @@
         }
 
         /* Filter Tabs */
-        .store-filters {
+        .store-tabs {
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
             margin-bottom: 50px;
-            flex-wrap: wrap;
             padding: 0 10%;
         }
-        .filter-btn {
-            padding: 10px 24px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
+        .store-tabs-bar {
+            display: flex;
+            gap: 6px;
+            padding: 6px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .store-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 26px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.55);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .store-tab i {
+            font-size: 0.95rem;
+        }
+        .store-tab:hover {
+            color: #fff;
+            background: rgba(0,229,255,0.08);
+        }
+        .store-tab.active {
+            background: linear-gradient(135deg, var(--neon-blue), var(--vibrant-blue));
+            color: #fff;
+            box-shadow: 0 4px 18px rgba(0,229,255,0.35);
+        }
+        .store-chips {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .store-chip {
+            padding: 7px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
             background: rgba(255,255,255,0.04);
             color: rgba(255,255,255,0.6);
             font-family: var(--font-heading);
             font-weight: 600;
-            font-size: 0.88rem;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
-        .filter-btn:hover {
-            border-color: rgba(0,229,255,0.3);
-            color: #fff;
-            background: rgba(0,229,255,0.08);
+        .store-chip i {
+            margin-right: 6px;
         }
-        .filter-btn.active {
-            background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(138,43,226,0.1));
+        .store-chip:hover {
             border-color: rgba(0,229,255,0.4);
-            color: var(--vibrant-blue);
-            box-shadow: 0 0 15px rgba(0,229,255,0.12);
+            color: #fff;
+        }
+        .store-chip.active {
+            background: linear-gradient(135deg, var(--neon-blue), var(--vibrant-blue));
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 3px 12px rgba(0,229,255,0.3);
+        }
+        .store-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            padding: 40px 0;
         }
 
         /* Store Grid */
@@ -291,17 +343,22 @@
     </section>
 
     <!-- Filter Tabs -->
-    <div class="store-filters">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="app">Apps</button>
-        <button class="filter-btn" data-filter="game">Games</button>
-        <button class="filter-btn" data-filter="tool">Tools</button>
-        <button class="filter-btn" data-filter="free">Free</button>
-        <button class="filter-btn" data-filter="paid">Paid</button>
+    <div class="store-tabs">
+        <div class="store-tabs-bar">
+            <button class="store-tab active" data-filter="all"><i class="fa-solid fa-th-large"></i> All</button>
+            <button class="store-tab" data-filter="app"><i class="fa-solid fa-mobile-screen-button"></i> Apps</button>
+            <button class="store-tab" data-filter="game"><i class="fa-solid fa-gamepad"></i> Games</button>
+            <button class="store-tab" data-filter="tool"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</button>
+        </div>
+        <div class="store-chips">
+            <button class="store-chip" data-price="free"><i class="fa-solid fa-tag"></i> Free Only</button>
+            <button class="store-chip" data-price="paid"><i class="fa-solid fa-cart-shopping"></i> Paid Only</button>
+        </div>
     </div>
 
     <!-- Store Grid -->
     <div class="store-grid" id="storeGrid">
+        <p class="store-empty" id="storeEmpty" style="display:none;">No items match your selection. Try clearing the filters.</p>
 
         <!-- App 1 -->
         <div class="app-card" data-type="app" data-price="free">
@@ -561,42 +618,60 @@
                 }
             });
 
-            // Filter functionality
-            const filterBtns = document.querySelectorAll('.filter-btn');
+            // Filter functionality (tabs + price chips)
+            const tabBtns = document.querySelectorAll('.store-tab');
+            const chipBtns = document.querySelectorAll('.store-chip');
             const appCards = document.querySelectorAll('.app-card');
+            const storeEmpty = document.getElementById('storeEmpty');
 
-            function applyFilter(filter) {
-                let activeBtn = Array.from(filterBtns).find(b => b.getAttribute('data-filter') === filter);
-                if (!activeBtn) {
-                    filter = 'all';
-                    activeBtn = filterBtns[0];
-                }
-                filterBtns.forEach(b => b.classList.remove('active'));
-                activeBtn.classList.add('active');
+            let activeType = 'all';
+            let activePrice = null;
 
+            function renderFilters() {
+                tabBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === activeType));
+                chipBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-price') === activePrice));
+
+                let visibleCount = 0;
                 appCards.forEach(card => {
                     const type = card.getAttribute('data-type');
                     const price = card.getAttribute('data-price');
 
-                    if (filter === 'all') {
-                        card.style.display = 'block';
-                    } else if (filter === 'free' || filter === 'paid') {
-                        card.style.display = price === filter ? 'block' : 'none';
-                    } else {
-                        card.style.display = type === filter ? 'block' : 'none';
-                    }
+                    let show = true;
+                    if (activeType !== 'all' && type !== activeType) show = false;
+                    if (show && activePrice && price !== activePrice) show = false;
+
+                    card.style.display = show ? 'block' : 'none';
+                    if (show) visibleCount++;
                 });
+
+                if (storeEmpty) {
+                    storeEmpty.style.display = visibleCount === 0 ? 'block' : 'none';
+                }
             }
 
-            filterBtns.forEach(btn => {
+            tabBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    applyFilter(btn.getAttribute('data-filter'));
+                    activeType = btn.getAttribute('data-filter');
+                    renderFilters();
+                });
+            });
+
+            chipBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const p = btn.getAttribute('data-price');
+                    activePrice = (activePrice === p) ? null : p;
+                    renderFilters();
                 });
             });
 
             const urlFilter = new URLSearchParams(window.location.search).get('filter');
             if (urlFilter) {
-                applyFilter(urlFilter);
+                if (urlFilter === 'free' || urlFilter === 'paid') {
+                    activePrice = urlFilter;
+                } else {
+                    activeType = urlFilter;
+                }
+                renderFilters();
             }
 
             // Stars
