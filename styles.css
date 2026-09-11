@@ -1205,24 +1205,8 @@ select:focus {
     display: block;
 }
 
-.ad-mobile-banner {
-    display: none;
-}
-
-.ad-skyscraper, .ad-halfpage, .ad-banner-full {
-    text-align: center;
-    padding: 10px 0;
-}
-
 @media (max-width: 768px) {
     .ad-banner {
-        display: none;
-    }
-    .ad-mobile-banner {
-        display: block;
-        text-align: center;
-    }
-    .ad-skyscraper, .ad-halfpage, .ad-banner-full {
         display: none;
     }
 }
@@ -1253,15 +1237,6 @@ select:focus {
 
 .rail-ad .ad-spot {
     padding: 0;
-}
-
-.ads-duo {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 24px;
-    padding: 6px 0;
-    flex-wrap: wrap;
 }
 
 @media (max-width: 1100px) {

@@ -10,11 +10,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Adsterra: Popunder + Social Bar -->
-    <script src="https://pl31285794.profitableratecpmnetwork.com/74/c2/ee/74c2ee295e5c7455bcbaf86c1ea9d1ee.js"></script>
-    <script src="https://pl31285796.profitableratecpmnetwork.com/54/3a/ca/543aca82f228e8d8494eab734cc12847.js"></script>
-    <!-- Adsterra: Popunder Direct Link -->
-    <script src="https://www.profitableratecpmnetwork.com/ithvpcgyn4?key=c066925269df9e284a5bd0a02831fd8e"></script>
+
     <style>
         .store-hero {
             padding: 128px 10% 60px;
@@ -216,6 +212,24 @@
             line-height: 1.5;
             margin-bottom: 14px;
         }
+        .app-trial-note {
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            line-height: 1.4;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(255,255,255,0.15);
+        }
+        .app-trial-note i {
+            color: var(--vibrant-blue);
+            margin-right: 4px;
+        }
+        html.theme-light .app-trial-note {
+            border-top-color: rgba(255,176,58,0.3);
+        }
+        html.theme-light .app-trial-note i {
+            color: #FFB03A;
+        }
 
         .app-meta {
             display: flex;
@@ -238,6 +252,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .app-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
         .app-price {
             font-family: var(--font-heading);
@@ -417,23 +439,6 @@
         <h1><i class="fa-solid fa-bag-shopping text-blue"></i> Digital Store</h1>
     </section>
 
-    <!-- Ad Spot - Mobile Banner (320x50) -->
-    <div class="ad-spot ad-mobile-banner">
-        <div class="ad-inner">
-            <span class="ad-label">Advertisement</span>
-            <script>
-              atOptions = {
-                'key' : '3f3737150a4961600ff7930cb4706e7b',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highrevenueformat.com/3f3737150a4961600ff7930cb4706e7b/invoke.js"></script>
-        </div>
-    </div>
-
     <!-- Filter Tabs -->
     <div class="store-tabs">
         <div class="store-tabs-bar">
@@ -468,10 +473,15 @@
                     <span><i class="fa-solid fa-moon"></i> 87 MB</span>
                 </div>
                 <div class="app-footer">
-                    <span class="app-price paid">$9.99</span>
-                    <!-- REPLACE with your PayPal payment link when ready -->
-                    <a href="YOUR_PAYPAL_PAYMENT_LINK" target="_blank" rel="noopener noreferrer" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                    <span class="app-price paid">$2.99</span>
+                    <div class="app-actions">
+                        <!-- REPLACE with your hosted APK link when ready -->
+                        <a href="YOUR_APK_DOWNLOAD_LINK" download rel="noopener noreferrer" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Free Trial</a>
+                        <!-- REPLACE with your PayPal payment link when ready -->
+                        <a href="YOUR_PAYPAL_PAYMENT_LINK" target="_blank" rel="noopener noreferrer" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                    </div>
                 </div>
+                <p class="app-trial-note"><i class="fa-solid fa-tag"></i> First 10 days FREE — watch 5 ads in next 5 days for 24h access, then unlock forever for $2.99</p>
             </div>
         </div>
 
@@ -670,62 +680,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Skyscraper + Half Page Duo (side by side) -->
-    <div class="ads-duo">
-    <div class="ad-spot ad-skyscraper">
-        <div class="ad-inner">
-            <span class="ad-label">Advertisement</span>
-            <script>
-              atOptions = {
-                'key' : '84cd122d1d116802d7b3871a9438c23c',
-                'format' : 'iframe',
-                'height' : 600,
-                'width' : 160,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highrevenueformat.com/84cd122d1d116802d7b3871a9438c23c/invoke.js"></script>
-        </div>
-    </div>
-
-    <div class="ad-spot ad-halfpage">
-        <div class="ad-inner">
-            <span class="ad-label">Advertisement</span>
-            <script>
-              atOptions = {
-                'key' : '9acda49b73ebfa4782c6678453f5f38a',
-                'format' : 'iframe',
-                'height' : 300,
-                'width' : 160,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highrevenueformat.com/9acda49b73ebfa4782c6678453f5f38a/invoke.js"></script>
-        </div>
-    </div>
-    </div>
-
-    <!-- Ad Spot - Banner Full (468x60) -->
-    <div class="ad-spot ad-banner-full">
-        <div class="ad-inner">
-            <span class="ad-label">Advertisement</span>
-            <script>
-              atOptions = {
-                'key' : '3afeb3572cb1d59418c3274a323fd920',
-                'format' : 'iframe',
-                'height' : 60,
-                'width' : 468,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highrevenueformat.com/3afeb3572cb1d59418c3274a323fd920/invoke.js"></script>
-        </div>
-    </div>
-
-    <!-- Adsterra: In-Page Push -->
-    <script async="async" data-cfasync="false" src="https://pl31285795.profitableratecpmnetwork.com/f72bbe695e2631ccda623186c52d230f/invoke.js"></script>
-    <div id="container-f72bbe695e2631ccda623186c52d230f"></div>
 
     <!-- Footer -->
     <footer class="footer">
