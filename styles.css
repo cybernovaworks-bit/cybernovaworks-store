@@ -1227,6 +1227,61 @@ select:focus {
     }
 }
 
+/* ========== SIDE-RAIL AD LAYOUT ========== */
+.rail-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.rail-section > section {
+    flex: 1;
+    min-width: 0;
+}
+
+.rail-ad {
+    flex: 0 0 auto;
+    position: sticky;
+    top: 150px;
+    align-self: flex-start;
+    padding-top: 80px;
+}
+
+.rail-ad .ad-spot {
+    padding: 0;
+}
+
+.ads-duo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 6px 0;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 1100px) {
+    .rail-section {
+        flex-direction: column;
+        gap: 0;
+    }
+    .rail-ad {
+        width: 100%;
+        padding-top: 6px;
+        position: static;
+        text-align: center;
+        order: 2;
+    }
+    .rail-ad .ad-spot {
+        display: inline-block;
+        padding: 0;
+    }
+}
+
 .ad-placeholder {
     background: rgba(255,255,255,0.02);
     border: 1px dashed rgba(255,255,255,0.08);
@@ -1840,6 +1895,12 @@ html.theme-light .store-empty {
     }
     .section-header p {
         font-size: 0.95rem;
+    }
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    .divider {
+        margin: 26px 0;
     }
     .btn {
         padding: 12px 22px;
