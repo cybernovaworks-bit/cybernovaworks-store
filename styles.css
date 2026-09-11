@@ -1209,7 +1209,7 @@ select:focus {
     display: none;
 }
 
-.ad-skyscraper, .ad-halfpage {
+.ad-skyscraper, .ad-halfpage, .ad-banner-full {
     text-align: center;
     padding: 10px 0;
 }
@@ -1222,7 +1222,7 @@ select:focus {
         display: block;
         text-align: center;
     }
-    .ad-skyscraper, .ad-halfpage {
+    .ad-skyscraper, .ad-halfpage, .ad-banner-full {
         display: none;
     }
 }
