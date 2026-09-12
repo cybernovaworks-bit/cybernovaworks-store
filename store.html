@@ -209,6 +209,15 @@
             align-items: center;
             gap: 5px;
         }
+        .app-card-flagship .badge-free {
+            top: 12px;
+            left: 12px;
+            right: auto;
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: #fff;
+            border: none;
+            box-shadow: 0 3px 12px rgba(16,185,129,0.4);
+        }
         .app-title-row {
             display: flex;
             align-items: center;
@@ -229,7 +238,7 @@
         }
 
         .app-icon-wrapper {
-            height: 160px;
+            height: 178px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -576,9 +585,9 @@
             </div>
         </div>
 
-        <!-- JobSync (free app) -->
-        <div class="app-card" data-type="app" data-price="free">
-            <div class="app-icon-wrapper">
+        <!-- JobSync (free app, flagship-style) -->
+        <div class="app-card app-card-flagship" data-type="app" data-price="free">
+            <div class="app-icon-wrapper aura-gradient">
                 <img src="images/jobsync-logo.jpg" alt="JobSync logo" class="app-logo">
                 <span class="app-badge badge-free">Free</span>
             </div>
