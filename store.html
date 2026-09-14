@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store — www.CyberNovaWorks.store</title>
-    <meta name="description" content="Download free apps and games or purchase premium digital products at www.CyberNovaWorks.store Store.">
+    <title>Digital Store — Apps, Games &amp; Free Tools | CyberNovaWorks</title>
+    <meta name="description" content="Download free apps and free PDF, Word &amp; image tools, or purchase premium digital products at CyberNovaWorks.store.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cybernovaworks.store/store.html">
+    <meta property="og:title" content="Digital Store — Apps, Games & Free Tools | CyberNovaWorks">
+    <meta property="og:description" content="Download free apps and free online tools, or purchase premium digital products.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cybernovaworks.store/store.html">
+    <meta property="og:image" content="https://cybernovaworks.store/images/og-image.png">
+    <meta property="og:site_name" content="CyberNovaWorks">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- Ad-block: protect navigation from ad hijacking -->
@@ -523,6 +533,7 @@
             <a href="index.html#about" onclick="event.stopPropagation(); window.location.href='index.html#about'; return false;">About Us</a>
             <a href="index.html#services" onclick="event.stopPropagation(); window.location.href='index.html#services'; return false;">Services</a>
             <a href="store.html" class="nav-store-link active"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+            <a href="tools/swapfile/index.html" onclick="event.stopPropagation(); window.location.href='tools/swapfile/index.html'; return false;"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</a>
             <a href="index.html#portfolio" onclick="event.stopPropagation(); window.location.href='index.html#portfolio'; return false;">Portfolio</a>
             <a href="index.html#contact" onclick="event.stopPropagation(); window.location.href='index.html#contact'; return false;">Contact</a>
         </nav>
@@ -537,7 +548,26 @@
         <h1><i class="fa-solid fa-bag-shopping text-blue"></i> Digital Store</h1>
     </section>
 
-    <!-- Filter Tabs -->
+    <!-- Free Tools Section -->
+    <section class="store-tools" style="padding: 20px 10% 40px;">
+        <div class="section-header">
+            <h2>🧰 Free Online Tools</h2>
+            <p>PDF, Word &amp; image converters — 100% in your browser, files never uploaded</p>
+        </div>
+        <div class="content-grid">
+            <a href="tools/swapfile/merge-pdf.html" class="service-detail-card" style="display:block; text-decoration:none;"><h3><i class="fa-solid fa-object-group"></i> Merge PDF</h3><p>Combine multiple PDF files into one document.</p></a>
+            <a href="tools/swapfile/split-pdf.html" class="service-detail-card" style="display:block; text-decoration:none;"><h3><i class="fa-solid fa-scissors"></i> Split PDF</h3><p>Break a multi-page PDF into individual page files.</p></a>
+            <a href="tools/swapfile/compress-pdf.html" class="service-detail-card" style="display:block; text-decoration:none;"><h3><i class="fa-solid fa-file-zipper"></i> Compress PDF</h3><p>Reduce a PDF's file size for email and uploads.</p></a>
+            <a href="tools/swapfile/image-to-pdf.html" class="service-detail-card" style="display:block; text-decoration:none;"><h3><i class="fa-solid fa-image"></i> Image to PDF</h3><p>Turn JPG, PNG or WEBP photos into a single PDF.</p></a>
+            <a href="tools/swapfile/pdf-to-image.html" class="service-detail-card" style="display:block; text-decoration:none;"><h3><i class="fa-solid fa-file-image"></i> PDF to Image</h3><p>Convert every PDF page into a PNG image.</p></a>
+            <a href="tools/swapfile/word-to-pdf.html" class="service-detail-card" style="display:block; text-decoration:none;"><h3><i class="fa-solid fa-file-word"></i> Word to PDF</h3><p>Turn .doc / .docx files into shareable PDFs.</p></a>
+            <a href="tools/swapfile/pdf-to-word.html" class="service-detail-card" style="display:block; text-decoration:none;"><h3><i class="fa-solid fa-file-pen"></i> PDF to Word</h3><p>Extract PDF text into an editable Word file.</p></a>
+            <a href="tools/swapfile/compress-image.html" class="service-detail-card" style="display:block; text-decoration:none;"><h3><i class="fa-solid fa-compress"></i> Compress Image</h3><p>Shrink photo file size for faster sharing.</p></a>
+            <a href="tools/swapfile/heic-to-jpg.html" class="service-detail-card" style="display:block; text-decoration:none;"><h3><i class="fa-solid fa-camera"></i> HEIC to JPG</h3><p>Convert iPhone HEIC photos to standard JPG.</p></a>
+        </div>
+        <p style="text-align:center; color:var(--text-muted); margin-top:24px;"><a href="tools/swapfile/index.html" style="color:var(--vibrant-blue);">Browse all free tools →</a> &nbsp;•&nbsp; Built by CyberNovaWorks</p>
+    </section>
+<!-- Filter Tabs -->
     <div class="store-tabs">
         <div class="store-tabs-bar">
             <button class="store-tab active" data-filter="all"><i class="fa-solid fa-th-large"></i> All</button>
@@ -816,19 +846,24 @@
                 </a>
             </div>
             <div class="footer-nav">
-                <a href="index.html#about" onclick="event.stopPropagation(); window.location.href='index.html#about'; return false;">About</a>
-                <a href="index.html#services" onclick="event.stopPropagation(); window.location.href='index.html#services'; return false;">Services</a>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="web-development.html">Web Development</a>
+                <a href="app-development.html">App Development</a>
+                <a href="graphic-design.html">Graphic Design</a>
+                <a href="software-solutions.html">Software Solutions</a>
                 <a href="store.html">Store</a>
-                <a href="index.html#portfolio" onclick="event.stopPropagation(); window.location.href='index.html#portfolio'; return false;">Portfolio</a>
-                <a href="privacy.html" onclick="event.stopPropagation(); window.location.href='privacy.html'; return false;">Privacy Policy</a>
-                <a href="index.html#contact" onclick="event.stopPropagation(); window.location.href='index.html#contact'; return false;">Contact</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="tools/swapfile/index.html">Free Tools</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy.html">Privacy Policy</a>
             </div>
             <div class="footer-socials">
                 <a href="https://www.facebook.com/profile.php?id=61593993853617" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/cybernovaworks" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://x.com/cybernovaworks" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
                 <a href="https://www.instagram.com/cybernovaworks/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+                <a href="https://github.com/cybernovaworks-bit" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
             </div>
         </div>
         <div class="footer-bottom">

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cybernovaworks.store/tools/swapfile/sitemap.xml

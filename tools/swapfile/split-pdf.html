@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Split PDF Into Separate Pages â€” Free | Swapfile</title>
+<meta name="description" content="Split a PDF into individual single-page PDF files for free, right in your browser. No upload, no sign-up." />
+<link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/split-pdf.html" />
+<meta name="theme-color" content="#050510" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Split PDF Into Separate Pages â€” Free | Swapfile" />
+<meta property="og:description" content="Split a PDF into individual single-page PDF files for free, right in your browser. No upload, no sign-up." />
+<meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/split-pdf.html" />
+<meta name="twitter:card" content="summary" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="styles.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Swapfile â€” Split PDF",
+  "url": "https://cybernovaworks.store/tools/swapfile/split-pdf.html",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any (runs in browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Split a PDF into individual single-page PDF files for free, right in your browser. No upload, no sign-up."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Can I split into custom page ranges instead of single pages?", "acceptedAnswer": { "@type": "Answer", "text": "Not yet \u2014 this tool currently splits into one PDF per page." } },
+    { "@type": "Question", "name": "Does splitting affect quality?", "acceptedAnswer": { "@type": "Answer", "text": "No \u2014 each page keeps its original quality and text stays selectable." } }
+  ]
+}
+</script>
+</head>
+<body data-tool="pdfsplit">
+
+<header class="navbar" id="navbar">
+    <div class="logo">
+        <a href="../../index.html">
+            <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+        </a>
+    </div>
+
+    <div class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../about.html">About Us</a>
+        <a href="../../web-development.html">Services</a>
+        <a href="../../store.html" class="nav-store-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+        <a href="index.html" class="active">Tools</a>
+        <a href="../../blog/index.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+    </nav>
+    <div class="nav-action">
+        <a href="../../contact.html" class="btn btn-outline glow-blue">Get a Quote</a>
+    </div>
+</header>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Split PDF</h1>
+    <p class="tagline">Break a multi-page PDF into individual single-page files â€” handy for sharing just one page or reorganizing a document.</p>
+  </header>
+
+  <main class="panel">
+    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose files">
+      <input type="file" id="fileInput" hidden />
+      <svg class="drop-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <path d="M12 4v11m0-11l-4 4m4-4l4 4M5 17v2a2 2 0 002 2h10a2 2 0 002-2v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="drop-label" id="dropLabel">Drop a PDF here, or click to browse</p>
+      <p class="drop-hint" id="dropHint">Every page downloads as its own PDF</p>
+    </div>
+
+    <ul class="filelist" id="fileList" aria-live="polite"></ul>
+
+    <button class="convert-btn" id="convertBtn" disabled>Convert</button>
+
+    <div class="results" id="results" aria-live="polite"></div>
+  </main>
+
+  <section class="about">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>Drop or choose a PDF file.</li>
+      <li>Press Convert to split it.</li>
+      <li>Download each page as its own PDF.</li>
+    </ol>
+
+    <h3>Common questions</h3>
+    <dl>
+      <dt>Can I split into custom page ranges instead of single pages?</dt>
+      <dd>Not yet â€” this tool currently splits into one PDF per page.</dd>
+      <dt>Does splitting affect quality?</dt>
+      <dd>No â€” each page keeps its original quality and text stays selectable.</dd>
+    </dl>
+  </section>
+
+  <nav class="other-tools" aria-label="Other tools">
+    <h3>Other tools</h3>
+    <ul>
+      <li><a href="image-to-pdf.html">Image to PDF</a></li>
+      <li><a href="pdf-to-image.html">PDF to Image</a></li>
+      <li><a href="word-to-pdf.html">Word to PDF</a></li>
+      <li><a href="pdf-to-word.html">PDF to Word</a></li>
+      <li><a href="merge-pdf.html">Merge PDF</a></li>
+      <li><a href="compress-pdf.html">Compress PDF</a></li>
+      <li><a href="compress-image.html">Compress Image</a></li>
+      <li><a href="heic-to-jpg.html">HEIC to JPG</a></li>
+    </ul>
+  </nav>
+
+  
+
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <a href="../../index.html" style="text-decoration: none;">
+                <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+            </a>
+        </div>
+        <div class="footer-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../about.html">About</a>
+            <a href="../../web-development.html">Web Development</a>
+            <a href="../../app-development.html">App Development</a>
+            <a href="../../graphic-design.html">Graphic Design</a>
+            <a href="../../software-solutions.html">Software Solutions</a>
+            <a href="../../store.html">Store</a>
+            <a href="../../blog/index.html">Blog</a>
+            <a href="index.html">Free Tools</a>
+            <a href="../../contact.html">Contact</a>
+            <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://x.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/cybernovaworks-bit" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 CyberNovaWorks.store. All rights reserved.</p>
+    </div>
+</footer>
+
+<div id="stars-container"></div>
+
+<script src="../../script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
