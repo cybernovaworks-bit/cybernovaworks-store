@@ -30,36 +30,169 @@
     }
     .tool-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
     }
+    @media (max-width: 1024px) { .tool-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .tool-grid { grid-template-columns: 1fr; } }
+
     .tool-card {
+        --tc: var(--vibrant-blue);
+        position: relative;
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 15px;
-        padding: 20px;
+        align-items: flex-start;
+        gap: 9px;
+        padding: 24px 22px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(0,229,255,0.06), rgba(138,43,226,0.04));
+        border: 1px solid rgba(255,255,255,0.12);
         text-decoration: none;
-        transition: all 0.3s ease;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .tool-card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--tc), transparent);
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
     }
     .tool-card:hover {
-        border-color: rgba(0, 229, 255, 0.5);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 24px rgba(0, 229, 255, 0.08);
+        transform: translateY(-6px);
+        border-color: var(--tc);
+        box-shadow: 0 14px 36px rgba(0,0,0,0.45), 0 0 22px rgba(0,229,255,0.12);
     }
+    .tool-card:hover::before { opacity: 1; }
+
+    .tool-card-icon {
+        width: 48px; height: 48px;
+        border-radius: 14px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.3rem;
+        color: #fff;
+        background: linear-gradient(135deg, var(--tc), rgba(255,255,255,0.12));
+        box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+        text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+        transition: transform 0.3s ease;
+    }
+    .tool-card:hover .tool-card-icon { transform: scale(1.08) rotate(-4deg); }
+
     .tool-card-name {
         font-family: var(--font-heading);
         font-weight: 700;
-        font-size: 1rem;
-        color: var(--vibrant-blue);
+        font-size: 1.05rem;
+        color: #fff;
     }
     .tool-card-desc {
-        font-size: 0.86rem;
+        font-size: 0.82rem;
         color: var(--text-muted);
-        line-height: 1.5;
+        line-height: 1.55;
+        margin: 0;
     }
+    .tool-card-arrow {
+        position: absolute;
+        top: 20px; right: 18px;
+        color: rgba(255,255,255,0.28);
+        font-size: 0.82rem;
+        transition: all 0.3s ease;
+    }
+    .tool-card:hover .tool-card-arrow {
+        color: var(--tc);
+        transform: translate(3px,-3px);
+    }
+
+    .tool-c-blue   { --tc: #00E5FF; }
+    .tool-c-green  { --tc: #10B981; }
+    .tool-c-indigo { --tc: #6366F1; }
+    .tool-c-purple { --tc: #8A2BE2; }
+    .tool-c-cyan   { --tc: #22D3EE; }
+    .tool-c-orange { --tc: #F97316; }
+    .tool-c-pink   { --tc: #EC4899; }
+    .tool-c-yellow { --tc: #F5B018; }
+    .tool-c-red    { --tc: #E8112D; }
+
+    .tools-subnav {
+        position: sticky;
+        z-index: 90;
+        top: 44px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 6%;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        background: rgba(8,8,24,0.88);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(0,229,255,0.18);
+        box-shadow: 0 8px 26px rgba(0,0,0,0.4);
+    }
+    .tools-subnav::-webkit-scrollbar { height: 6px; }
+    .tools-subnav::-webkit-scrollbar-thumb { background: rgba(0,229,255,0.3); border-radius: 4px; }
+    .tools-subnav-label {
+        flex-shrink: 0;
+        display: inline-flex; align-items: center; gap: 8px;
+        font-family: var(--font-heading);
+        font-size: 0.72rem; font-weight: 800;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        color: var(--vibrant-blue);
+        text-shadow: 0 0 10px rgba(0,229,255,0.4);
+        margin-right: 4px; padding-right: 14px;
+        border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .tool-pill {
+        flex-shrink: 0;
+        display: inline-flex; align-items: center; gap: 7px;
+        padding: 8px 16px;
+        border-radius: 24px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(255,255,255,0.05);
+        color: rgba(255,255,255,0.72);
+        font-family: var(--font-heading);
+        font-weight: 600; font-size: 0.78rem;
+        text-decoration: none; white-space: nowrap;
+        transition: all 0.25s ease;
+    }
+    .tool-pill i { font-size: 0.8rem; }
+    .tool-pill:hover {
+        color: #fff;
+        border-color: var(--vibrant-blue);
+        background: rgba(0,229,255,0.1);
+        box-shadow: 0 0 14px rgba(0,229,255,0.25);
+        transform: translateY(-1px);
+    }
+    .tool-pill.active {
+        color: #fff; border-color: transparent;
+        background: linear-gradient(135deg, var(--neon-blue), var(--vibrant-blue));
+        box-shadow: 0 3px 12px rgba(0,229,255,0.35);
+    }
+    html.theme-light .tools-subnav {
+        background: rgba(21,15,38,0.9);
+        border-bottom: 1px solid rgba(255,122,0,0.3);
+    }
+    html.theme-light .tools-subnav-label { color: #FFB03A; }
+    html.theme-light .tool-pill {
+        color: rgba(255,255,255,0.7);
+        border-color: rgba(255,255,255,0.16);
+        background: rgba(255,255,255,0.06);
+    }
+    html.theme-light .tool-pill:hover { color: #FFB03A; border-color: rgba(255,176,58,0.6); }
+    html.theme-light .tool-pill.active {
+        background: linear-gradient(135deg, #FF7A00, #FFB03A); color: #fff;
+    }
+    html.theme-light .tool-card {
+        background: linear-gradient(115deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 42%), linear-gradient(180deg, #ffffff 0%, #fffaf1 100%);
+        border: 1px solid rgba(255,176,58,0.35);
+    }
+    html.theme-light .tool-card:hover { border-color: var(--tc); }
+    html.theme-light .tool-card-name { color: #2a1d0e; }
+    html.theme-light .tool-card-desc { color: #6d5f4a; }
+    html.theme-light .tool-card .tool-card-arrow { color: rgba(120,70,10,0.35); }
+    html.theme-light .page-hero h1 { color: #f7f1e3; }
+    html.theme-light .page-hero p  { color: #b9ae9c; }
     .hero-mark {
         margin-bottom: 14px;
     }
@@ -161,6 +294,20 @@
     </div>
 </header>
 
+<!-- Tools sub-navigation bar -->
+<div class="tools-subnav" id="toolsSubnav">
+    <span class="tools-subnav-label"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</span>
+    <a class="tool-pill" href="image-to-pdf.html"><i class="fa-solid fa-file-image"></i> Image to PDF</a>
+    <a class="tool-pill" href="pdf-to-image.html"><i class="fa-solid fa-images"></i> PDF to Image</a>
+    <a class="tool-pill" href="word-to-pdf.html"><i class="fa-solid fa-file-word"></i> Word to PDF</a>
+    <a class="tool-pill" href="pdf-to-word.html"><i class="fa-solid fa-file-pen"></i> PDF to Word</a>
+    <a class="tool-pill" href="merge-pdf.html"><i class="fa-solid fa-object-group"></i> Merge PDF</a>
+    <a class="tool-pill" href="split-pdf.html"><i class="fa-solid fa-scissors"></i> Split PDF</a>
+    <a class="tool-pill" href="compress-pdf.html"><i class="fa-solid fa-file-zipper"></i> Compress PDF</a>
+    <a class="tool-pill" href="compress-image.html"><i class="fa-solid fa-compress"></i> Compress Image</a>
+    <a class="tool-pill" href="heic-to-jpg.html"><i class="fa-solid fa-mobile-screen-button"></i> HEIC to JPG</a>
+</div>
+
 <section class="page-hero">
     <div class="hero-mark" aria-hidden="true">
         <svg viewBox="0 0 48 48" width="44" height="44">
@@ -175,39 +322,57 @@
 
 <section class="tools-section">
     <div class="tool-grid">
-        <a class="tool-card" href="image-to-pdf.html">
+        <a class="tool-card tool-c-blue" href="image-to-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-image"></i></span>
             <span class="tool-card-name">Image to PDF</span>
             <span class="tool-card-desc">Turn JPG, PNG, or WEBP photos into a single PDF.</span>
         </a>
-        <a class="tool-card" href="pdf-to-image.html">
+        <a class="tool-card tool-c-green" href="pdf-to-image.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-images"></i></span>
             <span class="tool-card-name">PDF to Image</span>
             <span class="tool-card-desc">Turn every page of a PDF into a separate PNG image you can download individually.</span>
         </a>
-        <a class="tool-card" href="word-to-pdf.html">
+        <a class="tool-card tool-c-indigo" href="word-to-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-word"></i></span>
             <span class="tool-card-name">Word to PDF</span>
             <span class="tool-card-desc">Turn a .doc or .docx file into a PDF you can share or print.</span>
         </a>
-        <a class="tool-card" href="pdf-to-word.html">
+        <a class="tool-card tool-c-purple" href="pdf-to-word.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-pen"></i></span>
             <span class="tool-card-name">PDF to Word</span>
             <span class="tool-card-desc">Pull the text out of a PDF into an editable Word-compatible file.</span>
         </a>
-        <a class="tool-card" href="merge-pdf.html">
+        <a class="tool-card tool-c-cyan" href="merge-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-object-group"></i></span>
             <span class="tool-card-name">Merge PDF</span>
             <span class="tool-card-desc">Combine multiple PDF files into a single document.</span>
         </a>
-        <a class="tool-card" href="split-pdf.html">
+        <a class="tool-card tool-c-orange" href="split-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-scissors"></i></span>
             <span class="tool-card-name">Split PDF</span>
             <span class="tool-card-desc">Break a multi-page PDF into individual single-page files.</span>
         </a>
-        <a class="tool-card" href="compress-pdf.html">
+        <a class="tool-card tool-c-pink" href="compress-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-zipper"></i></span>
             <span class="tool-card-name">Compress PDF</span>
             <span class="tool-card-desc">Reduce a PDF's file size so it's easier to email or upload.</span>
         </a>
-        <a class="tool-card" href="compress-image.html">
+        <a class="tool-card tool-c-yellow" href="compress-image.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-compress"></i></span>
             <span class="tool-card-name">Compress Image</span>
             <span class="tool-card-desc">Reduce a photo's file size for faster uploads or sharing.</span>
         </a>
-        <a class="tool-card" href="heic-to-jpg.html">
+        <a class="tool-card tool-c-red" href="heic-to-jpg.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
             <span class="tool-card-name">HEIC to JPG</span>
             <span class="tool-card-desc">Turn iPhone HEIC or HEIF photos into standard JPG files that open anywhere.</span>
         </a>

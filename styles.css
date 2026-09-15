@@ -1882,3 +1882,226 @@ html.theme-light .store-empty {
         font-size: 0.9rem;
     }
 }
+
+/* ========== TOOLS SECTION ========== */
+.tools-section {
+    padding: 80px 10% 90px;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.tool-card {
+    --tc: var(--vibrant-blue);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 24px 22px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(0,229,255,0.06), rgba(138,43,226,0.04));
+    border: 1px solid rgba(255,255,255,0.12);
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.tool-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--tc), transparent);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+.tool-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--tc);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.45), 0 0 22px rgba(0,229,255,0.12);
+}
+.tool-card:hover::before { opacity: 1; }
+
+.tool-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #fff;
+    background: linear-gradient(135deg, var(--tc), rgba(255,255,255,0.12));
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+.tool-card:hover .tool-card-icon {
+    transform: scale(1.08) rotate(-4deg);
+}
+
+.tool-card h3 {
+    font-size: 1.05rem;
+    color: #fff;
+    letter-spacing: 0.2px;
+}
+.tool-card p {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.tool-card-arrow {
+    position: absolute;
+    top: 20px;
+    right: 18px;
+    color: rgba(255,255,255,0.28);
+    font-size: 0.82rem;
+    transition: all 0.3s ease;
+}
+.tool-card:hover .tool-card-arrow {
+    color: var(--tc);
+    transform: translate(3px,-3px);
+}
+
+.tool-c-blue   { --tc: #00E5FF; }
+.tool-c-green  { --tc: #10B981; }
+.tool-c-indigo { --tc: #6366F1; }
+.tool-c-purple { --tc: #8A2BE2; }
+.tool-c-cyan   { --tc: #22D3EE; }
+.tool-c-orange { --tc: #F97316; }
+.tool-c-pink   { --tc: #EC4899; }
+.tool-c-yellow { --tc: #F5B018; }
+.tool-c-red    { --tc: #E8112D; }
+
+.tools-action {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Tools light theme */
+html.theme-light .tool-card {
+    background:
+        linear-gradient(115deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 42%),
+        linear-gradient(180deg, #ffffff 0%, #fffaf1 100%);
+    border: 1px solid rgba(255,176,58,0.35);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4), 0 4px 18px rgba(255,122,0,0.1);
+}
+html.theme-light .tool-card:hover {
+    border-color: var(--tc);
+    box-shadow: 0 18px 44px rgba(255,122,0,0.3), 0 6px 24px rgba(0,0,0,0.35);
+}
+html.theme-light .tool-card h3 { color: #2a1d0e; }
+html.theme-light .tool-card p  { color: #6d5f4a; }
+html.theme-light .tool-card .tool-card-arrow { color: rgba(120,70,10,0.35); }
+
+.tools-grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 1024px) {
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .tools-grid-responsive { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .tools-grid { grid-template-columns: 1fr; }
+    .tools-grid-responsive { grid-template-columns: 1fr; }
+}
+
+/* ========== TOOLS SUB-NAV ========== */
+.tools-subnav {
+    position: sticky;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 6%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    background: rgba(8,8,24,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,229,255,0.18);
+    box-shadow: 0 8px 26px rgba(0,0,0,0.4);
+}
+.tools-subnav::-webkit-scrollbar { height: 6px; }
+.tools-subnav::-webkit-scrollbar-thumb { background: rgba(0,229,255,0.3); border-radius: 4px; }
+
+.tools-subnav-label {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--vibrant-blue);
+    text-shadow: 0 0 10px rgba(0,229,255,0.4);
+    margin-right: 4px;
+    padding-right: 14px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+}
+
+.tool-pill {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.72);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+}
+.tool-pill i { font-size: 0.8rem; }
+.tool-pill:hover {
+    color: #fff;
+    border-color: var(--vibrant-blue);
+    background: rgba(0,229,255,0.1);
+    box-shadow: 0 0 14px rgba(0,229,255,0.25);
+    transform: translateY(-1px);
+}
+.tool-pill.active {
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--neon-blue), var(--vibrant-blue));
+    box-shadow: 0 3px 12px rgba(0,229,255,0.35);
+}
+
+/* Sub-nav light theme */
+html.theme-light .tools-subnav {
+    background: rgba(21,15,38,0.9);
+    border-bottom: 1px solid rgba(255,122,0,0.3);
+}
+html.theme-light .tools-subnav-label {
+    color: #FFB03A;
+    text-shadow: 0 0 10px rgba(255,176,58,0.4);
+}
+html.theme-light .tool-pill {
+    color: rgba(255,255,255,0.7);
+    border-color: rgba(255,255,255,0.16);
+    background: rgba(255,255,255,0.06);
+}
+html.theme-light .tool-pill:hover {
+    color: #FFB03A;
+    border-color: rgba(255,176,58,0.6);
+    box-shadow: 0 0 14px rgba(255,122,0,0.3);
+}
+html.theme-light .tool-pill.active {
+    background: linear-gradient(135deg, #FF7A00, #FFB03A);
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(255,122,0,0.4);
+}
