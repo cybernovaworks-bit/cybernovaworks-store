@@ -83,25 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Contact Form Submission ---
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert('Thank you for contacting www.CyberNovaWorks.store! Your message has been sent successfully.');
-            this.reset();
-        });
-    }
+    // --- Contact Form Submission (handled by FormSubmit, no JS interception needed) ---
 
-    // --- Quote Form Submission ---
-    const quoteForm = document.getElementById('quoteForm');
-    if (quoteForm) {
-        quoteForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert('Thank you! Your quote request has been submitted. We will get back to you within 24 hours.');
-            this.reset();
-        });
-    }
+    // --- Quote Form Submission (handled by FormSubmit, no JS interception needed) ---
 
     // --- Navbar Scroll Effect ---
     const navbarEl = document.querySelector('.navbar');
