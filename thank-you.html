@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | CyberNovaWorks</title>
+    <meta name="description" content="Thank you for contacting CyberNovaWorks. We have received your message and will reply within 24 hours.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a[href]');
+            if (!link) return;
+            var href = link.getAttribute('href');
+            if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
+            e.stopPropagation();
+            window.location.href = href;
+        }, true);
+    </script>
+</head>
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="top-bar" id="topBar">
+        <div class="top-bar-content">
+            <span class="top-bar-text"><i class="fa-solid fa-bolt"></i> Welcome to CyberNovaWorks.store â€” Transforming Ideas into Digital Reality!</span>
+            <button class="top-bar-close" id="topBarClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+            </a>
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="web-development.html">Services</a>
+            <a href="store.html" class="nav-store-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+            <a href="tools/swapfile/index.html">Tools</a>
+            <a href="blog/index.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="nav-action">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-sun"></i></button>
+            <a href="contact.html" class="btn btn-outline glow-blue">Get a Quote</a>
+        </div>
+    </header>
+
+    <!-- Thank You Hero -->
+    <section class="page-hero">
+        <h1>Thank <span class="text-blue">You!</span></h1>
+        <p>Your message has been sent successfully. We will get back to you within 24 hours.</p>
+    </section>
+
+    <div class="breadcrumbs"><a href="index.html">Home</a> / Thank You</div>
+
+    <div class="page-body">
+
+        <div class="cta-box" style="max-width: 720px; margin: 40px auto;">
+            <i class="fa-solid fa-circle-check" style="font-size: 56px; color: var(--accent, #10b981); margin-bottom: 16px;"></i>
+            <h2 style="margin-bottom: 8px;">Message Received!</h2>
+            <p>Thanks for reaching out to CyberNovaWorks. Our team will review your details and reply <strong>within 24 hours</strong> (usually much sooner during business hours, Monâ€"Sat, 9:00 AM â€" 7:00 PM).</p>
+            <p>Need something urgent? Email us directly at <a href="mailto:cybernovaworks@gmail.com">cybernovaworks@gmail.com</a>.</p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px;">
+                <a href="index.html" class="btn btn-primary glow-blue">Back to Home</a>
+                <a href="store.html" class="btn btn-outline glow-blue">Browse the Store</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="index.html" style="text-decoration: none;">
+                    <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+                </a>
+            </div>
+            <div class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="web-development.html">Web Development</a>
+                <a href="app-development.html">App Development</a>
+                <a href="graphic-design.html">Graphic Design</a>
+                <a href="software-solutions.html">Software Solutions</a>
+                <a href="store.html">Store</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="tools/swapfile/index.html">Free Tools</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-socials">
+                <a href="https://www.linkedin.com/company/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://x.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://github.com/cybernovaworks-bit" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 CyberNovaWorks.store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="stars-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>
