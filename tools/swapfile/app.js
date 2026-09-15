@@ -65,6 +65,9 @@ const TOOLS = {
   },
 };
 
+// Extra tools registered by converts.js (loaded before app.js on new tool pages).
+if (typeof EXTRA_TOOLS !== "undefined") Object.assign(TOOLS, EXTRA_TOOLS);
+
 const PDF_WORKER_SRC = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 // ---------- State ----------
@@ -115,8 +118,13 @@ convertBtn.addEventListener("click", runConversion);
 // ---------- UI helpers ----------
 function applyTool(toolKey) {
   const tool = TOOLS[toolKey];
-  fileInput.accept = tool.accept;
+  fileInput.accept = tool.accept || "";
   fileInput.multiple = tool.multiple;
+  fileInput.removeAttribute("webkitdirectory");
+  if (tool.folderMode) {
+    fileInput.setAttribute("webkitdirectory", "");
+    fileInput.setAttribute("directory", "");
+  }
   dropLabel.textContent = tool.dropLabel;
   dropHint.textContent = tool.dropHint;
   selectedFiles = [];

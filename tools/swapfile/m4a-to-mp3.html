@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>M4A to MP3 Converter — Free, No Upload | Swapfile</title>
+<meta name="description" content="Turn M4A audio recordings into MP3 files that play anywhere. Runs 100% in your browser — nothing is uploaded." />
+<link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/m4a-to-mp3.html" />
+<meta name="theme-color" content="#050510" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="M4A to MP3 Converter — Free, No Upload | Swapfile" />
+<meta property="og:description" content="Turn M4A audio recordings into MP3 files that play anywhere." />
+<meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/m4a-to-mp3.html" />
+<meta name="twitter:card" content="summary" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="styles.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Swapfile — M4A to MP3",
+  "url": "https://cybernovaworks.store/tools/swapfile/m4a-to-mp3.html",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any (runs in browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Turn M4A audio recordings into MP3 files that play anywhere."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Are voice-notes supported?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — M4A voice memos convert perfectly to MP3." } },
+    { "@type": "Question", "name": "Does it work on phones?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the tool is fully mobile friendly." } }
+  ]
+}
+</script>
+</head>
+<body data-tool="m4a2mp3">
+
+<header class="navbar" id="navbar">
+    <div class="logo">
+        <a href="../../index.html">
+            <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+        </a>
+    </div>
+
+    <div class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../about.html">About Us</a>
+        <a href="../../web-development.html">Services</a>
+        <a href="../../store.html" class="nav-store-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+        <a href="index.html" class="active">Tools</a>
+        <a href="../../blog/index.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+    </nav>
+    <div class="nav-action">
+        <a href="../../contact.html" class="btn btn-outline glow-blue">Get a Quote</a>
+    </div>
+</header>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>M4A to MP3</h1>
+    <p class="tagline">Convert Apple's M4A audio format to universal MP3 in your browser.</p>
+  </header>
+
+  <main class="panel">
+    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose files">
+      <input type="file" id="fileInput" hidden />
+      <svg class="drop-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <path d="M12 4v11m0-11l-4 4m4-4l4 4M5 17v2a2 2 0 002 2h10a2 2 0 002-2v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="drop-label" id="dropLabel">Drop a file here, or click to browse</p>
+      <p class="drop-hint" id="dropHint">No upload — everything runs in your browser</p>
+    </div>
+
+    <ul class="filelist" id="fileList" aria-live="polite"></ul>
+
+    <button class="convert-btn" id="convertBtn" disabled>Convert</button>
+
+    <div class="results" id="results" aria-live="polite"></div>
+  </main>
+
+  <section class="about">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>Add your M4A file.</li>
+      <li>Audio is decoded and re-encoded.</li>
+      <li>Download the MP3.</li>
+    </ol>
+
+    <h3>Common questions</h3>
+    <dl>
+      <dt>Are voice-notes supported?</dt>
+      <dd>Yes — M4A voice memos convert perfectly to MP3.</dd>
+      <dt>Does it work on phones?</dt>
+      <dd>Yes, the tool is fully mobile friendly.</dd>
+    </dl>
+  </section>
+
+  <nav class="other-tools" aria-label="Other tools">
+    <h3>Related tools</h3>
+    <ul>
+      <li><a href="mp4-to-mp3.html">Mp4 To Mp3</a></li>
+      <li><a href="mp3-to-wav.html">Mp3 To Wav</a></li>
+      <li><a href="wav-to-mp3.html">Wav To Mp3</a></li>
+      <li><a href="aac-to-mp3.html">Aac To Mp3</a></li>
+      <li><a href="flac-to-mp3.html">Flac To Mp3</a></li>
+      <li><a href="ogg-to-mp3.html">Ogg To Mp3</a></li>
+      <li><a href="text-to-audio.html">Text To Audio</a></li>
+      <li><a href="pdf-to-audiobook.html">Pdf To Audiobook</a></li>
+      <li><a href="index.html">View all tools →</a></li>
+    </ul>
+  </nav>
+
+  
+
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <a href="../../index.html" style="text-decoration: none;">
+                <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+            </a>
+        </div>
+        <div class="footer-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../about.html">About</a>
+            <a href="../../web-development.html">Web Development</a>
+            <a href="../../app-development.html">App Development</a>
+            <a href="../../graphic-design.html">Graphic Design</a>
+            <a href="../../software-solutions.html">Software Solutions</a>
+            <a href="../../store.html">Store</a>
+            <a href="../../blog/index.html">Blog</a>
+            <a href="index.html">Free Tools</a>
+            <a href="../../contact.html">Contact</a>
+            <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://x.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/cybernovaworks-bit" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 CyberNovaWorks.store. All rights reserved.</p>
+    </div>
+</footer>
+
+<div id="stars-container"></div>
+
+<script src="../../script.js"></script>
+<script src="converts.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

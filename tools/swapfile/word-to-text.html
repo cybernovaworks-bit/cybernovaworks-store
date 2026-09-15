@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Word to Text Converter — Free, No Upload | Swapfile</title>
+<meta name="description" content="Extract plain text from a Word document in one click. Runs 100% in your browser — nothing is uploaded." />
+<link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/word-to-text.html" />
+<meta name="theme-color" content="#050510" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Word to Text Converter — Free, No Upload | Swapfile" />
+<meta property="og:description" content="Extract plain text from a Word document in one click." />
+<meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/word-to-text.html" />
+<meta name="twitter:card" content="summary" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="styles.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Swapfile — Word to Text",
+  "url": "https://cybernovaworks.store/tools/swapfile/word-to-text.html",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any (runs in browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Extract plain text from a Word document in one click."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Are tables and images included?", "acceptedAnswer": { "@type": "Answer", "text": "No — this tool keeps the readable text only. Use Word to PDF for layout." } },
+    { "@type": "Question", "name": "Is it private?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, extraction happens locally in your browser." } }
+  ]
+}
+</script>
+</head>
+<body data-tool="word2text">
+
+<header class="navbar" id="navbar">
+    <div class="logo">
+        <a href="../../index.html">
+            <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+        </a>
+    </div>
+
+    <div class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../about.html">About Us</a>
+        <a href="../../web-development.html">Services</a>
+        <a href="../../store.html" class="nav-store-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+        <a href="index.html" class="active">Tools</a>
+        <a href="../../blog/index.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+    </nav>
+    <div class="nav-action">
+        <a href="../../contact.html" class="btn btn-outline glow-blue">Get a Quote</a>
+    </div>
+</header>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Word to Text</h1>
+    <p class="tagline">Pull plain text out of a .doc or .docx file — perfect for drafts, scripts, and note-taking.</p>
+  </header>
+
+  <main class="panel">
+    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose files">
+      <input type="file" id="fileInput" hidden />
+      <svg class="drop-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <path d="M12 4v11m0-11l-4 4m4-4l4 4M5 17v2a2 2 0 002 2h10a2 2 0 002-2v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="drop-label" id="dropLabel">Drop a file here, or click to browse</p>
+      <p class="drop-hint" id="dropHint">No upload — everything runs in your browser</p>
+    </div>
+
+    <ul class="filelist" id="fileList" aria-live="polite"></ul>
+
+    <button class="convert-btn" id="convertBtn" disabled>Convert</button>
+
+    <div class="results" id="results" aria-live="polite"></div>
+  </main>
+
+  <section class="about">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>Drop in the .doc or .docx file.</li>
+      <li>Text is stripped from the document XML.</li>
+      <li>Download the .txt file.</li>
+    </ol>
+
+    <h3>Common questions</h3>
+    <dl>
+      <dt>Are tables and images included?</dt>
+      <dd>No — this tool keeps the readable text only. Use Word to PDF for layout.</dd>
+      <dt>Is it private?</dt>
+      <dd>Yes, extraction happens locally in your browser.</dd>
+    </dl>
+  </section>
+
+  <nav class="other-tools" aria-label="Other tools">
+    <h3>Related tools</h3>
+    <ul>
+      <li><a href="pdf-to-excel.html">Pdf To Excel</a></li>
+      <li><a href="excel-to-pdf.html">Excel To Pdf</a></li>
+      <li><a href="powerpoint-to-pdf.html">Powerpoint To Pdf</a></li>
+      <li><a href="pdf-to-powerpoint.html">Pdf To Powerpoint</a></li>
+      <li><a href="pdf-to-text.html">Pdf To Text</a></li>
+      <li><a href="text-to-pdf.html">Text To Pdf</a></li>
+      <li><a href="html-to-pdf.html">Html To Pdf</a></li>
+      <li><a href="pdf-to-html.html">Pdf To Html</a></li>
+      <li><a href="epub-to-pdf.html">Epub To Pdf</a></li>
+      <li><a href="index.html">View all tools →</a></li>
+    </ul>
+  </nav>
+
+  
+
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <a href="../../index.html" style="text-decoration: none;">
+                <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+            </a>
+        </div>
+        <div class="footer-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../about.html">About</a>
+            <a href="../../web-development.html">Web Development</a>
+            <a href="../../app-development.html">App Development</a>
+            <a href="../../graphic-design.html">Graphic Design</a>
+            <a href="../../software-solutions.html">Software Solutions</a>
+            <a href="../../store.html">Store</a>
+            <a href="../../blog/index.html">Blog</a>
+            <a href="index.html">Free Tools</a>
+            <a href="../../contact.html">Contact</a>
+            <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://x.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/cybernovaworks-bit" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 CyberNovaWorks.store. All rights reserved.</p>
+    </div>
+</footer>
+
+<div id="stars-container"></div>
+
+<script src="../../script.js"></script>
+<script src="converts.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
