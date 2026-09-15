@@ -2019,6 +2019,15 @@ html.theme-light .tool-card .tool-card-arrow { color: rgba(120,70,10,0.35); }
     flex-direction: column;
     gap: 30px;
 }
+.home-tools-cat { --cat-c: var(--vibrant-blue); --cat-glow: rgba(0,229,255,0.22); }
+.home-cat-doc     { --cat-c: #00E5FF; --cat-glow: rgba(0,229,255,0.22); }
+.home-cat-audio   { --cat-c: #EC4899; --cat-glow: rgba(236,72,153,0.22); }
+.home-cat-video   { --cat-c: #F97316; --cat-glow: rgba(249,115,22,0.22); }
+.home-cat-image   { --cat-c: #10B981; --cat-glow: rgba(16,185,129,0.22); }
+.home-cat-data    { --cat-c: #6366F1; --cat-glow: rgba(99,102,241,0.22); }
+.home-cat-archive { --cat-c: #F5B018; --cat-glow: rgba(245,176,24,0.22); }
+.home-cat-font    { --cat-c: #8A2BE2; --cat-glow: rgba(138,43,226,0.22); }
+.home-cat-special { --cat-c: #E8112D; --cat-glow: rgba(232,17,45,0.22); }
 .home-tools-cat h4 {
     display: flex;
     align-items: center;
@@ -2026,7 +2035,7 @@ html.theme-light .tool-card .tool-card-arrow { color: rgba(120,70,10,0.35); }
     font-family: var(--font-heading);
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--vibrant-blue);
+    color: var(--cat-c);
     letter-spacing: 0.3px;
     margin: 0 0 14px;
 }
@@ -2054,35 +2063,33 @@ html.theme-light .tool-card .tool-card-arrow { color: rgba(120,70,10,0.35); }
 }
 .home-tool-chip i {
     font-size: 0.85rem;
-    color: var(--vibrant-blue);
+    color: var(--cat-c);
     transition: color 0.25s ease, transform 0.25s ease;
 }
 .home-tool-chip:hover {
     color: #fff;
-    border-color: var(--vibrant-blue);
-    background: rgba(0,229,255,0.1);
-    box-shadow: 0 0 14px rgba(0,229,255,0.22);
+    border-color: var(--cat-c);
+    background: rgba(255,255,255,0.07);
+    box-shadow: 0 0 14px var(--cat-glow);
     transform: translateY(-2px);
 }
 .home-tool-chip:hover i {
-    color: var(--vibrant-blue);
+    color: var(--cat-c);
     transform: scale(1.15);
 }
-html.theme-light .home-tools-cat h4 { color: #FF9A2A; }
+html.theme-light .home-tools-cat h4 { color: var(--cat-c); }
 html.theme-light .home-tool-chip {
     color: #4a3a22;
-    border-color: rgba(176,112,32,0.32);
+    border-color: var(--cat-c);
     background: rgba(255,255,255,0.75);
 }
-html.theme-light .home-tool-chip i { color: #FF8A00; }
+html.theme-light .home-tool-chip i { color: var(--cat-c); }
 html.theme-light .home-tool-chip:hover {
     color: #2a1d0e;
-    border-color: #FF8A00;
-    background: #fff7ec;
-    box-shadow: 0 4px 16px rgba(255,138,0,0.2);
-}
-
-/* ========== TOOLS SUB-NAV ========== */
+    border-color: var(--cat-c);
+    background: #fff;
+    box-shadow: 0 4px 16px var(--cat-glow);
+}    /* ========== TOOLS SUB-NAV ========== */
 .tools-subnav {
     position: sticky;
     z-index: 90;
