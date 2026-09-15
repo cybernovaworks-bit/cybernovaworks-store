@@ -2013,6 +2013,75 @@ html.theme-light .tool-card .tool-card-arrow { color: rgba(120,70,10,0.35); }
     .tools-grid-responsive { grid-template-columns: 1fr; }
 }
 
+/* Homepage tool category chips */
+.home-tools-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.home-tools-cat h4 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--vibrant-blue);
+    letter-spacing: 0.3px;
+    margin: 0 0 14px;
+}
+.home-tools-cat h4 i { font-size: 1rem; }
+.home-tools-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.home-tool-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 15px;
+    border-radius: 26px;
+    border: 1px solid rgba(255,255,255,0.13);
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.82);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+}
+.home-tool-chip i {
+    font-size: 0.85rem;
+    color: var(--vibrant-blue);
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+.home-tool-chip:hover {
+    color: #fff;
+    border-color: var(--vibrant-blue);
+    background: rgba(0,229,255,0.1);
+    box-shadow: 0 0 14px rgba(0,229,255,0.22);
+    transform: translateY(-2px);
+}
+.home-tool-chip:hover i {
+    color: var(--vibrant-blue);
+    transform: scale(1.15);
+}
+html.theme-light .home-tools-cat h4 { color: #FF9A2A; }
+html.theme-light .home-tool-chip {
+    color: #4a3a22;
+    border-color: rgba(176,112,32,0.32);
+    background: rgba(255,255,255,0.75);
+}
+html.theme-light .home-tool-chip i { color: #FF8A00; }
+html.theme-light .home-tool-chip:hover {
+    color: #2a1d0e;
+    border-color: #FF8A00;
+    background: #fff7ec;
+    box-shadow: 0 4px 16px rgba(255,138,0,0.2);
+}
+
 /* ========== TOOLS SUB-NAV ========== */
 .tools-subnav {
     position: sticky;

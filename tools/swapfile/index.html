@@ -1,47 +1,53 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Swapfile — Free PDF, Word &amp; Image Tools (No Upload) | CyberNovaWorks</title>
-<meta name="description" content="Merge, split, compress, and convert PDF, Word, and image files for free, right in your browser. No sign-up, no uploads, nothing stored." />
+<title>Free File Tools — 60+ Converters (PDF, Word, Image, Video & More) | Swapfile</title>
+<meta name="description" content="60+ free browser tools to convert, merge, split, compress and extract PDF, Word, Excel, image, audio, video and data files. No upload, no sign-up — everything runs in your browser." />
 <link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/index.html" />
 <meta name="theme-color" content="#050510" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Swapfile — Free PDF, Word &amp; Image Tools" />
-<meta property="og:description" content="Merge, split, compress, and convert PDF, Word, and image files for free, right in your browser." />
+<meta property="og:title" content="Swapfile — 60+ Free Browser Tools" />
+<meta property="og:description" content="Convert, merge, compress and extract 60+ file formats free, right in your browser." />
 <meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/index.html" />
 <meta property="og:image" content="https://cybernovaworks.store/images/og-image.png" />
 <meta property="og:site_name" content="CyberNovaWorks" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Swapfile — Free PDF, Word &amp; Image Tools" />
-<meta name="twitter:description" content="Merge, split, compress, and convert PDF, Word, and image files for free, right in your browser." />
+<meta name="twitter:title" content="Swapfile — 60+ Free Browser Tools" />
+<meta name="twitter:description" content="Convert, merge, compress and extract 60+ file formats free, right in your browser." />
 <meta name="twitter:image" content="https://cybernovaworks.store/images/og-image.png" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="../../styles.css" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<script>
-    document.addEventListener('click', function(e) {
-        var link = e.target.closest('a[href]');
-        if (!link) return;
-        var href = link.getAttribute('href');
-        if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
-        e.stopPropagation();
-        window.location.href = href;
-    }, true);
-</script>
 <style>
     .tools-section {
         max-width: 1100px;
         margin: 0 auto;
-        padding: 0 10% 30px;
+        padding: 0 6% 30px;
+        scroll-margin-top: 130px;
     }
+    .tool-section {
+        margin-top: 26px;
+        padding-top: 6px;
+    }
+    .tool-section .cat-head h3 {
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        color: var(--vibrant-blue);
+        margin: 0 0 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .tool-section .cat-head p { margin: 0 0 16px; color: var(--text-muted); font-size: 0.92rem; }
+    html.theme-light .tool-section .cat-head h3 { color: #FF9A2A; }
     .tool-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 22px;
+        gap: 18px;
     }
     @media (max-width: 1024px) { .tool-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px)  { .tool-grid { grid-template-columns: 1fr; } }
@@ -53,7 +59,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 9px;
-        padding: 24px 22px;
+        padding: 22px 20px;
         border-radius: 18px;
         background: linear-gradient(135deg, rgba(0,229,255,0.06), rgba(138,43,226,0.04));
         border: 1px solid rgba(255,255,255,0.12);
@@ -78,10 +84,10 @@
     .tool-card:hover::before { opacity: 1; }
 
     .tool-card-icon {
-        width: 48px; height: 48px;
+        width: 46px; height: 46px;
         border-radius: 14px;
         display: flex; align-items: center; justify-content: center;
-        font-size: 1.3rem;
+        font-size: 1.25rem;
         color: #fff;
         background: linear-gradient(135deg, var(--tc), rgba(255,255,255,0.12));
         box-shadow: 0 6px 16px rgba(0,0,0,0.35);
@@ -93,20 +99,20 @@
     .tool-card-name {
         font-family: var(--font-heading);
         font-weight: 700;
-        font-size: 1.05rem;
+        font-size: 1rem;
         color: #fff;
     }
     .tool-card-desc {
-        font-size: 0.82rem;
+        font-size: 0.8rem;
         color: var(--text-muted);
-        line-height: 1.55;
+        line-height: 1.5;
         margin: 0;
     }
     .tool-card-arrow {
         position: absolute;
-        top: 20px; right: 18px;
+        top: 18px; right: 16px;
         color: rgba(255,255,255,0.28);
-        font-size: 0.82rem;
+        font-size: 0.8rem;
         transition: all 0.3s ease;
     }
     .tool-card:hover .tool-card-arrow {
@@ -156,13 +162,13 @@
     .tool-pill {
         flex-shrink: 0;
         display: inline-flex; align-items: center; gap: 7px;
-        padding: 8px 16px;
+        padding: 8px 15px;
         border-radius: 24px;
         border: 1px solid rgba(255,255,255,0.14);
         background: rgba(255,255,255,0.05);
         color: rgba(255,255,255,0.72);
         font-family: var(--font-heading);
-        font-weight: 600; font-size: 0.78rem;
+        font-weight: 600; font-size: 0.76rem;
         text-decoration: none; white-space: nowrap;
         transition: all 0.25s ease;
     }
@@ -173,11 +179,6 @@
         background: rgba(0,229,255,0.1);
         box-shadow: 0 0 14px rgba(0,229,255,0.25);
         transform: translateY(-1px);
-    }
-    .tool-pill.active {
-        color: #fff; border-color: transparent;
-        background: linear-gradient(135deg, var(--neon-blue), var(--vibrant-blue));
-        box-shadow: 0 3px 12px rgba(0,229,255,0.35);
     }
     html.theme-light .tools-subnav {
         background: rgba(21,15,38,0.9);
@@ -190,9 +191,6 @@
         background: rgba(255,255,255,0.06);
     }
     html.theme-light .tool-pill:hover { color: #FFB03A; border-color: rgba(255,176,58,0.6); }
-    html.theme-light .tool-pill.active {
-        background: linear-gradient(135deg, #FF7A00, #FFB03A); color: #fff;
-    }
     html.theme-light .tool-card {
         background: linear-gradient(115deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 42%), linear-gradient(180deg, #ffffff 0%, #fffaf1 100%);
         border: 1px solid rgba(255,176,58,0.35);
@@ -239,6 +237,7 @@
         font-size: 0.95rem;
         line-height: 1.6;
     }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 <script type="application/ld+json">
 {
@@ -261,7 +260,59 @@
     { "@type": "SiteNavigationElement", "position": 6, "name": "Split PDF", "url": "https://cybernovaworks.store/tools/swapfile/split-pdf.html" },
     { "@type": "SiteNavigationElement", "position": 7, "name": "Compress PDF", "url": "https://cybernovaworks.store/tools/swapfile/compress-pdf.html" },
     { "@type": "SiteNavigationElement", "position": 8, "name": "Compress Image", "url": "https://cybernovaworks.store/tools/swapfile/compress-image.html" },
-    { "@type": "SiteNavigationElement", "position": 9, "name": "HEIC to JPG", "url": "https://cybernovaworks.store/tools/swapfile/heic-to-jpg.html" }
+    { "@type": "SiteNavigationElement", "position": 9, "name": "HEIC to JPG", "url": "https://cybernovaworks.store/tools/swapfile/heic-to-jpg.html" },
+    { "@type": "SiteNavigationElement", "position": 10, "name": "PDF to Excel", "url": "https://cybernovaworks.store/tools/swapfile/pdf-to-excel.html" },
+    { "@type": "SiteNavigationElement", "position": 11, "name": "Excel to PDF", "url": "https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html" },
+    { "@type": "SiteNavigationElement", "position": 12, "name": "PowerPoint to PDF", "url": "https://cybernovaworks.store/tools/swapfile/powerpoint-to-pdf.html" },
+    { "@type": "SiteNavigationElement", "position": 13, "name": "PDF to PowerPoint", "url": "https://cybernovaworks.store/tools/swapfile/pdf-to-powerpoint.html" },
+    { "@type": "SiteNavigationElement", "position": 14, "name": "PDF to Text", "url": "https://cybernovaworks.store/tools/swapfile/pdf-to-text.html" },
+    { "@type": "SiteNavigationElement", "position": 15, "name": "Text to PDF", "url": "https://cybernovaworks.store/tools/swapfile/text-to-pdf.html" },
+    { "@type": "SiteNavigationElement", "position": 16, "name": "HTML to PDF", "url": "https://cybernovaworks.store/tools/swapfile/html-to-pdf.html" },
+    { "@type": "SiteNavigationElement", "position": 17, "name": "PDF to HTML", "url": "https://cybernovaworks.store/tools/swapfile/pdf-to-html.html" },
+    { "@type": "SiteNavigationElement", "position": 18, "name": "EPUB to PDF", "url": "https://cybernovaworks.store/tools/swapfile/epub-to-pdf.html" },
+    { "@type": "SiteNavigationElement", "position": 19, "name": "PDF to EPUB", "url": "https://cybernovaworks.store/tools/swapfile/pdf-to-epub.html" },
+    { "@type": "SiteNavigationElement", "position": 20, "name": "Word to Text", "url": "https://cybernovaworks.store/tools/swapfile/word-to-text.html" },
+    { "@type": "SiteNavigationElement", "position": 21, "name": "ODT to PDF", "url": "https://cybernovaworks.store/tools/swapfile/odt-to-pdf.html" },
+    { "@type": "SiteNavigationElement", "position": 22, "name": "MP4 to MP3", "url": "https://cybernovaworks.store/tools/swapfile/mp4-to-mp3.html" },
+    { "@type": "SiteNavigationElement", "position": 23, "name": "MP3 to WAV", "url": "https://cybernovaworks.store/tools/swapfile/mp3-to-wav.html" },
+    { "@type": "SiteNavigationElement", "position": 24, "name": "WAV to MP3", "url": "https://cybernovaworks.store/tools/swapfile/wav-to-mp3.html" },
+    { "@type": "SiteNavigationElement", "position": 25, "name": "M4A to MP3", "url": "https://cybernovaworks.store/tools/swapfile/m4a-to-mp3.html" },
+    { "@type": "SiteNavigationElement", "position": 26, "name": "AAC to MP3", "url": "https://cybernovaworks.store/tools/swapfile/aac-to-mp3.html" },
+    { "@type": "SiteNavigationElement", "position": 27, "name": "FLAC to MP3", "url": "https://cybernovaworks.store/tools/swapfile/flac-to-mp3.html" },
+    { "@type": "SiteNavigationElement", "position": 28, "name": "OGG to MP3", "url": "https://cybernovaworks.store/tools/swapfile/ogg-to-mp3.html" },
+    { "@type": "SiteNavigationElement", "position": 29, "name": "Text to Audio", "url": "https://cybernovaworks.store/tools/swapfile/text-to-audio.html" },
+    { "@type": "SiteNavigationElement", "position": 30, "name": "PDF to Audiobook", "url": "https://cybernovaworks.store/tools/swapfile/pdf-to-audiobook.html" },
+    { "@type": "SiteNavigationElement", "position": 31, "name": "AVI to MP4", "url": "https://cybernovaworks.store/tools/swapfile/avi-to-mp4.html" },
+    { "@type": "SiteNavigationElement", "position": 32, "name": "MOV to MP4", "url": "https://cybernovaworks.store/tools/swapfile/mov-to-mp4.html" },
+    { "@type": "SiteNavigationElement", "position": 33, "name": "MKV to MP4", "url": "https://cybernovaworks.store/tools/swapfile/mkv-to-mp4.html" },
+    { "@type": "SiteNavigationElement", "position": 34, "name": "WEBM to MP4", "url": "https://cybernovaworks.store/tools/swapfile/webm-to-mp4.html" },
+    { "@type": "SiteNavigationElement", "position": 35, "name": "MP4 to AVI", "url": "https://cybernovaworks.store/tools/swapfile/mp4-to-avi.html" },
+    { "@type": "SiteNavigationElement", "position": 36, "name": "MP4 to MOV", "url": "https://cybernovaworks.store/tools/swapfile/mp4-to-mov.html" },
+    { "@type": "SiteNavigationElement", "position": 37, "name": "MP4 to GIF", "url": "https://cybernovaworks.store/tools/swapfile/mp4-to-gif.html" },
+    { "@type": "SiteNavigationElement", "position": 38, "name": "GIF to MP4", "url": "https://cybernovaworks.store/tools/swapfile/gif-to-mp4.html" },
+    { "@type": "SiteNavigationElement", "position": 39, "name": "Video to MP3", "url": "https://cybernovaworks.store/tools/swapfile/video-to-mp3.html" },
+    { "@type": "SiteNavigationElement", "position": 40, "name": "Compress Video", "url": "https://cybernovaworks.store/tools/swapfile/compress-video.html" },
+    { "@type": "SiteNavigationElement", "position": 41, "name": "3GP to MP4", "url": "https://cybernovaworks.store/tools/swapfile/3gp-to-mp4.html" },
+    { "@type": "SiteNavigationElement", "position": 42, "name": "FLV to MP4", "url": "https://cybernovaworks.store/tools/swapfile/flv-to-mp4.html" },
+    { "@type": "SiteNavigationElement", "position": 43, "name": "JPG to PNG", "url": "https://cybernovaworks.store/tools/swapfile/jpg-to-png.html" },
+    { "@type": "SiteNavigationElement", "position": 44, "name": "PNG to JPG", "url": "https://cybernovaworks.store/tools/swapfile/png-to-jpg.html" },
+    { "@type": "SiteNavigationElement", "position": 45, "name": "WEBP to JPG", "url": "https://cybernovaworks.store/tools/swapfile/webp-to-jpg.html" },
+    { "@type": "SiteNavigationElement", "position": 46, "name": "BMP to JPG", "url": "https://cybernovaworks.store/tools/swapfile/bmp-to-jpg.html" },
+    { "@type": "SiteNavigationElement", "position": 47, "name": "SVG to PNG", "url": "https://cybernovaworks.store/tools/swapfile/svg-to-png.html" },
+    { "@type": "SiteNavigationElement", "position": 48, "name": "TIFF to JPG", "url": "https://cybernovaworks.store/tools/swapfile/tiff-to-jpg.html" },
+    { "@type": "SiteNavigationElement", "position": 49, "name": "PNG to SVG", "url": "https://cybernovaworks.store/tools/swapfile/png-to-svg.html" },
+    { "@type": "SiteNavigationElement", "position": 50, "name": "Image to Base64", "url": "https://cybernovaworks.store/tools/swapfile/image-to-base64.html" },
+    { "@type": "SiteNavigationElement", "position": 51, "name": "CSV to Excel", "url": "https://cybernovaworks.store/tools/swapfile/csv-to-excel.html" },
+    { "@type": "SiteNavigationElement", "position": 52, "name": "Excel to CSV", "url": "https://cybernovaworks.store/tools/swapfile/excel-to-csv.html" },
+    { "@type": "SiteNavigationElement", "position": 53, "name": "JSON to CSV", "url": "https://cybernovaworks.store/tools/swapfile/json-to-csv.html" },
+    { "@type": "SiteNavigationElement", "position": 54, "name": "CSV to JSON", "url": "https://cybernovaworks.store/tools/swapfile/csv-to-json.html" },
+    { "@type": "SiteNavigationElement", "position": 55, "name": "XML to JSON", "url": "https://cybernovaworks.store/tools/swapfile/xml-to-json.html" },
+    { "@type": "SiteNavigationElement", "position": 56, "name": "JSON to XML", "url": "https://cybernovaworks.store/tools/swapfile/json-to-xml.html" },
+    { "@type": "SiteNavigationElement", "position": 57, "name": "Excel to Google Sheets", "url": "https://cybernovaworks.store/tools/swapfile/excel-to-google-sheets.html" },
+    { "@type": "SiteNavigationElement", "position": 58, "name": "Folder to ZIP", "url": "https://cybernovaworks.store/tools/swapfile/folder-to-zip.html" },
+    { "@type": "SiteNavigationElement", "position": 59, "name": "TTF to WOFF", "url": "https://cybernovaworks.store/tools/swapfile/ttf-to-woff.html" },
+    { "@type": "SiteNavigationElement", "position": 60, "name": "OBJ to STL", "url": "https://cybernovaworks.store/tools/swapfile/obj-to-stl.html" },
+    { "@type": "SiteNavigationElement", "position": 61, "name": "Image to Text", "url": "https://cybernovaworks.store/tools/swapfile/image-to-text.html" }
   ]
 }
 </script>
@@ -272,7 +323,8 @@
   "mainEntity": [
     { "@type": "Question", "name": "Is Swapfile free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes \u2014 every tool is free to use, with no account or sign-up." } },
     { "@type": "Question", "name": "Are my files uploaded anywhere?", "acceptedAnswer": { "@type": "Answer", "text": "No. Conversion happens locally in your browser using JavaScript; files never leave your device." } },
-    { "@type": "Question", "name": "Is there a file size limit?", "acceptedAnswer": { "@type": "Answer", "text": "Only the limits of your own device's memory \u2014 very large files may be slower to process." } }
+    { "@type": "Question", "name": "Is there a file size limit?", "acceptedAnswer": { "@type": "Answer", "text": "Only the limits of your own device's memory \u2014 very large files may be slower to process." } },
+    { "@type": "Question", "name": "Do video tools need special software?", "acceptedAnswer": { "@type": "Answer", "text": "No. A small video engine loads once in your browser on first use, then converts files locally." } }
   ]
 }
 </script>
@@ -307,15 +359,14 @@
 <!-- Tools sub-navigation bar -->
 <div class="tools-subnav" id="toolsSubnav">
     <span class="tools-subnav-label"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</span>
-    <a class="tool-pill" href="image-to-pdf.html"><i class="fa-solid fa-file-image"></i> Image to PDF</a>
-    <a class="tool-pill" href="pdf-to-image.html"><i class="fa-solid fa-images"></i> PDF to Image</a>
-    <a class="tool-pill" href="word-to-pdf.html"><i class="fa-solid fa-file-word"></i> Word to PDF</a>
-    <a class="tool-pill" href="pdf-to-word.html"><i class="fa-solid fa-file-pen"></i> PDF to Word</a>
-    <a class="tool-pill" href="merge-pdf.html"><i class="fa-solid fa-object-group"></i> Merge PDF</a>
-    <a class="tool-pill" href="split-pdf.html"><i class="fa-solid fa-scissors"></i> Split PDF</a>
-    <a class="tool-pill" href="compress-pdf.html"><i class="fa-solid fa-file-zipper"></i> Compress PDF</a>
-    <a class="tool-pill" href="compress-image.html"><i class="fa-solid fa-compress"></i> Compress Image</a>
-    <a class="tool-pill" href="heic-to-jpg.html"><i class="fa-solid fa-mobile-screen-button"></i> HEIC to JPG</a>
+    <a class="tool-pill" href="#cat-doc"><i class="fa-solid fa-file-lines"></i> Documents</a>
+    <a class="tool-pill" href="#cat-audio"><i class="fa-solid fa-music"></i> Audio</a>
+    <a class="tool-pill" href="#cat-video"><i class="fa-solid fa-video"></i> Video</a>
+    <a class="tool-pill" href="#cat-image"><i class="fa-solid fa-image"></i> Images</a>
+    <a class="tool-pill" href="#cat-data"><i class="fa-solid fa-table"></i> Data & Spreadsheets</a>
+    <a class="tool-pill" href="#cat-archive"><i class="fa-solid fa-box-archive"></i> Archive</a>
+    <a class="tool-pill" href="#cat-font"><i class="fa-solid fa-font"></i> Fonts & Code</a>
+    <a class="tool-pill" href="#cat-special"><i class="fa-solid fa-wand-magic-sparkles"></i> Accessibility & AI</a>
 </div>
 
 <section class="page-hero">
@@ -326,8 +377,8 @@
             <path d="M14 40 L20 34 L14 28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
-    <h1>Free file tools that never leave your browser</h1>
-    <p>Swapfile is a small toolbox for everyday file problems — merging PDFs, shrinking a photo, turning a Word doc into a PDF. Every tool runs on your device with JavaScript, so nothing is ever uploaded to a server.</p>
+    <h1>60+ free file tools that never leave your browser</h1>
+    <p>Swapfile is a small toolbox for everyday file problems — merging PDFs, shrinking a photo, turning a Word doc into a PDF, ripping a video to MP3. Every tool runs on your device with JavaScript, so nothing is ever uploaded to a server.</p>
 </section>
 
 <!-- Ad Spot - Banner (728x90 Desktop) -->
@@ -364,8 +415,84 @@
     </div>
 </div>
 
-<section class="tools-section">
-    <div class="tool-grid">
+    <section class="tools-section tool-section" id="cat-doc">
+        <div class="section-header cat-head">
+            <h3><i class="fa-solid fa-file-lines"></i> Documents</h3>
+            <p>PDF, Word, Excel, PowerPoint & more</p>
+        </div>
+        <div class="tool-grid">
+        <a class="tool-card tool-c-green" href="pdf-to-excel.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-excel"></i></span>
+            <span class="tool-card-name">PDF to Excel</span>
+            <span class="tool-card-desc">Extract tables and text from a PDF into an editable Excel file, entirely in your browser.</span>
+        </a>
+        <a class="tool-card tool-c-red" href="excel-to-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-pdf"></i></span>
+            <span class="tool-card-name">Excel to PDF</span>
+            <span class="tool-card-desc">Turn an Excel workbook into a clean, shareable PDF without uploading it anywhere.</span>
+        </a>
+        <a class="tool-card tool-c-orange" href="powerpoint-to-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-powerpoint"></i></span>
+            <span class="tool-card-name">PowerPoint to PDF</span>
+            <span class="tool-card-desc">Turn a PowerPoint .pptx deck into a PDF that shares cleanly. Runs fully in your browser.</span>
+        </a>
+        <a class="tool-card tool-c-orange" href="pdf-to-powerpoint.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-object-group"></i></span>
+            <span class="tool-card-name">PDF to PowerPoint</span>
+            <span class="tool-card-desc">Turn a PDF into an editable PowerPoint file with one slide per page — no uploads.</span>
+        </a>
+        <a class="tool-card tool-c-cyan" href="pdf-to-text.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-lines"></i></span>
+            <span class="tool-card-name">PDF to Text</span>
+            <span class="tool-card-desc">Extract all visible text from a PDF into a plain .txt file, right in your browser.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="text-to-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file"></i></span>
+            <span class="tool-card-name">Text to PDF</span>
+            <span class="tool-card-desc">Convert a plain text or Markdown file into a clean PDF in seconds.</span>
+        </a>
+        <a class="tool-card tool-c-indigo" href="html-to-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-code"></i></span>
+            <span class="tool-card-name">HTML to PDF</span>
+            <span class="tool-card-desc">Save an HTML file or snippet as a styled PDF document.</span>
+        </a>
+        <a class="tool-card tool-c-indigo" href="pdf-to-html.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-code"></i></span>
+            <span class="tool-card-name">PDF to HTML</span>
+            <span class="tool-card-desc">Convert the text of a PDF into a clean, styled HTML page.</span>
+        </a>
+        <a class="tool-card tool-c-purple" href="epub-to-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-book"></i></span>
+            <span class="tool-card-name">EPUB to PDF</span>
+            <span class="tool-card-desc">Read an EPUB ebook and export it as a paginated PDF.</span>
+        </a>
+        <a class="tool-card tool-c-purple" href="pdf-to-epub.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-book-open"></i></span>
+            <span class="tool-card-name">PDF to EPUB</span>
+            <span class="tool-card-desc">Build a text-based EPUB ebook from a PDF, optimized for reflowing readers.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="word-to-text.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-word"></i></span>
+            <span class="tool-card-name">Word to Text</span>
+            <span class="tool-card-desc">Extract plain text from a Word document in one click.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="odt-to-pdf.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-lines"></i></span>
+            <span class="tool-card-name">ODT to PDF</span>
+            <span class="tool-card-desc">Convert an OpenDocument text file into a PDF right in the browser.</span>
+        </a>
         <a class="tool-card tool-c-blue" href="image-to-pdf.html">
             <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             <span class="tool-card-icon"><i class="fa-solid fa-file-image"></i></span>
@@ -376,19 +503,19 @@
             <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             <span class="tool-card-icon"><i class="fa-solid fa-images"></i></span>
             <span class="tool-card-name">PDF to Image</span>
-            <span class="tool-card-desc">Turn every page of a PDF into a separate PNG image you can download individually.</span>
+            <span class="tool-card-desc">Turn every page of a PDF into a separate PNG image.</span>
         </a>
         <a class="tool-card tool-c-indigo" href="word-to-pdf.html">
             <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             <span class="tool-card-icon"><i class="fa-solid fa-file-word"></i></span>
             <span class="tool-card-name">Word to PDF</span>
-            <span class="tool-card-desc">Turn a .doc or .docx file into a PDF you can share or print.</span>
+            <span class="tool-card-desc">Turn a .doc or .docx file into a PDF.</span>
         </a>
         <a class="tool-card tool-c-purple" href="pdf-to-word.html">
             <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             <span class="tool-card-icon"><i class="fa-solid fa-file-pen"></i></span>
             <span class="tool-card-name">PDF to Word</span>
-            <span class="tool-card-desc">Pull the text out of a PDF into an editable Word-compatible file.</span>
+            <span class="tool-card-desc">Pull the text out of a PDF into an editable Word file.</span>
         </a>
         <a class="tool-card tool-c-cyan" href="merge-pdf.html">
             <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
@@ -400,45 +527,331 @@
             <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             <span class="tool-card-icon"><i class="fa-solid fa-scissors"></i></span>
             <span class="tool-card-name">Split PDF</span>
-            <span class="tool-card-desc">Break a multi-page PDF into individual single-page files.</span>
+            <span class="tool-card-desc">Break a multi-page PDF into single-page files.</span>
         </a>
         <a class="tool-card tool-c-pink" href="compress-pdf.html">
             <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             <span class="tool-card-icon"><i class="fa-solid fa-file-zipper"></i></span>
             <span class="tool-card-name">Compress PDF</span>
-            <span class="tool-card-desc">Reduce a PDF's file size so it's easier to email or upload.</span>
+            <span class="tool-card-desc">Reduce a PDF's file size for email or upload.</span>
+        </a>
+        </div>
+    </section>
+
+    <section class="tools-section tool-section" id="cat-audio">
+        <div class="section-header cat-head">
+            <h3><i class="fa-solid fa-music"></i> Audio</h3>
+            <p>Convert, extract & turn text into speech</p>
+        </div>
+        <div class="tool-grid">
+        <a class="tool-card tool-c-pink" href="mp4-to-mp3.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-music"></i></span>
+            <span class="tool-card-name">MP4 to MP3</span>
+            <span class="tool-card-desc">Extract the audio from an MP4 video and save it as an MP3.</span>
+        </a>
+        <a class="tool-card tool-c-cyan" href="mp3-to-wav.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-wave-square"></i></span>
+            <span class="tool-card-name">MP3 to WAV</span>
+            <span class="tool-card-desc">Convert MP3 and other compressed audio to lossless WAV.</span>
+        </a>
+        <a class="tool-card tool-c-pink" href="wav-to-mp3.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-audio"></i></span>
+            <span class="tool-card-name">WAV to MP3</span>
+            <span class="tool-card-desc">Encode WAV audio into a smaller MP3 file.</span>
+        </a>
+        <a class="tool-card tool-c-red" href="m4a-to-mp3.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-audio"></i></span>
+            <span class="tool-card-name">M4A to MP3</span>
+            <span class="tool-card-desc">Turn M4A audio recordings into MP3 files that play anywhere.</span>
+        </a>
+        <a class="tool-card tool-c-yellow" href="aac-to-mp3.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-audio"></i></span>
+            <span class="tool-card-name">AAC to MP3</span>
+            <span class="tool-card-desc">Convert AAC audio files to MP3 instantly.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="flac-to-mp3.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-audio"></i></span>
+            <span class="tool-card-name">FLAC to MP3</span>
+            <span class="tool-card-desc">Convert lossless FLAC audio to portable MP3.</span>
+        </a>
+        <a class="tool-card tool-c-green" href="ogg-to-mp3.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-audio"></i></span>
+            <span class="tool-card-name">OGG to MP3</span>
+            <span class="tool-card-desc">Turn OGG audio into playable-anywhere MP3.</span>
+        </a>
+        <a class="tool-card tool-c-indigo" href="text-to-audio.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-volume-high"></i></span>
+            <span class="tool-card-name">Text to Audio</span>
+            <span class="tool-card-desc">Turn any text file into a spoken WAV audio file with text-to-speech.</span>
+        </a>
+        <a class="tool-card tool-c-purple" href="pdf-to-audiobook.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-headphones"></i></span>
+            <span class="tool-card-name">PDF to Audiobook</span>
+            <span class="tool-card-desc">Turn any PDF into a spoken WAV audiobook you can listen to anywhere.</span>
+        </a>
+        </div>
+    </section>
+
+    <section class="tools-section tool-section" id="cat-video">
+        <div class="section-header cat-head">
+            <h3><i class="fa-solid fa-video"></i> Video</h3>
+            <p>Re-encode, remux, compress & rip</p>
+        </div>
+        <div class="tool-grid">
+        <a class="tool-card tool-c-blue" href="avi-to-mp4.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-film"></i></span>
+            <span class="tool-card-name">AVI to MP4</span>
+            <span class="tool-card-desc">Convert AVI video files to modern MP4 format.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="mov-to-mp4.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-film"></i></span>
+            <span class="tool-card-name">MOV to MP4</span>
+            <span class="tool-card-desc">Convert QuickTime MOV videos to universal MP4.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="mkv-to-mp4.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-film"></i></span>
+            <span class="tool-card-name">MKV to MP4</span>
+            <span class="tool-card-desc">Convert MKV video containers to broadly-compatible MP4.</span>
+        </a>
+        <a class="tool-card tool-c-green" href="webm-to-mp4.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-film"></i></span>
+            <span class="tool-card-name">WEBM to MP4</span>
+            <span class="tool-card-desc">Turn WEBM video into MP4 for maximum compatibility.</span>
+        </a>
+        <a class="tool-card tool-c-orange" href="mp4-to-avi.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-video"></i></span>
+            <span class="tool-card-name">MP4 to AVI</span>
+            <span class="tool-card-desc">Convert MP4 into a lossless AVI file.</span>
+        </a>
+        <a class="tool-card tool-c-purple" href="mp4-to-mov.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-clapperboard"></i></span>
+            <span class="tool-card-name">MP4 to MOV</span>
+            <span class="tool-card-desc">Convert MP4 to QuickTime MOV container.</span>
+        </a>
+        <a class="tool-card tool-c-red" href="mp4-to-gif.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-image"></i></span>
+            <span class="tool-card-name">MP4 to GIF</span>
+            <span class="tool-card-desc">Turn any MP4 clip into an animated GIF.</span>
+        </a>
+        <a class="tool-card tool-c-orange" href="gif-to-mp4.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-clapperboard"></i></span>
+            <span class="tool-card-name">GIF to MP4</span>
+            <span class="tool-card-desc">Convert animated GIFs into compressed MP4 video.</span>
+        </a>
+        <a class="tool-card tool-c-pink" href="video-to-mp3.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-music"></i></span>
+            <span class="tool-card-name">Video to MP3</span>
+            <span class="tool-card-desc">Extract the audio track from any video and save it as MP3.</span>
+        </a>
+        <a class="tool-card tool-c-green" href="compress-video.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-compress"></i></span>
+            <span class="tool-card-name">Compress Video</span>
+            <span class="tool-card-desc">Reduce video file size with a quality-first re-encode.</span>
+        </a>
+        <a class="tool-card tool-c-yellow" href="3gp-to-mp4.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+            <span class="tool-card-name">3GP to MP4</span>
+            <span class="tool-card-desc">Convert 3GP phone videos to MP4.</span>
+        </a>
+        <a class="tool-card tool-c-red" href="flv-to-mp4.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-tv"></i></span>
+            <span class="tool-card-name">FLV to MP4</span>
+            <span class="tool-card-desc">Convert FLV video files to MP4.</span>
+        </a>
+        </div>
+    </section>
+
+    <section class="tools-section tool-section" id="cat-image">
+        <div class="section-header cat-head">
+            <h3><i class="fa-solid fa-image"></i> Images</h3>
+            <p>Convert between every common format</p>
+        </div>
+        <div class="tool-grid">
+        <a class="tool-card tool-c-green" href="jpg-to-png.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-image"></i></span>
+            <span class="tool-card-name">JPG to PNG</span>
+            <span class="tool-card-desc">Convert JPG images to lossless PNG format.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="png-to-jpg.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-image"></i></span>
+            <span class="tool-card-name">PNG to JPG</span>
+            <span class="tool-card-desc">Convert PNG images to JPG to shrink file size.</span>
+        </a>
+        <a class="tool-card tool-c-orange" href="webp-to-jpg.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-image"></i></span>
+            <span class="tool-card-name">WEBP to JPG</span>
+            <span class="tool-card-desc">Convert WEBP images to JPG.</span>
+        </a>
+        <a class="tool-card tool-c-indigo" href="bmp-to-jpg.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-image"></i></span>
+            <span class="tool-card-name">BMP to JPG</span>
+            <span class="tool-card-desc">Convert BMP images to JPG.</span>
+        </a>
+        <a class="tool-card tool-c-purple" href="svg-to-png.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-vector-square"></i></span>
+            <span class="tool-card-name">SVG to PNG</span>
+            <span class="tool-card-desc">Convert SVG vector graphics to PNG raster images.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="tiff-to-jpg.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-image"></i></span>
+            <span class="tool-card-name">TIFF to JPG</span>
+            <span class="tool-card-desc">Convert TIFF scans to JPG.</span>
+        </a>
+        <a class="tool-card tool-c-red" href="png-to-svg.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-vector-square"></i></span>
+            <span class="tool-card-name">PNG to SVG</span>
+            <span class="tool-card-desc">Trace bitmap images into scalable vector SVG files.</span>
+        </a>
+        <a class="tool-card tool-c-yellow" href="image-to-base64.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-code"></i></span>
+            <span class="tool-card-name">Image to Base64</span>
+            <span class="tool-card-desc">Turn images into Base64 data strings for developers.</span>
         </a>
         <a class="tool-card tool-c-yellow" href="compress-image.html">
             <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             <span class="tool-card-icon"><i class="fa-solid fa-compress"></i></span>
             <span class="tool-card-name">Compress Image</span>
-            <span class="tool-card-desc">Reduce a photo's file size for faster uploads or sharing.</span>
+            <span class="tool-card-desc">Reduce a photo's file size for faster sharing.</span>
         </a>
         <a class="tool-card tool-c-red" href="heic-to-jpg.html">
             <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             <span class="tool-card-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
             <span class="tool-card-name">HEIC to JPG</span>
-            <span class="tool-card-desc">Turn iPhone HEIC or HEIF photos into standard JPG files that open anywhere.</span>
+            <span class="tool-card-desc">Turn iPhone HEIC photos into standard JPG files.</span>
         </a>
-    </div>
-</section>
+        </div>
+    </section>
 
-<!-- Mid-page Ad - Banner (468x60) -->
-<div class="ad-spot" style="padding: 0 10% 10px;">
-    <div class="ad-inner">
-        <span class="ad-label">Advertisement</span>
-        <script>
-          atOptions = {
-            'key' : '3afeb3572cb1d59418c3274a323fd920',
-            'format' : 'iframe',
-            'height' : 60,
-            'width' : 468,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highrevenueformat.com/3afeb3572cb1d59418c3274a323fd920/invoke.js"></script>
-    </div>
-</div>
+    <section class="tools-section tool-section" id="cat-data">
+        <div class="section-header cat-head">
+            <h3><i class="fa-solid fa-table"></i> Data & Spreadsheets</h3>
+            <p>CSV, JSON, XML & Excel</p>
+        </div>
+        <div class="tool-grid">
+        <a class="tool-card tool-c-green" href="csv-to-excel.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-excel"></i></span>
+            <span class="tool-card-name">CSV to Excel</span>
+            <span class="tool-card-desc">Convert CSV data into an Excel workbook.</span>
+        </a>
+        <a class="tool-card tool-c-green" href="excel-to-csv.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-csv"></i></span>
+            <span class="tool-card-name">Excel to CSV</span>
+            <span class="tool-card-desc">Convert Excel sheets to CSV.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="json-to-csv.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-csv"></i></span>
+            <span class="tool-card-name">JSON to CSV</span>
+            <span class="tool-card-desc">Convert JSON data to CSV.</span>
+        </a>
+        <a class="tool-card tool-c-blue" href="csv-to-json.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-code"></i></span>
+            <span class="tool-card-name">CSV to JSON</span>
+            <span class="tool-card-desc">Convert CSV into JSON data.</span>
+        </a>
+        <a class="tool-card tool-c-purple" href="xml-to-json.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-code"></i></span>
+            <span class="tool-card-name">XML to JSON</span>
+            <span class="tool-card-desc">Convert XML to JSON.</span>
+        </a>
+        <a class="tool-card tool-c-purple" href="json-to-xml.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-code"></i></span>
+            <span class="tool-card-name">JSON to XML</span>
+            <span class="tool-card-desc">Convert JSON to XML.</span>
+        </a>
+        <a class="tool-card tool-c-green" href="excel-to-google-sheets.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-table"></i></span>
+            <span class="tool-card-name">Excel to Google Sheets</span>
+            <span class="tool-card-desc">Prepare an Excel file for a perfect Google Sheets import.</span>
+        </a>
+        </div>
+    </section>
+
+    <section class="tools-section tool-section" id="cat-archive">
+        <div class="section-header cat-head">
+            <h3><i class="fa-solid fa-box-archive"></i> Archive</h3>
+            <p>Folders into compressed ZIPs</p>
+        </div>
+        <div class="tool-grid">
+        <a class="tool-card tool-c-orange" href="folder-to-zip.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-file-zipper"></i></span>
+            <span class="tool-card-name">Folder to ZIP</span>
+            <span class="tool-card-desc">Zip a whole folder including its sub-folders.</span>
+        </a>
+        </div>
+    </section>
+
+    <section class="tools-section tool-section" id="cat-font">
+        <div class="section-header cat-head">
+            <h3><i class="fa-solid fa-font"></i> Fonts & Code</h3>
+            <p>Web fonts & 3D models</p>
+        </div>
+        <div class="tool-grid">
+        <a class="tool-card tool-c-blue" href="ttf-to-woff.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-font"></i></span>
+            <span class="tool-card-name">TTF to WOFF</span>
+            <span class="tool-card-desc">Convert desktop fonts into web-friendly WOFF.</span>
+        </a>
+        <a class="tool-card tool-c-purple" href="obj-to-stl.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-cube"></i></span>
+            <span class="tool-card-name">OBJ to STL</span>
+            <span class="tool-card-desc">Convert OBJ 3D models into STL for 3D printing.</span>
+        </a>
+        </div>
+    </section>
+
+    <section class="tools-section tool-section" id="cat-special">
+        <div class="section-header cat-head">
+            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Accessibility & AI</h3>
+            <p>OCR, text-to-speech, vector tracing</p>
+        </div>
+        <div class="tool-grid">
+        <a class="tool-card tool-c-green" href="image-to-text.html">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <span class="tool-card-name">Image to Text</span>
+            <span class="tool-card-desc">Extract text from images and scans using OCR.</span>
+        </a>
+        </div>
+    </section>
 
 <section class="about about-sec">
     <div class="section-header">
@@ -452,6 +865,8 @@
         <dd>Yes — every tool is free to use, with no account or sign-up.</dd>
         <dt>Are my files uploaded anywhere?</dt>
         <dd>No. Conversion happens locally in your browser using JavaScript; files never leave your device.</dd>
+        <dt>Do video tools need special software?</dt>
+        <dd>No. A small video engine loads into your browser on first use (about 30 MB, cached after that), then converts entirely on your device.</dd>
         <dt>Is there a file size limit?</dt>
         <dd>Only the limits of your own device's memory — very large files may be slower to process.</dd>
     </dl>
@@ -490,10 +905,6 @@
 </footer>
 
 <div id="stars-container"></div>
-
-<!-- Adsterra: In-Page Push -->
-<script async="async" data-cfasync="false" src="https://pl31285795.profitableratecpmnetwork.com/f72bbe695e2631ccda623186c52d230f/invoke.js"></script>
-<div id="container-f72bbe695e2631ccda623186c52d230f"></div>
 
 <script src="../../script.js"></script>
 </body>

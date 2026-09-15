@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CSV to JSON Converter — Free, No Upload | Swapfile</title>
+<meta name="description" content="Convert CSV into JSON data. Runs 100% in your browser — nothing is uploaded." />
+<link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/csv-to-json.html" />
+<meta name="theme-color" content="#050510" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="CSV to JSON Converter — Free, No Upload | Swapfile" />
+<meta property="og:description" content="Convert CSV into JSON data." />
+<meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/csv-to-json.html" />
+<meta name="twitter:card" content="summary" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="styles.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Swapfile — CSV to JSON",
+  "url": "https://cybernovaworks.store/tools/swapfile/csv-to-json.html",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any (runs in browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Convert CSV into JSON data."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Is the JSON valid for APIs?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, it's standard JSON you can paste into your code." } },
+    { "@type": "Question", "name": "Can I pick the delimiter?", "acceptedAnswer": { "@type": "Answer", "text": "Commas and tabs are auto-detected." } }
+  ]
+}
+</script>
+</head>
+<body data-tool="csv2json">
+
+<header class="navbar" id="navbar">
+    <div class="logo">
+        <a href="../../index.html">
+            <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+        </a>
+    </div>
+
+    <div class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../about.html">About Us</a>
+        <a href="../../web-development.html">Services</a>
+        <a href="../../store.html" class="nav-store-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+        <a href="index.html" class="active">Tools</a>
+        <a href="../../blog/index.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+    </nav>
+    <div class="nav-action">
+        <a href="../../contact.html" class="btn btn-outline glow-blue">Get a Quote</a>
+    </div>
+</header>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>CSV to JSON</h1>
+    <p class="tagline">Convert a CSV table into structured JSON — great for APIs.</p>
+  </header>
+
+  <main class="panel">
+    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose files">
+      <input type="file" id="fileInput" hidden />
+      <svg class="drop-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <path d="M12 4v11m0-11l-4 4m4-4l4 4M5 17v2a2 2 0 002 2h10a2 2 0 002-2v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="drop-label" id="dropLabel">Drop a file here, or click to browse</p>
+      <p class="drop-hint" id="dropHint">No upload — everything runs in your browser</p>
+    </div>
+
+    <ul class="filelist" id="fileList" aria-live="polite"></ul>
+
+    <button class="convert-btn" id="convertBtn" disabled>Convert</button>
+
+    <div class="results" id="results" aria-live="polite"></div>
+  </main>
+
+  <section class="about">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>Add your CSV file.</li>
+      <li>Header row becomes keys.</li>
+      <li>Download the JSON.</li>
+    </ol>
+
+    <h3>Common questions</h3>
+    <dl>
+      <dt>Is the JSON valid for APIs?</dt>
+      <dd>Yes, it's standard JSON you can paste into your code.</dd>
+      <dt>Can I pick the delimiter?</dt>
+      <dd>Commas and tabs are auto-detected.</dd>
+    </dl>
+  </section>
+
+  <nav class="other-tools" aria-label="Other tools">
+    <h3>Related tools</h3>
+    <ul>
+      <li><a href="csv-to-excel.html">Csv To Excel</a></li>
+      <li><a href="excel-to-csv.html">Excel To Csv</a></li>
+      <li><a href="json-to-csv.html">Json To Csv</a></li>
+      <li><a href="xml-to-json.html">Xml To Json</a></li>
+      <li><a href="json-to-xml.html">Json To Xml</a></li>
+      <li><a href="excel-to-google-sheets.html">Excel To Google Sheets</a></li>
+      <li><a href="index.html">View all tools →</a></li>
+    </ul>
+  </nav>
+
+  
+
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <a href="../../index.html" style="text-decoration: none;">
+                <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+            </a>
+        </div>
+        <div class="footer-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../about.html">About</a>
+            <a href="../../web-development.html">Web Development</a>
+            <a href="../../app-development.html">App Development</a>
+            <a href="../../graphic-design.html">Graphic Design</a>
+            <a href="../../software-solutions.html">Software Solutions</a>
+            <a href="../../store.html">Store</a>
+            <a href="../../blog/index.html">Blog</a>
+            <a href="index.html">Free Tools</a>
+            <a href="../../contact.html">Contact</a>
+            <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://x.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/cybernovaworks-bit" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 CyberNovaWorks.store. All rights reserved.</p>
+    </div>
+</footer>
+
+<div id="stars-container"></div>
+
+<script src="../../script.js"></script>
+<script src="converts.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
