@@ -97,29 +97,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Active Nav Link on Scroll ---
-    const sections = document.querySelectorAll('section[id]');
+    // --- Active Nav Link on Scroll (same-page anchor highlighting only) ---
+    const anchorSections = Array.from(document.querySelectorAll('section[id]'));
     const navLinksAll = document.querySelectorAll('.nav-links a');
 
     const highlightNavOnScroll = () => {
         const scrollY = window.scrollY + 120;
-        sections.forEach(section => {
+        let currentId = null;
+
+        for (const section of anchorSections) {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                navLinksAll.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + sectionId) {
-                        link.classList.add('active');
-                    }
-                });
+                currentId = '#' + section.getAttribute('id');
+                break;
             }
+        }
+
+        // At the very bottom, prefer the last anchor section on the page
+        if (!currentId) {
+            const last = anchorSections[anchorSections.length - 1];
+            if (last && scrollY >= last.offsetTop) {
+                currentId = '#' + last.getAttribute('id');
+            }
+        }
+
+        navLinksAll.forEach(link => {
+            if (!link.getAttribute('href') || !link.getAttribute('href').startsWith('#')) return;
+            link.classList.toggle('active', link.getAttribute('href') === currentId);
         });
     };
 
     window.addEventListener('scroll', highlightNavOnScroll);
+    window.addEventListener('load', highlightNavOnScroll);
+    highlightNavOnScroll();
 
     // --- Scroll Reveal Animations ---
     const revealElements = document.querySelectorAll('.reveal, .service-card, .portfolio-card, .feature-item, .testimonial-card');
