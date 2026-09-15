@@ -22,6 +22,16 @@
 <link rel="stylesheet" href="../../styles.css" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<script>
+    document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
+        e.stopPropagation();
+        window.location.href = href;
+    }, true);
+</script>
 <style>
     .tools-section {
         max-width: 1100px;
@@ -320,6 +330,40 @@
     <p>Swapfile is a small toolbox for everyday file problems — merging PDFs, shrinking a photo, turning a Word doc into a PDF. Every tool runs on your device with JavaScript, so nothing is ever uploaded to a server.</p>
 </section>
 
+<!-- Ad Spot - Banner (728x90 Desktop) -->
+<div class="ad-spot ad-banner">
+    <div class="ad-inner">
+        <span class="ad-label">Advertisement</span>
+        <script>
+          atOptions = {
+            'key' : '9bb5aaf21376da543b17c275cf11d995',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/9bb5aaf21376da543b17c275cf11d995/invoke.js"></script>
+    </div>
+</div>
+
+<!-- Ad Spot - Mobile Banner (320x50) -->
+<div class="ad-spot ad-mobile-banner">
+    <div class="ad-inner">
+        <span class="ad-label">Advertisement</span>
+        <script>
+          atOptions = {
+            'key' : '3f3737150a4961600ff7930cb4706e7b',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/3f3737150a4961600ff7930cb4706e7b/invoke.js"></script>
+    </div>
+</div>
+
 <section class="tools-section">
     <div class="tool-grid">
         <a class="tool-card tool-c-blue" href="image-to-pdf.html">
@@ -379,6 +423,23 @@
     </div>
 </section>
 
+<!-- Mid-page Ad - Banner (468x60) -->
+<div class="ad-spot" style="padding: 0 10% 10px;">
+    <div class="ad-inner">
+        <span class="ad-label">Advertisement</span>
+        <script>
+          atOptions = {
+            'key' : '3afeb3572cb1d59418c3274a323fd920',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/3afeb3572cb1d59418c3274a323fd920/invoke.js"></script>
+    </div>
+</div>
+
 <section class="about about-sec">
     <div class="section-header">
         <h2>Why <span class="text-blue">Swapfile</span> is different</h2>
@@ -429,6 +490,10 @@
 </footer>
 
 <div id="stars-container"></div>
+
+<!-- Adsterra: In-Page Push -->
+<script async="async" data-cfasync="false" src="https://pl31285795.profitableratecpmnetwork.com/f72bbe695e2631ccda623186c52d230f/invoke.js"></script>
+<div id="container-f72bbe695e2631ccda623186c52d230f"></div>
 
 <script src="../../script.js"></script>
 </body>
