@@ -481,6 +481,15 @@ function toolPage(t) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
+<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${t.h1} Converter — Free, No Upload | Swapfile</title>
@@ -643,6 +652,15 @@ function hubPage() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
+<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Free File Tools — 60+ Converters (PDF, Word, Image, Video & More) | Swapfile</title>
