@@ -311,6 +311,24 @@
             color: var(--vibrant-blue);
             border: 1px solid rgba(0,229,255,0.3);
         }
+        .badge-soon {
+            background: rgba(234,179,8,0.15);
+            color: #EAB308;
+            border: 1px solid rgba(234,179,8,0.3);
+        }
+        .app-release {
+            color: #10B981;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .app-soon {
+            cursor: not-allowed;
+            opacity: 0.65;
+        }
+        .app-soon:hover {
+            box-shadow: none;
+            transform: none;
+        }
 
         .app-info {
             padding: 18px;
@@ -590,16 +608,14 @@
                 <p class="app-category">App > Music</p>
                 <p class="app-desc">Feature-packed music player with 10-band equalizer, synced lyrics, hands-free mode, album art browser and a home-screen widget.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.9</span>
-                    <span><i class="fa-solid fa-download"></i> 2K</span>
+                    <span class="app-release"><i class="fa-solid fa-rocket"></i> New Release</span>
                     <span><i class="fa-solid fa-moon"></i> 71 MB</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price paid">$2.99</span>
                     <div class="app-actions">
                         <a href="apk/AuraMusicPlayer.apk" download rel="noopener noreferrer" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Free Trial</a>
-                        <!-- REPLACE with your PayPal payment link when ready -->
-                        <a href="YOUR_PAYPAL_PAYMENT_LINK" target="_blank" rel="noopener noreferrer" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                        <a href="contact.html" rel="noopener noreferrer" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Order via Email</a>
                     </div>
                 </div>
                 <p class="app-trial-note"><i class="fa-solid fa-tag"></i> First 10 days FREE — watch 5 ads in next 5 days for 24h access, then unlock forever for $2.99</p>
@@ -620,8 +636,7 @@
                 <p class="app-category">App > Jobs &amp; Work</p>
                 <p class="app-desc">Direct connect between workers and employers – free job posting, chat, alerts, referral rewards and identity verification. Made in India, for India.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.8</span>
-                    <span><i class="fa-solid fa-download"></i> New</span>
+                    <span class="app-release"><i class="fa-solid fa-rocket"></i> New Release</span>
                     <span><i class="fa-solid fa-moon"></i> 68 MB</span>
                 </div>
                 <div class="app-footer">
@@ -635,20 +650,18 @@
         <div class="app-card" data-type="app" data-price="free">
             <div class="app-icon-wrapper">
                 <i class="fa-solid fa-cloud-sun app-icon text-blue"></i>
-                <span class="app-badge badge-free">Free</span>
+                <span class="app-badge badge-soon">Soon</span>
             </div>
             <div class="app-info">
                 <h3>Weather Now</h3>
                 <p class="app-category">App > Utility</p>
                 <p class="app-desc">Real-time weather forecasts with beautiful animated backgrounds and location-based updates.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.5</span>
-                    <span><i class="fa-solid fa-download"></i> 12K</span>
                     <span><i class="fa-solid fa-moon"></i> 15 MB</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price free">FREE</span>
-                    <a href="#" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Download</a>
+                    <span class="app-download-btn btn-download-free app-soon"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
                 </div>
             </div>
         </div>
@@ -657,20 +670,18 @@
         <div class="app-card" data-type="game" data-price="paid">
             <div class="app-icon-wrapper game-gradient">
                 <i class="fa-solid fa-gamepad app-icon" style="color: #FF007F;"></i>
-                <span class="app-badge badge-new">New</span>
+                <span class="app-badge badge-soon">Soon</span>
             </div>
             <div class="app-info">
                 <h3>Neon Racer</h3>
                 <p class="app-category">Game > Racing</p>
                 <p class="app-desc">High-speed neon-themed racing game with customizable cars and challenging tracks.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.8</span>
-                    <span><i class="fa-solid fa-download"></i> 8.5K</span>
                     <span><i class="fa-solid fa-moon"></i> 85 MB</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price paid">$2.99</span>
-                    <a href="#" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                    <span class="app-download-btn btn-download-paid app-soon"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
                 </div>
             </div>
         </div>
@@ -679,20 +690,18 @@
         <div class="app-card" data-type="tool" data-price="free">
             <div class="app-icon-wrapper tool-gradient">
                 <i class="fa-solid fa-file-code app-icon text-blue"></i>
-                <span class="app-badge badge-free">Free</span>
+                <span class="app-badge badge-soon">Soon</span>
             </div>
             <div class="app-info">
                 <h3>CodeLite Editor</h3>
                 <p class="app-category">Tool > Developer</p>
                 <p class="app-desc">Lightweight code editor with syntax highlighting for 50+ languages and built-in terminal.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.6</span>
-                    <span><i class="fa-solid fa-download"></i> 25K</span>
                     <span><i class="fa-solid fa-moon"></i> 32 MB</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price free">FREE</span>
-                    <a href="#" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Download</a>
+                    <span class="app-download-btn btn-download-free app-soon"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
                 </div>
             </div>
         </div>
@@ -701,20 +710,18 @@
         <div class="app-card" data-type="game" data-price="free">
             <div class="app-icon-wrapper game-gradient">
                 <i class="fa-solid fa-chess app-icon" style="color: #FF007F;"></i>
-                <span class="app-badge badge-free">Free</span>
+                <span class="app-badge badge-soon">Soon</span>
             </div>
             <div class="app-info">
                 <h3>Chess Master AI</h3>
                 <p class="app-category">Game > Strategy</p>
                 <p class="app-desc">Play chess against AI with adjustable difficulty levels. Supports online multiplayer.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.7</span>
-                    <span><i class="fa-solid fa-download"></i> 18K</span>
                     <span><i class="fa-solid fa-moon"></i> 28 MB</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price free">FREE</span>
-                    <a href="#" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Download</a>
+                    <span class="app-download-btn btn-download-free app-soon"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
                 </div>
             </div>
         </div>
@@ -723,20 +730,18 @@
         <div class="app-card" data-type="app" data-price="paid">
             <div class="app-icon-wrapper edu-gradient">
                 <i class="fa-solid fa-book-open app-icon" style="color: #10B981;"></i>
-                <span class="app-badge badge-paid">Premium</span>
+                <span class="app-badge badge-soon">Soon</span>
             </div>
             <div class="app-info">
                 <h3>StudyPro</h3>
                 <p class="app-category">App > Education</p>
                 <p class="app-desc">Smart study planner with AI-powered flashcards, progress tracking, and focus timer.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.9</span>
-                    <span><i class="fa-solid fa-download"></i> 5.2K</span>
                     <span><i class="fa-solid fa-moon"></i> 40 MB</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price paid">$4.99</span>
-                    <a href="#" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                    <span class="app-download-btn btn-download-paid app-soon"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
                 </div>
             </div>
         </div>
@@ -745,20 +750,18 @@
         <div class="app-card" data-type="app" data-price="free">
             <div class="app-icon-wrapper social-gradient">
                 <i class="fa-solid fa-comments app-icon" style="color: #8A2BE2;"></i>
-                <span class="app-badge badge-free">Free</span>
+                <span class="app-badge badge-soon">Soon</span>
             </div>
             <div class="app-info">
                 <h3>ChatPulse</h3>
                 <p class="app-category">App > Social</p>
                 <p class="app-desc">End-to-end encrypted messaging with voice notes, stories, and group video calls.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.4</span>
-                    <span><i class="fa-solid fa-download"></i> 30K</span>
                     <span><i class="fa-solid fa-moon"></i> 45 MB</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price free">FREE</span>
-                    <a href="#" class="app-download-btn btn-download-free"><i class="fa-solid fa-download"></i> Download</a>
+                    <span class="app-download-btn btn-download-free app-soon"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
                 </div>
             </div>
         </div>
@@ -767,20 +770,18 @@
         <div class="app-card" data-type="game" data-price="paid">
             <div class="app-icon-wrapper game-gradient">
                 <i class="fa-solid fa-dragon app-icon" style="color: #FF007F;"></i>
-                <span class="app-badge badge-new">New</span>
+                <span class="app-badge badge-soon">Soon</span>
             </div>
             <div class="app-info">
                 <h3>Dungeon Quest</h3>
                 <p class="app-category">Game > RPG</p>
                 <p class="app-desc">Epic dungeon crawler with procedurally generated levels, loot system, and boss battles.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.7</span>
-                    <span><i class="fa-solid fa-download"></i> 6.8K</span>
                     <span><i class="fa-solid fa-moon"></i> 120 MB</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price paid">$3.99</span>
-                    <a href="#" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                    <span class="app-download-btn btn-download-paid app-soon"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
                 </div>
             </div>
         </div>
@@ -789,20 +790,18 @@
         <div class="app-card" data-type="tool" data-price="paid">
             <div class="app-icon-wrapper tool-gradient">
                 <i class="fa-solid fa-wand-magic-sparkles app-icon text-blue"></i>
-                <span class="app-badge badge-paid">Premium</span>
+                <span class="app-badge badge-soon">Soon</span>
             </div>
             <div class="app-info">
                 <h3>PixelForge Pro</h3>
                 <p class="app-category">Tool > Design</p>
                 <p class="app-desc">Professional image editor with AI background removal, filters, and batch processing.</p>
                 <div class="app-meta">
-                    <span class="stars"><i class="fa-solid fa-star"></i> 4.8</span>
-                    <span><i class="fa-solid fa-download"></i> 9.1K</span>
                     <span><i class="fa-solid fa-moon"></i> 55 MB</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price paid">$5.99</span>
-                    <a href="#" class="app-download-btn btn-download-paid"><i class="fa-solid fa-cart-shopping"></i> Buy</a>
+                    <span class="app-download-btn btn-download-paid app-soon"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
                 </div>
             </div>
         </div>

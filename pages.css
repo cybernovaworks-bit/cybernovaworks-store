@@ -296,6 +296,25 @@ a.service-card {
 .blog-img-2 .blog-card-icon { color: var(--neon-purple); }
 .blog-img-3 .blog-card-icon { color: var(--accent-pink); }
 
+.blog-image.blog-img-4 {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(0, 0, 0, 0.8));
+    border-bottom-color: #10B981;
+}
+
+.blog-image.blog-img-5 {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(0, 0, 0, 0.8));
+    border-bottom-color: var(--neon-blue);
+}
+
+.blog-image.blog-img-6 {
+    background: linear-gradient(135deg, rgba(232, 17, 45, 0.15), rgba(0, 0, 0, 0.8));
+    border-bottom-color: #E8112D;
+}
+
+.blog-img-4 .blog-card-icon { color: #10B981; }
+.blog-img-5 .blog-card-icon { color: var(--neon-blue); }
+.blog-img-6 .blog-card-icon { color: #E8112D; }
+
 .blog-card-content {
     padding: 20px;
 }
