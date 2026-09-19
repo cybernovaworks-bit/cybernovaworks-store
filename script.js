@@ -184,6 +184,34 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     generateStars();
 
+    // --- FAQ Accordion ---
+    const faqItems = document.querySelectorAll('.faq-accordion-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-accordion-q');
+        const answer = item.querySelector('.faq-accordion-a');
+        if (!question || !answer) return;
+
+        question.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+
+            faqItems.forEach(other => {
+                other.classList.remove('open');
+                const otherAnswer = other.querySelector('.faq-accordion-a');
+                const otherQ = other.querySelector('.faq-accordion-q');
+                if (otherAnswer) otherAnswer.style.maxHeight = null;
+                if (otherQ) otherQ.setAttribute('aria-expanded', 'false');
+            });
+
+            if (!isOpen) {
+                item.classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                question.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
+    // --- Theme Toggle ---
     const themeToggleBtn = document.getElementById('themeToggle');
     const setThemeIcon = () => {
         if (!themeToggleBtn) return;

@@ -95,6 +95,7 @@
             <a href="store.html" class="nav-store-link" onclick="event.stopPropagation(); window.location.href='store.html'; return false;"><i class="fa-solid fa-bag-shopping"></i> Store</a>
             <a href="tools/swapfile/index.html" onclick="event.stopPropagation(); window.location.href='tools/swapfile/index.html'; return false;"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</a>
             <a href="#portfolio">Portfolio</a>
+            <a href="#pricing">Pricing</a>
             <a href="#contact">Contact</a>
         </nav>
         <div class="nav-action">
@@ -112,6 +113,12 @@
             <div class="hero-buttons">
                 <a href="#quote" class="btn btn-primary glow-blue">Get Started</a>
                 <a href="#services" class="btn btn-outline glow-purple">Our Services</a>
+            </div>
+            <div class="hero-badges">
+                <div class="hero-badge"><i class="fa-solid fa-wrench"></i> 60+ Free Tools <span>· included</span></div>
+                <div class="hero-badge"><i class="fa-solid fa-clock"></i> Reply within <span>24 hours</span></div>
+                <div class="hero-badge"><i class="fa-solid fa-location-dot"></i> Based in <span>Ramgarh, Jharkhand</span></div>
+                <div class="hero-badge"><i class="fa-solid fa-file-code"></i> Source Code <span>handover</span></div>
             </div>
         </div>
         <div class="hero-graphic">
@@ -583,27 +590,151 @@
 
     <div class="divider"></div>
 
-    <!-- Clients / Partners Section -->
-    <section class="clients">
+    <!-- How We Work Section -->
+    <section class="steps">
         <div class="section-header">
-            <h2>Trusted By</h2>
-            <p>Brands We've Worked With</p>
+            <h2>How We <span class="text-blue">Work</span></h2>
+            <p>A Clear Process From Idea to Launch</p>
         </div>
-        <div class="clients-marquee">
-            <div class="marquee-track">
-                <div class="client-logo-item"><i class="fa-solid fa-building"></i><span>TechFlow</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-leaf"></i><span>GreenLeaf</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-graduation-cap"></i><span>EduVerse</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-heart-pulse"></i><span>MediCare</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-cart-shopping"></i><span>ShopNest</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-utensils"></i><span>FoodieBox</span></div>
-                <!-- Duplicate for seamless scroll -->
-                <div class="client-logo-item"><i class="fa-solid fa-building"></i><span>TechFlow</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-leaf"></i><span>GreenLeaf</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-graduation-cap"></i><span>EduVerse</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-heart-pulse"></i><span>MediCare</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-cart-shopping"></i><span>ShopNest</span></div>
-                <div class="client-logo-item"><i class="fa-solid fa-utensils"></i><span>FoodieBox</span></div>
+
+        <div class="steps-grid">
+            <div class="step-card reveal">
+                <div class="step-num">1</div>
+                <div class="step-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <h3>Discover</h3>
+                <p>We understand your goals, audience and competitors before writing a single line of code.</p>
+            </div>
+
+            <div class="step-card reveal">
+                <div class="step-num">2</div>
+                <div class="step-icon"><i class="fa-solid fa-pen-ruler"></i></div>
+                <h3>Design</h3>
+                <p>You get a clickable prototype and approve it before development starts — no surprises.</p>
+            </div>
+
+            <div class="step-card reveal">
+                <div class="step-num">3</div>
+                <div class="step-icon"><i class="fa-solid fa-code"></i></div>
+                <h3>Develop</h3>
+                <p>We build in weekly sprints with a staging link so you can track progress live.</p>
+            </div>
+
+            <div class="step-card reveal">
+                <div class="step-num">4</div>
+                <div class="step-icon"><i class="fa-solid fa-rocket"></i></div>
+                <h3>Launch &amp; Support</h3>
+                <p>We handle hosting, security and deployment, then stand by you with maintenance.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="section-header">
+            <h2>Simple, <span class="text-purple">Transparent</span> Pricing</h2>
+            <p>Real starting ranges — your exact quote is fixed after a free consultation</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card reveal">
+                <div class="icon-container glow-blue-soft"><i class="fa-solid fa-globe"></i></div>
+                <div class="pricing-plan">Business Website</div>
+                <div class="pricing-price"><span class="rupee">₹</span>15,000 <small>onwards</small></div>
+                <p class="pricing-sub">Landing pages &amp; business sites that load fast and rank well.</p>
+                <ul class="pricing-features">
+                    <li>Up to 10 pages, mobile-first</li>
+                    <li>Contact form &amp; basic SEO</li>
+                    <li>SSL, hosting &amp; domain setup</li>
+                    <li>Delivered in 2–4 weeks</li>
+                </ul>
+                <a href="#quote" class="btn btn-outline glow-blue" style="text-align:center;">Get a Quote</a>
+            </div>
+
+            <div class="pricing-card featured reveal">
+                <div class="pricing-badge">Most Chosen</div>
+                <div class="icon-container glow-purple-soft"><i class="fa-solid fa-cart-shopping"></i></div>
+                <div class="pricing-plan">E-Commerce Store</div>
+                <div class="pricing-price"><span class="rupee">₹</span>40,000 <small>onwards</small></div>
+                <p class="pricing-sub">Online stores with payments, inventory and an admin panel.</p>
+                <ul class="pricing-features">
+                    <li>Product catalogue &amp; cart</li>
+                    <li>Payment gateway (UPI, cards)</li>
+                    <li>Order &amp; inventory management</li>
+                    <li>Admin dashboard + training</li>
+                </ul>
+                <a href="#quote" class="btn btn-primary glow-blue" style="text-align:center;">Get a Quote</a>
+            </div>
+
+            <div class="pricing-card reveal">
+                <div class="icon-container glow-pink-soft"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <div class="pricing-plan">Mobile App</div>
+                <div class="pricing-price"><span class="rupee">₹</span>80,000 <small>onwards</small></div>
+                <p class="pricing-sub">Android / iOS apps built for engagement and growth.</p>
+                <ul class="pricing-features">
+                    <li>MVP to production apps</li>
+                    <li>Push notifications &amp; offline handling</li>
+                    <li>Play Store / App Store submission</li>
+                    <li>Post-launch iteration rounds</li>
+                </ul>
+                <a href="#quote" class="btn btn-outline glow-purple" style="text-align:center;">Get a Quote</a>
+            </div>
+        </div>
+
+        <p class="pricing-note">Graphic design projects start at <strong>₹5,000</strong> and custom software at <strong>₹1,50,000</strong>. Every project includes transparent milestones and a written scope — no hidden charges.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="home-faq-section">
+        <div class="section-header">
+            <h2>Frequently Asked <span class="text-blue">Questions</span></h2>
+            <p>Everything you need to know before starting your project</p>
+        </div>
+
+        <div class="home-faq">
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-q" aria-expanded="false">How much does a website cost in India? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-accordion-a"><div class="faq-accordion-a-inner">
+                    A simple business website generally starts around ₹15,000–₹40,000, e-commerce stores around ₹40,000–₹1,50,000. Your exact quote is fixed in writing before work begins. See our <a href="blog/website-cost-india.html">full price guide</a>.
+                </div></div>
+            </div>
+
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-q" aria-expanded="false">How long does development take? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-accordion-a"><div class="faq-accordion-a-inner">
+                    A standard business website takes 2–4 weeks, e-commerce stores 4–8 weeks, and custom apps or software 8–16 weeks depending on scope. You get a dated schedule with your quote.
+                </div></div>
+            </div>
+
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-q" aria-expanded="false">Do you provide hosting, domain and email setup? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-accordion-a"><div class="faq-accordion-a-inner">
+                    Yes — we configure hosting, SSL, domain and email as part of the launch phase, and we can manage them for you afterwards so your site never goes down.
+                </div></div>
+            </div>
+
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-q" aria-expanded="false">Who owns the source code and data? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-accordion-a"><div class="faq-accordion-a-inner">
+                    You do. Projects come with a complete handover and documentation, so you're never locked in to a single developer or agency.
+                </div></div>
+            </div>
+
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-q" aria-expanded="false">Do you work with clients outside Ramgarh? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-accordion-a"><div class="faq-accordion-a-inner">
+                    Yes — we work across Jharkhand, all of India and overseas. Progress is shared on a live staging link you can open from anywhere, with weekly updates.
+                </div></div>
+            </div>
+
+            <div class="faq-accordion-item">
+                <button class="faq-accordion-q" aria-expanded="false">Do you provide post-launch maintenance and SEO? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-accordion-a"><div class="faq-accordion-a-inner">
+                    Yes. Every site launches with on-page SEO, and optional monthly maintenance plans cover updates, backups, security patches and a set number of changes.
+                </div></div>
             </div>
         </div>
     </section>
@@ -676,10 +807,11 @@
                         <label for="quote-budget">Estimated Budget</label>
                         <select id="quote-budget" name="budget">
                             <option value="">Select budget range</option>
-                            <option value="under-50k">Under $500</option>
-                            <option value="50k-1l">$500 - $1,000</option>
-                            <option value="1l-5l">$1,000 - $5,000</option>
-                            <option value="5l-plus">$5,000+</option>
+                            <option value="under-10k">Under ₹10,000</option>
+                            <option value="10k-50k">₹10,000 - ₹50,000</option>
+                            <option value="50k-2l">₹50,000 - ₹2,00,000</option>
+                            <option value="2l-plus">₹2,00,000+</option>
+                            <option value="not-sure">I'm not sure yet</option>
                         </select>
                     </div>
                     <div class="form-group">
