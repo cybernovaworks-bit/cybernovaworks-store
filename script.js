@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
 .cnb-launcher::before{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(61,99,240,.4);z-index:-1;animation:cnb-pulse 2s infinite;}
 @keyframes cnb-pulse{0%{transform:scale(1);opacity:1;}100%{transform:scale(1.7);opacity:0;}}
 .cnb-launcher .cnb-badge{position:absolute;top:-2px;right:-2px;min-width:20px;height:20px;border-radius:10px;background:#ff4757;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #0b1020;}
-.cnb-panel{position:fixed;bottom:94px;left:22px;width:360px;max-width:calc(100vw - 24px);height:520px;max-height:calc(100vh - 140px);background:#0d1526;border:1px solid rgba(109,94,252,.35);border-radius:16px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.55);}
+.cnb-panel{position:fixed;bottom:94px;left:22px;width:300px;max-width:calc(100vw - 24px);height:520px;max-height:calc(100vh - 140px);background:#0d1526;border:1px solid rgba(109,94,252,.35);border-radius:16px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.55);}
 .theme-light #cnb-chat .cnb-panel{background:#ffffff;border-color:rgba(109,94,252,.35);box-shadow:0 20px 60px rgba(0,0,0,.25);}
 #cnb-chat.cnb-open .cnb-panel{display:flex;}
 .cnb-header{background:linear-gradient(135deg,#6d5efc,#3e63f0);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;}
@@ -250,8 +250,12 @@ document.addEventListener('DOMContentLoaded', () => {
 .cnb-titles{flex:1;min-width:0;}
 .cnb-title{font-weight:700;font-size:15px;line-height:1.2;}
 .cnb-sub{font-size:12px;opacity:.85;}
-.cnb-close{width:32px;height:32px;border:none;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.cnb-close:hover{background:rgba(255,255,255,.3);}
+.cnb-close,.cnb-min{width:30px;height:30px;border:none;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
+.cnb-close:hover,.cnb-min:hover{background:rgba(255,255,255,.3);}
+.cnb-panel.cnb-minimized{height:auto;}
+.cnb-panel.cnb-minimized .cnb-messages,
+.cnb-panel.cnb-minimized .cnb-chips,
+.cnb-panel.cnb-minimized .cnb-inputbar{display:none;}
 .cnb-messages{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;}
 .cnb-msg{max-width:82%;padding:9px 13px;border-radius:14px;font-size:13.5px;line-height:1.5;word-wrap:break-word;white-space:pre-wrap;}
 .cnb-msg.bot{align-self:flex-start;background:rgba(109,94,252,.12);color:#e6ecff;border-bottom-left-radius:4px;}
@@ -377,6 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '<div class="cnb-header">' +
                 '<div class="cnb-avatar"><i class="fa-solid fa-robot"></i></div>' +
                 '<div class="cnb-titles"><div class="cnb-title">CyberNova Assist</div><div class="cnb-sub">Online \u00b7 replies instantly</div></div>' +
+                '<button class="cnb-min" id="cnbMin" aria-label="Minimize chat"><i class="fa-solid fa-minus"></i></button>' +
                 '<button class="cnb-close" id="cnbClose" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button>' +
             '</div>' +
             '<div class="cnb-messages" id="cnbMessages"></div>' +
@@ -391,6 +396,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const launcher = document.getElementById('cnbLauncher');
     const panel = wrap.querySelector('.cnb-panel');
     const closeBtn = document.getElementById('cnbClose');
+    const minBtn = document.getElementById('cnbMin');
+    const minIcon = minBtn ? minBtn.querySelector('i') : null;
     const messages = document.getElementById('cnbMessages');
     const chips = document.getElementById('cnbChips');
     const input = document.getElementById('cnbInput');
@@ -399,6 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let opened = false;
     let greeted = false;
+    let minimized = false;
 
     const scrollBottom = function () {
         messages.scrollTop = messages.scrollHeight;
@@ -457,6 +465,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const openChat = function () {
         wrap.classList.add('cnb-open');
         opened = true;
+        minimized = false;
+        panel.classList.remove('cnb-minimized');
+        if (minIcon) minIcon.className = 'fa-solid fa-minus';
         badge.style.display = 'none';
         renderChips();
         if (!greeted) {
@@ -471,10 +482,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeChat = function () {
         wrap.classList.remove('cnb-open');
         opened = false;
+        minimized = false;
+        panel.classList.remove('cnb-minimized');
+        if (minIcon) minIcon.className = 'fa-solid fa-minus';
+    };
+
+    const toggleMin = function () {
+        minimized = !minimized;
+        panel.classList.toggle('cnb-minimized', minimized);
+        if (minIcon) minIcon.className = minimized ? 'fa-solid fa-chevron-up' : 'fa-solid fa-minus';
+        if (!minimized) input.focus();
     };
 
     launcher.addEventListener('click', openChat);
     closeBtn.addEventListener('click', closeChat);
+    if (minBtn) minBtn.addEventListener('click', toggleMin);
     sendBtn.addEventListener('click', function () { sendMessage(input.value); });
     input.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') sendMessage(input.value);
