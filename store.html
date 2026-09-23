@@ -250,6 +250,7 @@
         .app-title-row {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 6px;
         }
@@ -524,6 +525,12 @@
         html.theme-light .btn-download-paid:hover {
             box-shadow: 0 4px 15px rgba(255,122,0,0.5);
         }
+        .badge-inrow {
+            position: static;
+            top: auto;
+            left: auto;
+            right: auto;
+        }
         html.theme-light .menu-toggle {
             color: #fff;
         }
@@ -598,12 +605,11 @@
         <div class="app-card app-card-flagship" data-type="app" data-price="paid">
             <div class="app-icon-wrapper aura-gradient">
                 <img src="images/aura-logo.png" alt="Aura Music Player logo" class="app-logo">
-                <span class="app-badge badge-flagship"><i class="fa-solid fa-crown"></i> Flagship</span>
             </div>
             <div class="app-info">
                 <div class="app-title-row">
                     <h3>Aura Music Player</h3>
-                    <span class="app-badge badge-new">New</span>
+                    <span class="app-badge badge-flagship badge-inrow"><i class="fa-solid fa-crown"></i> Flagship</span>
                 </div>
                 <p class="app-category">App > Music</p>
                 <p class="app-desc">Feature-packed music player with 10-band equalizer, synced lyrics, hands-free mode, album art browser and a home-screen widget.</p>
@@ -625,12 +631,11 @@
         <div class="app-card app-card-flagship" data-type="app" data-price="free">
             <div class="app-icon-wrapper aura-gradient">
                 <img src="images/jobsync-logo.jpg" alt="JobSync logo" class="app-logo">
-                <span class="app-badge badge-free">Free</span>
             </div>
             <div class="app-info">
                 <div class="app-title-row">
                     <h3>JobSync</h3>
-                    <span class="app-badge badge-new">New</span>
+                    <span class="app-badge badge-free badge-inrow">Free</span>
                 </div>
                 <p class="app-category">App > Jobs &amp; Work</p>
                 <p class="app-desc">Direct connect between workers and employers – free job posting, chat, alerts, referral rewards and identity verification. Made in India, for India.</p>
@@ -649,12 +654,11 @@
         <div class="app-card app-card-flagship" data-type="app" data-price="free">
             <div class="app-icon-wrapper aura-gradient">
                 <img src="images/deenora-logo.png" alt="Deenora Islamic App logo" class="app-logo">
-                <span class="app-badge badge-free">Free</span>
             </div>
             <div class="app-info">
                 <div class="app-title-row">
                     <h3>Deenora Islamic App</h3>
-                    <span class="app-badge badge-new">New</span>
+                    <span class="app-badge badge-free badge-inrow">Free</span>
                 </div>
                 <p class="app-category">App &gt; Lifestyle</p>
                 <p class="app-desc">Complete Islamic companion — Quran, prayer times &amp; Qibla compass, daily adhkar &amp; duas, hadith, tasbih, zakat, Islamic calendar, Ramadan tracker and more. Multi-language, works offline, 100% free.</p>
