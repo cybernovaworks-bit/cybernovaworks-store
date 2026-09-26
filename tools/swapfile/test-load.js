@@ -1,11 +1,18 @@
-// Regression test for the bug that shipped a fully broken toolset:
-//   converts.js and app.js are classic <script> tags sharing ONE global lexical
-//   scope. A top-level `const` declared in both is a parse-time SyntaxError,
-//   which aborts ALL of app.js -- so every tool silently stops working while
-//   `node --check` on each file in isolation still passes.
+// Guards the two failure modes that each shipped a fully dead toolset while
+// `node --check` stayed green on every individual file:
 //
-// This test loads both files into one shared context, exactly like the browser,
-// and asserts the merge actually produced a working tool for every generated page.
+//  1. CROSS-SCRIPT COLLISION. converts.js and app.js are classic <script> tags
+//     sharing ONE global lexical scope. A top-level `const`/`let`/`class` in both
+//     is a parse-time SyntaxError that aborts ALL of app.js -- including the
+//     TOOLS merge and the dropzone wiring.
+//
+//  2. DEAD WIRING. Even with both scripts alive, if `TOOLS[tool]` is missing or
+//     the dropzone is absent, app.js skips the whole bootstrap silently. The page
+//     renders, the static "Drop a file here, or click to browse" label stays, and
+//     clicking does nothing -- with no visible error anywhere.
+//
+// So this test loads both files into one shared context, seeded with each page's
+// REAL static markup, then asserts the page was actually wired up.
 const fs = require("fs");
 const vm = require("vm");
 const path = require("path");
@@ -15,44 +22,64 @@ let pass = 0, fail = 0;
 const ok = (m) => { console.log("  ok   " + m); pass++; };
 const bad = (m) => { console.log("  FAIL " + m); fail++; };
 
-function makeEl() {
-  const el = {
-    dataset: {}, style: {}, children: [], childNodes: [], value: "", checked: false,
-    disabled: false, textContent: "", innerHTML: "", files: [], className: "", hidden: false,
-    classList: { add() {}, remove() {}, toggle() {}, contains() { return false; } },
-    addEventListener() {}, removeEventListener() {}, appendChild(c) { return c; },
-    removeChild(c) { return c; }, setAttribute() {}, removeAttribute() {},
-    getAttribute() { return null; }, hasAttribute() { return false; },
-    querySelector() { return null; }, querySelectorAll() { return []; },
-    closest() { return null; }, focus() {}, click() {}, remove() {},
-    getBoundingClientRect() { return { width: 800, height: 600, top: 0, left: 0 }; },
-    scrollIntoView() {}, insertBefore(c) { return c; }, replaceChildren() {},
-    getContext() { return null; }, toBlob(cb) { cb(null); },
+// Elements are memoised per id, so the stub has stable identity and mutations
+// made by app.js are observable afterwards. A stub that returns a fresh object
+// per getElementById cannot assert anything about rendered output.
+function makeDoc(seed = {}) {
+  const byId = new Map();
+  const listeners = new Map();
+
+  function el(id) {
+    if (byId.has(id)) return byId.get(id);
+    const node = {
+      id, dataset: {}, style: {}, children: [], childNodes: [], value: "",
+      checked: false, disabled: false, textContent: "", innerHTML: "",
+      files: [], className: "", hidden: false, attrs: {},
+      classList: { add() {}, remove() {}, toggle() {}, contains() { return false; } },
+      addEventListener(ev) {
+        if (!listeners.has(id)) listeners.set(id, []);
+        listeners.get(id).push(ev);
+      },
+      removeEventListener() {},
+      appendChild(c) { return c; }, removeChild(c) { return c; },
+      setAttribute(k, v) { node.attrs[k] = v; }, removeAttribute(k) { delete node.attrs[k]; },
+      getAttribute(k) { return k in node.attrs ? node.attrs[k] : null; },
+      hasAttribute(k) { return k in node.attrs; },
+      querySelector() { return null; }, querySelectorAll() { return []; },
+      closest() { return null; }, focus() {}, click() {}, remove() {},
+      getBoundingClientRect() { return { width: 800, height: 600, top: 0, left: 0 }; },
+      scrollIntoView() {}, insertBefore(c) { return c; }, replaceChildren() {},
+      getContext() { return null; }, toBlob(cb) { cb(null); },
+    };
+    if (id in seed) node.textContent = seed[id];
+    byId.set(id, node);
+    return node;
+  }
+
+  const body = el("body");
+  const doc = {
+    body, readyState: "complete", documentElement: el("html"),
+    getElementById: (id) => el(id),
+    querySelector: () => el("__qs"),
+    querySelectorAll: () => [],
+    createElement: (t) => el("__ce_" + t),
+    createTextNode: () => ({}),
+    addEventListener(ev, fn) { if (ev === "DOMContentLoaded") fn(); },
+    removeEventListener() {},
+    createObjectURL: () => "blob:x", revokeObjectURL() {}, execCommand: () => true,
+    __el: el, __listeners: listeners, __byId: byId,
   };
-  return new Proxy(el, {
-    get: (t, k) => (k in t ? t[k] : k === "then" || k === Symbol.toPrimitive ? undefined : undefined),
-    set: (t, k, v) => { t[k] = v; return true; },
-  });
+  return doc;
 }
 
-function makeSandbox(tool) {
-  const body = makeEl();
-  body.dataset = { tool };
+function makeSandbox(doc) {
   const sb = {
-    document: {
-      body, readyState: "complete", documentElement: makeEl(),
-      getElementById: () => makeEl(), querySelector: () => makeEl(),
-      querySelectorAll: () => [], createElement: (t) => makeEl(),
-      createTextNode: () => ({}),
-      addEventListener: (ev, fn) => { if (ev === "DOMContentLoaded") fn(); },
-      removeEventListener() {}, createObjectURL: () => "blob:x", revokeObjectURL() {},
-      execCommand: () => true,
-    },
-    console, setTimeout, clearTimeout, setInterval, clearInterval,
+    document: doc, console, setTimeout, clearTimeout, setInterval, clearInterval,
     navigator: { userAgent: "node", onLine: true, clipboard: {} },
     location: { href: "https://cybernovaworks.store/tools/swapfile/", origin: "https://cybernovaworks.store" },
     URL: { createObjectURL: () => "blob:x", revokeObjectURL() {} },
-    Blob: class {}, File: class {}, FileReader: class { readAsDataURL() {} readAsArrayBuffer() {} addEventListener() {} },
+    Blob: class {}, File: class {},
+    FileReader: class { readAsDataURL() {} readAsArrayBuffer() {} addEventListener() {} },
     FormData: class { append() {} }, Image: class { set src(v) {} },
     fetch: () => Promise.reject(new Error("offline")),
     alert() {}, confirm: () => true, prompt: () => null,
@@ -70,77 +97,131 @@ function makeSandbox(tool) {
   return sb;
 }
 
-function loadTogether(files, tool) {
-  const ctx = vm.createContext(makeSandbox(tool));
-  for (const f of files) {
+function boot(tool, seed) {
+  const doc = makeDoc(seed);
+  doc.body.dataset = { tool };
+  const ctx = vm.createContext(makeSandbox(doc));
+  for (const f of ["converts.js", "app.js"]) {
     vm.runInContext(fs.readFileSync(path.join(dir, f), "utf8"), ctx, { filename: f });
   }
-  return ctx;
+  return { ctx, doc };
 }
 
-// --- 1. the actual bug: both scripts must coexist in one global scope ---
-console.log("-- shared global scope (the shipped bug) --");
-let mergedCtx = null;
+const pages = fs.readdirSync(dir)
+  .filter((f) => f.endsWith(".html") && !/^(index|home-tools)\.html$/.test(f));
+
+// --- 1. both scripts must coexist in one global scope ---
+console.log("-- shared global scope --");
+let probe;
 try {
-  mergedCtx = loadTogether(["converts.js", "app.js"], "trimvideo");
+  probe = boot("trimvideo", {});
   ok("converts.js + app.js load together in one global scope");
 } catch (e) {
   bad(`app.js died loading after converts.js: ${e.constructor.name}: ${e.message}`);
-  console.log("       (a duplicate top-level const/let/class in the two files causes this)");
+  console.log("       duplicate top-level const/let/class in the two files causes this");
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(1);
 }
 
-// --- 2. the merge must have published the registry ---
+// --- 2. the registry merge ---
 console.log("\n-- registry merge --");
-const reg = vm.runInContext("typeof EXTRA_TOOLS !== 'undefined' ? Object.keys(EXTRA_TOOLS).length : 0", mergedCtx);
-reg === 57 ? ok(`EXTRA_TOOLS published with ${reg} tools`) : bad(`EXTRA_TOOLS has ${reg} tools, expected 57`);
+const reg = vm.runInContext(
+  "typeof EXTRA_TOOLS !== 'undefined' ? Object.keys(EXTRA_TOOLS).length : 0", probe.ctx);
+reg === 57 ? ok(`EXTRA_TOOLS published with ${reg} tools`) : bad(`EXTRA_TOOLS has ${reg}, expected 57`);
 
-// --- 3. app.js's own TOOLS must contain all of them ---
-const keys = vm.runInContext("Object.keys(TOOLS)", mergedCtx);
-keys.length === 66
-  ? ok(`merged TOOLS has all ${keys.length} tools`)
-  : bad(`merged TOOLS has ${keys.length} tools, expected 66`);
+const keys = vm.runInContext("Object.keys(TOOLS)", probe.ctx);
+keys.length === 66 ? ok(`merged TOOLS has all ${keys.length} tools`)
+                   : bad(`merged TOOLS has ${keys.length}, expected 66`);
 
-// --- 4. every tool must have a callable convert() ---
-const noConv = vm.runInContext("Object.entries(TOOLS).filter(([k,v]) => typeof v.convert !== 'function').map(([k]) => k)", mergedCtx);
-noConv.length === 0 ? ok("every registered tool has a callable convert()") : bad(`no convert(): ${noConv.join(", ")}`);
+const noConv = vm.runInContext(
+  "Object.entries(TOOLS).filter(([k,v]) => typeof v.convert !== 'function').map(([k]) => k)",
+  probe.ctx);
+noConv.length === 0 ? ok("every registered tool has a callable convert()")
+                    : bad(`no convert(): ${noConv.join(", ")}`);
 
-// --- 5. every generated page's data-tool must resolve, for all 66 pages ---
-console.log("\n-- every page's data-tool resolves --");
-const files = fs.readdirSync(dir).filter((f) => f.endsWith(".html") && !/^(index|home-tools)\.html$/.test(f));
-const unresolved = [];
-for (const f of files) {
-  const m = /data-tool="([^"]*)"/.exec(fs.readFileSync(path.join(dir, f), "utf8"));
-  if (!m) { unresolved.push(`${f}: no data-tool`); continue; }
-  if (!keys.includes(m[1])) unresolved.push(`${f}: '${m[1]}'`);
+// --- 3. THE USER-VISIBLE SYMPTOM: each page must be really wired ---
+// Seed each page's real static markup, load, then require that app.js replaced
+// the generic placeholder and attached the click handler.
+console.log("\n-- every page is actually wired (not just rendered) --");
+const STALE = "Drop a file here, or click to browse";
+let unwired = [], staleLabel = [], noHandler = [], vacuous = [];
+
+for (const f of pages) {
+  const html = fs.readFileSync(path.join(dir, f), "utf8");
+  const m = /data-tool="([^"]*)"/.exec(html);
+  if (!m) { unwired.push(`${f}: no data-tool`); continue; }
+  const tool = m[1];
+  if (!keys.includes(tool)) { unwired.push(`${f}: '${tool}' not in TOOLS`); continue; }
+
+  // seed the static placeholder exactly as the page ships it
+  const staticLabel = /id="dropLabel"[^>]*>([^<]*)</.exec(html);
+  const seeded = staticLabel ? staticLabel[1] : "";
+  const expected = vm.runInContext(`TOOLS[${JSON.stringify(tool)}].dropLabel`, probe.ctx);
+
+  if (!expected) { unwired.push(`${f}: tool has no dropLabel`); continue; }
+  if (seeded === expected) vacuous.push(f); // assertion below would prove nothing
+
+  const { doc } = boot(tool, { dropLabel: seeded, dropHint: "" });
+
+  const label = doc.__el("dropLabel").textContent;
+  if (label !== expected) staleLabel.push(`${f}: showing "${label}"`);
+  if (!(doc.__listeners.get("dropzone") || []).includes("click")) noHandler.push(f);
 }
-unresolved.length === 0
-  ? ok(`all ${files.length} pages resolve to a real tool`)
-  : bad(`unresolved: ${unresolved.join("; ")}`);
 
-// --- 6. the 9 hand-built pages work WITHOUT converts.js ---
+unwired.length === 0
+  ? ok(`all ${pages.length} pages resolve to a real tool`)
+  : bad(`unresolved: ${unwired.join("; ")}`);
+
+staleLabel.length === 0
+  ? ok(`all ${pages.length} pages replace the static "${STALE}" placeholder`)
+  : bad(`still showing the static label on ${staleLabel.length}: ${staleLabel.slice(0, 3).join("; ")}`);
+
+noHandler.length === 0
+  ? ok(`all ${pages.length} dropzones have a click handler bound`)
+  : bad(`no click handler on ${noHandler.length}: ${noHandler.slice(0, 5).join(", ")}`);
+
+vacuous.length === 0
+  ? ok("placeholder-vs-registry check is non-vacuous on every page")
+  : console.log(`  note ${vacuous.length} hand-built page(s) ship a label that already matches the ` +
+                `registry, so the label check proves nothing there -- the click-handler ` +
+                `assertion above is what covers them`);
+
+// --- 4. accept filter and fileInput wiring come from the same registry ---
+console.log("\n-- file input configured from the registry --");
+{
+  const html = fs.readFileSync(path.join(dir, "trim-video.html"), "utf8");
+  const tool = /data-tool="([^"]*)"/.exec(html)[1];
+  const { doc } = boot(tool, { dropLabel: STALE });
+  // `accept` is a reflected IDL attribute: applyTool assigns the property, which a
+  // real browser mirrors onto the content attribute. Read the property.
+  const accept = doc.__el("fileInput").accept;
+  accept === "video/*"
+    ? ok(`trim-video.html fileInput accept="${accept}"`)
+    : bad(`trim-video.html accept is "${accept}", expected "video/*"`);
+}
+
+// --- 5. the 9 hand-built pages work WITHOUT converts.js ---
 console.log("\n-- hand-built pages (no converts.js) --");
-let nativeCtx;
+let nativeKeys = null;
 try {
-  nativeCtx = loadTogether(["app.js"], "pdfmerge");
+  const doc = makeDoc({});
+  doc.body.dataset = { tool: "pdfmerge" };
+  const ctx = vm.createContext(makeSandbox(doc));
+  vm.runInContext(fs.readFileSync(path.join(dir, "app.js"), "utf8"), ctx, { filename: "app.js" });
+  nativeKeys = vm.runInContext("Object.keys(TOOLS)", ctx);
   ok("app.js loads standalone (the 9 original tools)");
 } catch (e) {
   bad(`app.js standalone: ${e.message}`);
 }
-if (nativeCtx) {
-  const nativeKeys = vm.runInContext("Object.keys(TOOLS)", nativeCtx);
-  const handBuilt = files.filter((f) => {
-    const c = fs.readFileSync(path.join(dir, f), "utf8");
-    return !/<script[^>]*src="converts\.js"/.test(c);
+if (nativeKeys) {
+  const hand = pages.filter((f) =>
+    !/<script[^>]*src="converts\.js"/.test(fs.readFileSync(path.join(dir, f), "utf8")));
+  const broken = hand.filter((f) => {
+    const t = /data-tool="([^"]*)"/.exec(fs.readFileSync(path.join(dir, f), "utf8"))[1];
+    return !nativeKeys.includes(t);
   });
-  const broken = handBuilt.filter((f) => {
-    const m = /data-tool="([^"]*)"/.exec(fs.readFileSync(path.join(dir, f), "utf8"));
-    return !nativeKeys.includes(m[1]);
-  });
-  broken.length === 0
-    ? ok(`all ${handBuilt.length} hand-built pages resolve without converts.js`)
-    : bad(`hand-built unresolved: ${broken.join(", ")}`);
+  broken.length === 0 ? ok(`all ${hand.length} hand-built pages resolve without converts.js`)
+                      : bad(`hand-built unresolved: ${broken.join(", ")}`);
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

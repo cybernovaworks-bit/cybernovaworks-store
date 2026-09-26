@@ -109,8 +109,21 @@ is atomic, so a single bad URL would fail the whole install and leave the app wi
 offline support at all. The shell list is identical for every tool, so it never needs
 updating when tools are added.
 
-**Bump `CACHE_NAME` when you change that list** — the strategy is cache-first, so
-returning visitors keep the old cache until the name changes.
+**Same-origin requests are network-first, with the cache as the offline fallback.**
+This is deliberate, and it was learned the hard way. The strategy used to be
+cache-first, which meant a deployed fix was invisible to every returning visitor
+until someone remembered to bump `CACHE_NAME` by hand — so when a broken `app.js`
+got cached that way, the site stayed broken even after the fix had shipped.
+Network-first means a deploy is visible on the next load, and going offline still
+works off the cache. Nothing needs a manual version bump any more.
+
+CDN assets (unpkg, cdnjs) are not intercepted at all: they are versioned and
+immutable, so ordinary HTTP caching is already correct for them.
+
+One caveat that remains: right after a push, the *first* reload can still be
+served by the outgoing service worker while the new one installs in the
+background. A second reload is always enough, and clearing site data by hand
+should never be necessary.
 
 ## Deploying
 
