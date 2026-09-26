@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
+<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Watermark Video Converter — Free, No Upload | Swapfile</title>
+<meta name="description" content="Add a logo watermark to a video, in your browser, with position and opacity controls. Runs 100% in your browser — nothing is uploaded." />
+<link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/watermark-video.html" />
+<meta name="theme-color" content="#050510" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Watermark Video Converter — Free, No Upload | Swapfile" />
+<meta property="og:description" content="Add a logo watermark to a video, in your browser, with position and opacity controls." />
+<meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/watermark-video.html" />
+<meta name="twitter:card" content="summary" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="styles.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Swapfile — Watermark Video",
+  "url": "https://cybernovaworks.store/tools/swapfile/watermark-video.html",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any (runs in browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Add a logo watermark to a video, in your browser, with position and opacity controls."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What image format should I use?", "acceptedAnswer": { "@type": "Answer", "text": "A PNG with a transparent background works best, so only the logo shows and the box around it disappears. A JPG works but covers the video with a solid rectangle." } },
+    { "@type": "Question", "name": "Does the logo get stretched?", "acceptedAnswer": { "@type": "Answer", "text": "No — it is scaled to a percentage of your video's width, keeping its own proportions, so it stays sharp on a 4K clip." } },
+    { "@type": "Question", "name": "Does it re-encode the whole video?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, an overlay has to be re-encoded. That is why it takes a little longer than a straight cut." } }
+  ]
+}
+</script>
+</head>
+<body data-tool="watermarkvideo">
+
+<header class="navbar" id="navbar">
+    <div class="logo">
+        <a href="../../index.html">
+            <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+        </a>
+    </div>
+
+    <div class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../about.html">About Us</a>
+        <a href="../../web-development.html">Services</a>
+        <a href="../../store.html" class="nav-store-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+        <a href="index.html" class="active">Tools</a>
+        <a href="../../blog/index.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+    </nav>
+    <div class="nav-action">
+        <a href="../../contact.html" class="btn btn-outline glow-blue">Get a Quote</a>
+    </div>
+</header>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Watermark Video</h1>
+    <p class="tagline">Put your logo or channel name over a video to stop it being reposted without credit. Runs entirely on your device.</p>
+  </header>
+
+  <main class="panel">
+    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose files">
+      <input type="file" id="fileInput" hidden />
+      <svg class="drop-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <path d="M12 4v11m0-11l-4 4m4-4l4 4M5 17v2a2 2 0 002 2h10a2 2 0 002-2v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="drop-label" id="dropLabel">Drop a file here, or click to browse</p>
+      <p class="drop-hint" id="dropHint">No upload — everything runs in your browser</p>
+    </div>
+
+    <ul class="filelist" id="fileList" aria-live="polite"></ul>
+
+    <div class="tool-opts" id="wmOpts">
+      <span class="opt-label">Logo size</span>
+      <div class="preset-row" role="group" aria-label="Logo size">
+        <button type="button" class="preset-btn" data-scale="small">Small</button>
+        <button type="button" class="preset-btn is-active" data-scale="medium">Medium</button>
+        <button type="button" class="preset-btn" data-scale="large">Large</button>
+      </div>
+
+      <label class="opt-field" for="wmImage">Logo image
+        <input type="file" id="wmImage" accept="image/*" />
+      </label>
+
+      <label class="opt-field" for="wmPos">Position
+        <select id="wmPos">
+          <option value="tl">Top left</option>
+          <option value="tr">Top right</option>
+          <option value="bl">Bottom left</option>
+          <option value="br" selected>Bottom right</option>
+          <option value="center">Centre</option>
+        </select>
+      </label>
+
+      <label class="opt-field" for="wmOpacity">Opacity
+        <select id="wmOpacity">
+          <option value="0.3">Faint — 30%</option>
+          <option value="0.5" selected>Medium — 50%</option>
+          <option value="0.75">Strong — 75%</option>
+          <option value="1">Solid — 100%</option>
+        </select>
+      </label>
+
+      <p class="opt-note" id="wmNote">The logo is drawn over the video as a transparent overlay.</p>
+    </div>
+    <button class="convert-btn" id="convertBtn" disabled>Add watermark</button>
+
+    <div class="results" id="results" aria-live="polite"></div>
+  </main>
+
+  <section class="about">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>Drop in your video.</li>
+      <li>Choose your logo image and where it should sit.</li>
+      <li>Press Add watermark and download the result.</li>
+    </ol>
+
+    <h3>Common questions</h3>
+    <dl>
+      <dt>What image format should I use?</dt>
+      <dd>A PNG with a transparent background works best, so only the logo shows and the box around it disappears. A JPG works but covers the video with a solid rectangle.</dd>
+      <dt>Does the logo get stretched?</dt>
+      <dd>No — it is scaled to a percentage of your video's width, keeping its own proportions, so it stays sharp on a 4K clip.</dd>
+      <dt>Does it re-encode the whole video?</dt>
+      <dd>Yes, an overlay has to be re-encoded. That is why it takes a little longer than a straight cut.</dd>
+    </dl>
+  </section>
+
+  <nav class="other-tools" aria-label="Other tools">
+    <h3>Related tools</h3>
+    <ul>
+      <li><a href="avi-to-mp4.html">Avi To Mp4</a></li>
+      <li><a href="mov-to-mp4.html">Mov To Mp4</a></li>
+      <li><a href="mkv-to-mp4.html">Mkv To Mp4</a></li>
+      <li><a href="webm-to-mp4.html">Webm To Mp4</a></li>
+      <li><a href="mp4-to-avi.html">Mp4 To Avi</a></li>
+      <li><a href="mp4-to-mov.html">Mp4 To Mov</a></li>
+      <li><a href="mp4-to-gif.html">Mp4 To Gif</a></li>
+      <li><a href="gif-to-mp4.html">Gif To Mp4</a></li>
+      <li><a href="video-to-mp3.html">Video To Mp3</a></li>
+      <li><a href="index.html">View all tools →</a></li>
+    </ul>
+  </nav>
+
+  
+
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <a href="../../index.html" style="text-decoration: none;">
+                <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+            </a>
+        </div>
+        <div class="footer-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../about.html">About</a>
+            <a href="../../web-development.html">Web Development</a>
+            <a href="../../app-development.html">App Development</a>
+            <a href="../../graphic-design.html">Graphic Design</a>
+            <a href="../../software-solutions.html">Software Solutions</a>
+            <a href="../../store.html">Store</a>
+            <a href="../../blog/index.html">Blog</a>
+            <a href="index.html">Free Tools</a>
+            <a href="../../contact.html">Contact</a>
+            <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://x.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/cybernovaworks-bit" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 CyberNovaWorks.store. All rights reserved.</p>
+    </div>
+</footer>
+
+<div id="stars-container"></div>
+
+<a href="https://wa.me/918092638177?text=Hi%20CyberNovaWorks!%20I%20need%20a%20quote." class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<script src="../../script.js"></script>
+<script src="converts.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

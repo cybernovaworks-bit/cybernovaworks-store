@@ -819,6 +819,8 @@ function loadFFmpeg() {
 
 function ffmpegMime(out) {
   if (out.endsWith(".gif")) return "image/gif";
+  if (out.endsWith(".jpg") || out.endsWith(".jpeg")) return "image/jpeg";
+  if (out.endsWith(".png")) return "image/png";
   if (out.endsWith(".mp4")) return "video/mp4";
   if (out.endsWith(".avi")) return "video/x-msvideo";
   if (out.endsWith(".mov")) return "video/quicktime";
@@ -832,11 +834,12 @@ function ffmpegMime(out) {
 }
 
 // outLabel overrides only the download name — outName stays as the in-engine filename.
-async function runFfmpegCommand(file, args, outName, note, outLabel) {
+// preArgs are placed before "-i" (input seeking, e.g. -ss for fast trims).
+async function runFfmpegCommand(file, args, outName, note, outLabel, preArgs) {
   const ffmpeg = await loadFFmpeg();
   const inName = "input_" + (file.name.replace(/[^\w.-]/g, "_"));
   await ffmpeg.writeFile(inName, await FFmpegUtil.fetchFile(file));
-  await ffmpeg.exec(["-i", inName, ...args]);
+  await ffmpeg.exec([...(preArgs || []), "-i", inName, ...args]);
   await ffmpeg.deleteFile(inName);
   const data = await ffmpeg.readFile(outName);
   await ffmpeg.deleteFile(outName);
@@ -900,7 +903,12 @@ function _probeVideoSize(file) {
     const timer = setTimeout(() => finish(null), 8000);
     v.preload = "metadata";
     v.muted = true;
-    v.onloadedmetadata = () => finish(v.videoWidth && v.videoHeight ? { name: file.name, w: v.videoWidth, h: v.videoHeight } : null);
+    v.onloadedmetadata = () => finish(v.videoWidth && v.videoHeight ? {
+      name: file.name,
+      w: v.videoWidth,
+      h: v.videoHeight,
+      duration: isFinite(v.duration) ? v.duration : null,
+    } : null);
     v.onerror = () => finish(null);
     v.src = url;
   });
@@ -981,37 +989,49 @@ function _rsNote() {
     + (upscales ? " — that upscales, so the picture will look softer." : " — a clean downscale.");
 }
 
-function _applyPreset(key) {
-  const p = RS_PRESETS[key];
-  const wEl = document.getElementById("rsW");
-  const hEl = document.getElementById("rsH");
-  document.querySelectorAll("#resizeOpts .preset-btn").forEach((b) => {
-    b.classList.toggle("is-active", b.dataset.preset === key);
+// Shared wiring for the options panels: one active preset button per group, plus a
+// live update whenever any input changes. Returns false when the page has no such
+// panel, so callers can skip their per-page setup.
+function _initOptsPanel(id, onChange, onPreset) {
+  const root = document.getElementById(id);
+  if (!root) return false;
+  const btns = root.querySelectorAll(".preset-btn");
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btns.forEach((b) => b.classList.toggle("is-active", b === btn));
+      if (onPreset) onPreset(btn.dataset.preset);
+      onChange();
+    });
   });
-  // Percentage presets derive from the source, so leave the box alone.
-  if (p && (p.w || p.h) && wEl && hEl) {
-    wEl.value = p.w;
-    hEl.value = p.h;
-  }
-  _rsNote();
+  root.querySelectorAll("input, select").forEach((el) => {
+    el.addEventListener("input", onChange);
+    el.addEventListener("change", onChange);
+  });
+  onChange();
+  return true;
 }
 
-function _initResizeUI() {
-  const opts = document.getElementById("resizeOpts");
-  if (!opts) return;
-  opts.querySelectorAll(".preset-btn").forEach((btn) => {
-    btn.addEventListener("click", () => _applyPreset(btn.dataset.preset));
-  });
-  ["rsW", "rsH", "rsFit", "rsQuality"].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener("input", _rsNote);
-  });
-  _rsNote();
+// Wires whichever option panels the current page actually has.
+function _initToolPanels() {
+  if (_initOptsPanel("resizeOpts", _rsNote, (key) => {
+    const p = RS_PRESETS[key];
+    const wEl = document.getElementById("rsW");
+    const hEl = document.getElementById("rsH");
+    // Percentage presets derive from the source, so leave the box alone.
+    if (p && (p.w || p.h) && wEl && hEl) {
+      wEl.value = p.w;
+      hEl.value = p.h;
+    }
+  })) return;
+  if (_initOptsPanel("trimOpts", _trimNote)) return;
+  if (_initOptsPanel("rotateOpts", _rotateNote)) return;
+  if (_initOptsPanel("frameOpts", _frameNote)) return;
+  if (_initOptsPanel("wmOpts", _wmNote)) return;
 }
 
 if (typeof document !== "undefined") {
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", _initResizeUI);
-  else _initResizeUI();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", _initToolPanels);
+  else _initToolPanels();
 }
 
 async function resizeVideo(files) {
@@ -1044,6 +1064,212 @@ async function onResizeFiles(files) {
     _rsSource = files.length ? await _probeVideoSize(files[0]) : null;
   }
   _rsNote();
+}
+
+// =====================================================================
+// VIDEO TRIM / ROTATE / FRAME / WATERMARK
+// =====================================================================
+
+// ---------- Trim: keep a time range ----------
+const TRIM_PRESETS = { clip: 15, short: 30, long: 60 };
+
+function _trimOpts() {
+  const el = (id) => document.getElementById(id);
+  const active = document.querySelector("#trimOpts .preset-btn.is-active");
+  const start = Math.max(0, parseFloat(el("trStart") && el("trStart").value) || 0);
+  const length = Math.max(0.5, parseFloat(el("trLength") && el("trLength").value) || 15);
+  return {
+    start: start,
+    length: length,
+    preset: active ? TRIM_PRESETS[active.dataset.preset] : null,
+  };
+}
+
+function _trimNote() {
+  const note = document.getElementById("trNote");
+  if (!note) return;
+  const o = _trimOpts();
+  const src = _rsSource;
+  if (!src || !src.duration) {
+    note.textContent = "Set where the clip should start and how long it should run.";
+    return;
+  }
+  const end = o.start + o.length;
+  if (end > src.duration) {
+    note.textContent = "This video is only " + src.duration.toFixed(1) + "s long — it will be cut off at the end.";
+    return;
+  }
+  note.textContent = "Takes " + o.length + "s starting at " + o.start + "s (ends at " + end.toFixed(1) + "s of " + src.duration.toFixed(1) + "s).";
+}
+
+async function onTrimFiles(files) {
+  if (!_rsSource || !files.length || files[0].name !== _rsSource.name) {
+    _rsSource = files.length ? await _probeVideoSize(files[0]) : null;
+  }
+  _trimNote();
+}
+
+async function trimVideo(files) {
+  const file = files[0];
+  if (!_rsSource || _rsSource.name !== file.name) _rsSource = await _probeVideoSize(file);
+  const o = _trimOpts();
+  const args = [
+    "-t", String(o.length),
+    "-c:v", "libx264", "-crf", "24", "-preset", "veryfast", "-pix_fmt", "yuv420p",
+    "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "out.mp4",
+  ];
+  const label = "clip-" + o.start + "s-" + o.length + "s.mp4";
+  await runFfmpegCommand(file, args, "out.mp4",
+    "Clip saved: " + o.length + "s from " + o.start + "s.", label, ["-ss", String(o.start)]);
+}
+
+// ---------- Rotate / flip ----------
+const ROTATE_FILTERS = {
+  cw90: "transpose=1",
+  ccw90: "transpose=2",
+  flip180: "transpose=1,transpose=1",
+  hflip: "hflip",
+  vflip: "vflip",
+  // hypot() grows the frame so the tilted corners survive; without it rotate
+  // silently crops them off. 2*trunc() keeps the result even, which yuv420p needs.
+  tilt45: "rotate=0.785398:ow='2*trunc(hypot(iw,ih)/2)':oh='2*trunc(hypot(iw,ih)/2)':fillcolor=black",
+};
+
+function _rotateFilter() {
+  const el = document.getElementById("rotAngle");
+  const key = el ? el.value : "cw90";
+  return ROTATE_FILTERS[key] || ROTATE_FILTERS.cw90;
+}
+
+function _rotateNote() {
+  const note = document.getElementById("rotNote");
+  if (!note) return;
+  const f = _rotateFilter();
+  if (f.indexOf("transpose=1,transpose=1") === 0) {
+    note.textContent = "Turns the video upside down. Frame size stays the same.";
+  } else if (f === "hflip" || f === "vflip") {
+    note.textContent = "Mirrors the video. Frame size stays the same.";
+  } else if (f.indexOf("rotate=") === 0) {
+    note.textContent = "Tilts the video 45°. The frame grows to fit the tilted corners, so the gaps are filled with black.";
+  } else {
+    note.textContent = "Turns the video 90°. Width and height swap — a 1920×1080 clip becomes 1080×1920.";
+  }
+}
+
+async function rotateVideo(files) {
+  const file = files[0];
+  const args = [
+    "-vf", _rotateFilter(),
+    "-c:v", "libx264", "-crf", "24", "-preset", "veryfast", "-pix_fmt", "yuv420p",
+    "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "out.mp4",
+  ];
+  await runFfmpegCommand(file, args, "out.mp4", "Video rotated.", "rotated.mp4");
+}
+
+// ---------- Extract frames as JPG ----------
+function _frameTimes() {
+  const el = document.getElementById("frTimes");
+  const raw = (el && el.value ? el.value : "1").split(",");
+  const out = [];
+  for (const piece of raw) {
+    const t = parseFloat(piece);
+    if (isFinite(t) && t >= 0) out.push(t);
+  }
+  return out.length ? out.slice(0, 20) : [1];
+}
+
+function _frameNote() {
+  const note = document.getElementById("frNote");
+  if (!note) return;
+  const n = _frameTimes().length;
+  note.textContent = n + " image" + (n > 1 ? "s" : "") + " will be saved, one per timestamp.";
+}
+
+async function extractFrames(files) {
+  const file = files[0];
+  const times = _frameTimes();
+  for (let i = 0; i < times.length; i++) {
+    if (times.length > 1) toolStatus("Extracting frame " + (i + 1) + " of " + times.length + "…");
+    const t = times[i];
+    const args = ["-frames:v", "1", "-q:v", "2", "frame.jpg"];
+    await runFfmpegCommand(file, args, "frame.jpg",
+      "Frame at " + t + "s saved.", "frame-" + t + "s.jpg", ["-ss", String(t)]);
+  }
+}
+
+// ---------- Watermark with an image overlay ----------
+const WM_POSITION_NAMES = {
+  tl: "top-left",
+  tr: "top-right",
+  bl: "bottom-left",
+  br: "bottom-right",
+  center: "centre",
+};
+
+// In the overlay filter, W/H are the video's dimensions and w/h the logo's.
+const WM_POSITIONS = {
+  tl: "10:10",
+  tr: "W-w-10:10",
+  bl: "10:H-h-10",
+  br: "W-w-10:H-h-10",
+  center: "(W-w)/2:(H-h)/2",
+};
+
+const WM_SCALES = { small: 0.12, medium: 0.2, large: 0.3 };
+
+function _wmOpts() {
+  const el = (id) => document.getElementById(id);
+  const active = document.querySelector("#wmOpts .preset-btn.is-active");
+  const raw = parseFloat(el("wmOpacity") && el("wmOpacity").value);
+  return {
+    pos: (el("wmPos") && el("wmPos").value) || "br",
+    // isFinite, not "|| 0.5" — otherwise a genuine 0 silently becomes the default.
+    opacity: Math.min(1, Math.max(0.05, isFinite(raw) ? raw : 0.5)),
+    scale: WM_SCALES[(active && active.dataset.scale) || "medium"],
+  };
+}
+
+function _wmNote() {
+  const note = document.getElementById("wmNote");
+  if (!note) return;
+  note.textContent = "The logo is drawn over the video as a transparent overlay, then the whole clip is re-encoded.";
+}
+
+// The overlay width comes from the source dimensions when we can read them, so the
+// logo scales with the video instead of being a fixed pixel size.
+function _wmFilter(opts, src) {
+  const width = src ? Math.max(40, Math.round(src.w * opts.scale)) : 200;
+  const pos = WM_POSITIONS[opts.pos] || WM_POSITIONS.br;
+  return "[1:v]format=rgba,colorchannelmixer=aa=" + opts.opacity + ",scale=" + width + ":-1[wm];"
+    + "[0:v][wm]overlay=" + pos + ":format=auto[v]";
+}
+
+async function watermarkVideo(files) {
+  const file = files[0];
+  const input = document.getElementById("wmImage");
+  const logo = input && input.files && input.files[0];
+  if (!logo) throw new Error("Choose a logo image (PNG with transparency works best) first.");
+  const opts = _wmOpts();
+  const src = await _probeVideoSize(file);
+  const ffmpeg = await loadFFmpeg();
+  const inName = "input_" + file.name.replace(/[^\w.-]/g, "_");
+  const logoName = "logo_" + logo.name.replace(/[^\w.-]/g, "_");
+  await ffmpeg.writeFile(inName, await FFmpegUtil.fetchFile(file));
+  await ffmpeg.writeFile(logoName, await FFmpegUtil.fetchFile(logo));
+  const args = [
+    "-i", inName, "-i", logoName,
+    "-filter_complex", _wmFilter(opts, src),
+    "-map", "[v]", "-map", "0:a?",
+    "-c:v", "libx264", "-crf", "24", "-preset", "veryfast", "-pix_fmt", "yuv420p",
+    "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "out.mp4",
+  ];
+  await ffmpeg.exec(args);
+  await ffmpeg.deleteFile(inName);
+  await ffmpeg.deleteFile(logoName);
+  const data = await ffmpeg.readFile("out.mp4");
+  await ffmpeg.deleteFile("out.mp4");
+  downloadBlob(new Blob([data.buffer], { type: "video/mp4" }), _baseName(file.name) + "-watermarked.mp4");
+  toolStatus("Watermark added in the " + (WM_POSITION_NAMES[opts.pos] || opts.pos) + " corner.");
 }
 
 async function folderToZip(files) {
@@ -1199,6 +1425,10 @@ const EXTRA_TOOLS = {
   threegp2mp4: { accept: ".3gp,.3ga", multiple: false, dropLabel: "Drop a 3GP video here, or click to browse", dropHint: "Converts to MP4", convert: threeGp2mp4 },
   flv2mp4: { accept: ".flv", multiple: false, dropLabel: "Drop an FLV video here, or click to browse", dropHint: "Converts to MP4", convert: flv2mp4 },
   videoresize: { accept: "video/*", multiple: true, dropLabel: "Drop a video here, or click to browse", dropHint: "4K, 1080p, 720p, 480p, 360p or any custom size", convert: resizeVideo, onFiles: onResizeFiles },
+  trimvideo: { accept: "video/*", multiple: false, dropLabel: "Drop a video here, or click to browse", dropHint: "Cut out just the part you want", convert: trimVideo, onFiles: onTrimFiles },
+  rotatevideo: { accept: "video/*", multiple: false, dropLabel: "Drop a video here, or click to browse", dropHint: "Turn or flip it the right way up", convert: rotateVideo },
+  videoframe: { accept: "video/*", multiple: false, dropLabel: "Drop a video here, or click to browse", dropHint: "Saves still JPG images from any point", convert: extractFrames },
+  watermarkvideo: { accept: "video/*", multiple: false, dropLabel: "Drop a video here, or click to browse", dropHint: "Then choose your logo image below", convert: watermarkVideo },
 };
 
 window.EXTRA_TOOLS = EXTRA_TOOLS;
