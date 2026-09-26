@@ -831,7 +831,8 @@ function ffmpegMime(out) {
   return "application/octet-stream";
 }
 
-async function runFfmpegCommand(file, args, outName, note) {
+// outLabel overrides only the download name — outName stays as the in-engine filename.
+async function runFfmpegCommand(file, args, outName, note, outLabel) {
   const ffmpeg = await loadFFmpeg();
   const inName = "input_" + (file.name.replace(/[^\w.-]/g, "_"));
   await ffmpeg.writeFile(inName, await FFmpegUtil.fetchFile(file));
@@ -840,7 +841,7 @@ async function runFfmpegCommand(file, args, outName, note) {
   const data = await ffmpeg.readFile(outName);
   await ffmpeg.deleteFile(outName);
   const blob = new Blob([data.buffer], { type: ffmpegMime(outName) });
-  downloadBlob(blob, _baseName(file.name) + "-" + outName);
+  downloadBlob(blob, _baseName(file.name) + "-" + (outLabel || outName));
   if (note) toolStatus(note);
 }
 
@@ -856,6 +857,194 @@ async function media2mp3(files) { await runFfmpegCommand(files[0], ["-vn", "-aco
 async function compressVideo(files) { await runFfmpegCommand(files[0], ["-c:v", "libx264", "-crf", "32", "-preset", "slow", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", "out.mp4"], "compressed.mp4", "Video re-encoded at a lower bitrate."); }
 async function threeGp2mp4(files) { await runFfmpegCommand(files[0], ["-c:v", "libx264", "-crf", "24", "-preset", "fast", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "out.mp4"], "converted.mp4", "3GP converted to MP4."); }
 async function flv2mp4(files) { await runFfmpegCommand(files[0], ["-c:v", "libx264", "-crf", "24", "-preset", "fast", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "out.mp4"], "converted.mp4", "FLV converted to MP4."); }
+
+// ---------- VIDEO RESIZE (resolution presets + custom size) ----------
+// Sizes are bounding boxes; "fit" decides what happens to the extra space.
+
+const RS_PRESETS = {
+  uhd: { w: 3840, h: 2160 },
+  fhd: { w: 1920, h: 1080 },
+  hd: { w: 1280, h: 720 },
+  sd: { w: 854, h: 480 },
+  low: { w: 640, h: 360 },
+  half: { pct: 0.5 },
+  quarter: { pct: 0.25 },
+  custom: {},
+};
+
+const RS_CRF = { high: "20", balanced: "24", small: "30" };
+
+let _rsSource = null; // { name, w, h } of the last probed file
+
+// yuv420p needs even dimensions — round to the nearest even, inside encoder limits.
+function _rsEven(n) {
+  const v = Math.floor(Number(n) / 2) * 2;
+  return Math.min(7680, Math.max(16, v || 16));
+}
+
+// Reads intrinsic dimensions from the browser's own demuxer — far cheaper than
+// booting the engine, and tells us if we are about to upscale.
+function _probeVideoSize(file) {
+  return new Promise((resolve) => {
+    const url = URL.createObjectURL(file);
+    const v = document.createElement("video");
+    let settled = false;
+    const finish = (val) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      URL.revokeObjectURL(url);
+      v.removeAttribute("src");
+      resolve(val);
+    };
+    const timer = setTimeout(() => finish(null), 8000);
+    v.preload = "metadata";
+    v.muted = true;
+    v.onloadedmetadata = () => finish(v.videoWidth && v.videoHeight ? { name: file.name, w: v.videoWidth, h: v.videoHeight } : null);
+    v.onerror = () => finish(null);
+    v.src = url;
+  });
+}
+
+function _rsOpts() {
+  const el = (id) => document.getElementById(id);
+  const active = document.querySelector("#resizeOpts .preset-btn.is-active");
+  return {
+    preset: active ? active.dataset.preset : "fhd",
+    w: _rsEven(el("rsW") ? el("rsW").value : 1280),
+    h: _rsEven(el("rsH") ? el("rsH").value : 720),
+    fit: (el("rsFit") && el("rsFit").value) || "contain",
+    crf: RS_CRF[(el("rsQuality") && el("rsQuality").value) || "balanced"] || "24",
+    mute: !!(el("rsMute") && el("rsMute").checked),
+  };
+}
+
+// Resolves the requested preset into a concrete target box, matching the source
+// orientation so a vertical clip gets a vertical target. Returns null when the
+// target can only be expressed as a percentage of an unknown source size.
+function _rsTarget(opts, src) {
+  const p = RS_PRESETS[opts.preset] || RS_PRESETS.custom;
+  if (p.pct) {
+    if (!src) return null;
+    return { w: _rsEven(src.w * p.pct), h: _rsEven(src.h * p.pct) };
+  }
+  let w = p.w || opts.w;
+  let h = p.h || opts.h;
+  if (p.w && src && src.h > src.w && p.w > p.h) {
+    const t = w;
+    w = h;
+    h = t;
+  }
+  return { w: _rsEven(w), h: _rsEven(h) };
+}
+
+function _rsFilter(opts, src) {
+  const target = _rsTarget(opts, src);
+  if (!target) {
+    const pct = RS_PRESETS[opts.preset].pct;
+    return "scale=trunc(iw*" + pct + "/2)*2:trunc(ih*" + pct + "/2)*2:flags=lanczos";
+  }
+  const box = target.w + ":" + target.h;
+  if (opts.fit === "stretch") return "scale=" + box + ":flags=lanczos";
+  if (opts.fit === "cover") {
+    return "scale=" + box + ":force_original_aspect_ratio=increase:force_divisible_by=2:flags=lanczos,crop=" + box;
+  }
+  // min() against the source dimensions keeps a smaller input from being blown up.
+  // The comma inside min() must be escaped, or ffmpeg reads it as a filter separator.
+  return "scale=min(" + target.w + "\\,iw):min(" + target.h + "\\,ih)"
+    + ":force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos";
+}
+
+function _rsLabel(opts, src) {
+  const target = _rsTarget(opts, src);
+  if (target) return target.w + "x" + target.h;
+  return Math.round(RS_PRESETS[opts.preset].pct * 100) + "pct";
+}
+
+function _rsNote() {
+  const note = document.getElementById("rsNote");
+  if (!note) return;
+  const opts = _rsOpts();
+  const src = _rsSource;
+  if (!src) {
+    note.textContent = "Source size unavailable — the engine will work it out from the file.";
+    return;
+  }
+  const target = _rsTarget(opts, src);
+  const size = "Source " + src.w + "×" + src.h + " → ";
+  if (!target) {
+    note.textContent = size + Math.round(RS_PRESETS[opts.preset].pct * 100) + "% of the original.";
+    return;
+  }
+  const upscales = target.w > src.w || target.h > src.h;
+  note.textContent = size + target.w + "×" + target.h
+    + (upscales ? " — that upscales, so the picture will look softer." : " — a clean downscale.");
+}
+
+function _applyPreset(key) {
+  const p = RS_PRESETS[key];
+  const wEl = document.getElementById("rsW");
+  const hEl = document.getElementById("rsH");
+  document.querySelectorAll("#resizeOpts .preset-btn").forEach((b) => {
+    b.classList.toggle("is-active", b.dataset.preset === key);
+  });
+  // Percentage presets derive from the source, so leave the box alone.
+  if (p && (p.w || p.h) && wEl && hEl) {
+    wEl.value = p.w;
+    hEl.value = p.h;
+  }
+  _rsNote();
+}
+
+function _initResizeUI() {
+  const opts = document.getElementById("resizeOpts");
+  if (!opts) return;
+  opts.querySelectorAll(".preset-btn").forEach((btn) => {
+    btn.addEventListener("click", () => _applyPreset(btn.dataset.preset));
+  });
+  ["rsW", "rsH", "rsFit", "rsQuality"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("input", _rsNote);
+  });
+  _rsNote();
+}
+
+if (typeof document !== "undefined") {
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", _initResizeUI);
+  else _initResizeUI();
+}
+
+async function resizeVideo(files) {
+  const opts = _rsOpts();
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    if (files.length > 1) toolStatus("Resizing " + (i + 1) + " of " + files.length + " — " + file.name);
+    let src = _rsSource && _rsSource.name === file.name ? _rsSource : null;
+    if (!src) {
+      src = await _probeVideoSize(file);
+      if (files.length === 1) _rsSource = src;
+    }
+    const args = [
+      "-vf", _rsFilter(opts, src),
+      "-c:v", "libx264", "-crf", opts.crf, "-preset", "veryfast", "-pix_fmt", "yuv420p",
+    ];
+    if (opts.mute) args.push("-an");
+    else args.push("-c:a", "aac", "-b:a", "128k");
+    args.push("-movflags", "+faststart", "out.mp4");
+    const label = _rsLabel(opts, src);
+    await runFfmpegCommand(file, args, "out.mp4",
+      "Video resized to " + label + (opts.mute ? " (audio removed)." : "."), label + ".mp4");
+  }
+}
+
+// Called by app.js as soon as files are picked, so the panel can show the
+// source resolution and the result it will produce.
+async function onResizeFiles(files) {
+  if (!_rsSource || !files.length || files[0].name !== _rsSource.name) {
+    _rsSource = files.length ? await _probeVideoSize(files[0]) : null;
+  }
+  _rsNote();
+}
 
 async function folderToZip(files) {
   await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js");
@@ -1009,6 +1198,7 @@ const EXTRA_TOOLS = {
   videocompress: { accept: "video/*", multiple: false, dropLabel: "Drop a video here, or click to browse", dropHint: "Re-encodes at a lower size", convert: compressVideo },
   threegp2mp4: { accept: ".3gp,.3ga", multiple: false, dropLabel: "Drop a 3GP video here, or click to browse", dropHint: "Converts to MP4", convert: threeGp2mp4 },
   flv2mp4: { accept: ".flv", multiple: false, dropLabel: "Drop an FLV video here, or click to browse", dropHint: "Converts to MP4", convert: flv2mp4 },
+  videoresize: { accept: "video/*", multiple: true, dropLabel: "Drop a video here, or click to browse", dropHint: "4K, 1080p, 720p, 480p, 360p or any custom size", convert: resizeVideo, onFiles: onResizeFiles },
 };
 
 window.EXTRA_TOOLS = EXTRA_TOOLS;

@@ -300,6 +300,124 @@
     .wrap { padding: 150px 14px 50px; }
 }
 
+/* ========== OPTIONS PANEL (tools with settings, e.g. resize-video) ========== */
+.tool-opts {
+    margin-top: 18px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.opt-block {
+    display: block;
+}
+
+.opt-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.preset-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.preset-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 6px 13px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.preset-btn:hover {
+    color: var(--text-main);
+    border-color: var(--vibrant-blue);
+}
+
+.preset-btn.is-active {
+    background: rgba(0, 229, 255, 0.12);
+    border-color: var(--vibrant-blue);
+    color: var(--vibrant-blue);
+}
+
+.opt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.opt-field {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 14px;
+}
+
+.opt-grid .opt-field {
+    margin-top: 0;
+}
+
+.opt-field input,
+.opt-field select {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 9px 11px;
+    border-radius: 9px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+}
+
+.opt-field input:focus-visible,
+.opt-field select:focus-visible {
+    outline: none;
+    border-color: var(--vibrant-blue);
+}
+
+.opt-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.opt-check input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--vibrant-blue);
+    cursor: pointer;
+}
+
+.opt-note {
+    margin: 14px 0 0;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+    .opt-grid { grid-template-columns: 1fr; }
+}
+
 /* ========== WHATSAPP FLOATING BUTTON ========== */
 .wa-float {
     position: fixed;

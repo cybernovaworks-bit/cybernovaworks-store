@@ -254,6 +254,59 @@ add({ key: "flv2mp4", cat: "video", color: "tool-c-red", icon: "fa-tv", file: "f
   steps: ["Drop the FLV file.", "It is converted to MP4.", "Download your MP4."],
   faq: [["What was FLV used for?", "Old web streaming. MP4 replaces it today."], ["Can I convert downloaded recordings?", "Yes, as long as you have the rights."]] });
 
+add({ key: "videoresize", cat: "video", color: "tool-c-cyan", icon: "fa-expand", file: "resize-video.html",
+  name: "Resize Video", h1: "Resize Video",
+  tagline: "Change any video's resolution — 4K, 1080p, 720p, 480p, 360p, half size, or your own dimensions. Nothing is uploaded.",
+  desc: "Resize a video to 1080p, 720p, 480p, 360p or any custom resolution, right in your browser.",
+  steps: ["Drop in your video file.", "Pick a resolution preset, or type your own width and height.", "Press Resize video and download the result."],
+  faq: [["Will resizing ruin the quality?", "Scaling down is clean and the video stays sharp. Scaling up can't invent detail, so the picture gets softer — the tool warns you before it happens."], ["Is my video uploaded to a server?", "No. The encoding engine runs inside your browser, so your file never leaves your device."], ["Which size should I pick?", "720p is the safe all-rounder for WhatsApp, Instagram and email. 1080p keeps full HD quality, and 360p is the smallest option for slow connections."], ["Can I resize several videos at once?", "Yes — add as many files as you like and each one is processed in turn."]],
+  btnLabel: "Resize video",
+  panelExtra: `    <div class="tool-opts" id="resizeOpts">
+      <span class="opt-label">Resolution</span>
+      <div class="preset-row" role="group" aria-label="Resolution preset">
+        <button type="button" class="preset-btn" data-preset="uhd">4K</button>
+        <button type="button" class="preset-btn is-active" data-preset="fhd">1080p</button>
+        <button type="button" class="preset-btn" data-preset="hd">720p</button>
+        <button type="button" class="preset-btn" data-preset="sd">480p</button>
+        <button type="button" class="preset-btn" data-preset="low">360p</button>
+        <button type="button" class="preset-btn" data-preset="half">50%</button>
+        <button type="button" class="preset-btn" data-preset="quarter">25%</button>
+        <button type="button" class="preset-btn" data-preset="custom">Custom</button>
+      </div>
+
+      <div class="opt-grid">
+        <label class="opt-field" for="rsW">Width (px)
+          <input type="number" id="rsW" min="16" max="7680" step="2" value="1920" inputmode="numeric" />
+        </label>
+        <label class="opt-field" for="rsH">Height (px)
+          <input type="number" id="rsH" min="16" max="4320" step="2" value="1080" inputmode="numeric" />
+        </label>
+      </div>
+
+      <label class="opt-field" for="rsFit">Fit
+        <select id="rsFit">
+          <option value="contain" selected>Fit inside — keeps the whole frame</option>
+          <option value="cover">Fill &amp; crop — fills the box exactly</option>
+          <option value="stretch">Stretch — exact size, may distort</option>
+        </select>
+      </label>
+
+      <label class="opt-field" for="rsQuality">Quality
+        <select id="rsQuality">
+          <option value="high">High — best looking, larger file</option>
+          <option value="balanced" selected>Balanced — recommended</option>
+          <option value="small">Small file — smallest download</option>
+        </select>
+      </label>
+
+      <label class="opt-check">
+        <input type="checkbox" id="rsMute" />
+        Remove the audio track
+      </label>
+
+      <p class="opt-note" id="rsNote">Add a video and its resolution will appear here.</p>
+    </div>` });
+
 // ---------- IMAGES ----------
 add({ key: "jpg2png", cat: "image", color: "tool-c-green", icon: "fa-image", file: "jpg-to-png.html",
   name: "JPG to PNG", h1: "JPG to PNG",
@@ -577,7 +630,7 @@ ${faq}
 
     <ul class="filelist" id="fileList" aria-live="polite"></ul>
 
-    <button class="convert-btn" id="convertBtn" disabled>Convert</button>
+${t.panelExtra ? t.panelExtra + "\n" : ""}    <button class="convert-btn" id="convertBtn" disabled>${t.btnLabel || "Convert"}</button>
 
     <div class="results" id="results" aria-live="polite"></div>
   </main>
@@ -1081,6 +1134,19 @@ function cardHomeChip(t) {
             </a>`;
 }
 
+// Every page the hub links to, so the sitemap can never drift from the tool list again.
+function swapfileSitemap() {
+  const files = ["index.html", ...T.map((t) => t.file), ...Object.values(EXISTING).map((v) => v.file)];
+  const urls = files
+    .map((f) => `  <url><loc>${BASE}/${f}</loc></url>`)
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`;
+}
+
 // ---------- Main ----------
 mkdirSync(".", { recursive: true });
 let count = 0;
@@ -1091,4 +1157,5 @@ for (const t of T) {
 }
 writeFileSync("index.html", hubPage());
 writeFileSync("home-tools.html", homeToolsHTML());
-console.log(`Generated ${count} tool pages + index.html + home-tools.html`);
+writeFileSync("sitemap.xml", swapfileSitemap());
+console.log(`Generated ${count} tool pages + index.html + home-tools.html + sitemap.xml`);

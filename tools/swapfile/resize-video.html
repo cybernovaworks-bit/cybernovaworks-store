@@ -12,14 +12,14 @@
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Text to PDF Converter — Free, No Upload | Swapfile</title>
-<meta name="description" content="Convert a plain text or Markdown file into a clean PDF in seconds. Runs 100% in your browser — nothing is uploaded." />
-<link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/text-to-pdf.html" />
+<title>Resize Video Converter — Free, No Upload | Swapfile</title>
+<meta name="description" content="Resize a video to 1080p, 720p, 480p, 360p or any custom resolution, right in your browser. Runs 100% in your browser — nothing is uploaded." />
+<link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/resize-video.html" />
 <meta name="theme-color" content="#050510" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Text to PDF Converter — Free, No Upload | Swapfile" />
-<meta property="og:description" content="Convert a plain text or Markdown file into a clean PDF in seconds." />
-<meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/text-to-pdf.html" />
+<meta property="og:title" content="Resize Video Converter — Free, No Upload | Swapfile" />
+<meta property="og:description" content="Resize a video to 1080p, 720p, 480p, 360p or any custom resolution, right in your browser." />
+<meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/resize-video.html" />
 <meta name="twitter:card" content="summary" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
@@ -33,12 +33,12 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Swapfile — Text to PDF",
-  "url": "https://cybernovaworks.store/tools/swapfile/text-to-pdf.html",
+  "name": "Swapfile — Resize Video",
+  "url": "https://cybernovaworks.store/tools/swapfile/resize-video.html",
   "applicationCategory": "Utility",
   "operatingSystem": "Any (runs in browser)",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "Convert a plain text or Markdown file into a clean PDF in seconds."
+  "description": "Resize a video to 1080p, 720p, 480p, 360p or any custom resolution, right in your browser."
 }
 </script>
 <script type="application/ld+json">
@@ -46,13 +46,15 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Do headers and bullet points convert?", "acceptedAnswer": { "@type": "Answer", "text": "Markdown basics like headings and lists are recognized. Plain text is wrapped into paragraphs." } },
-    { "@type": "Question", "name": "Can I use it for long documents?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — long text wraps onto multiple pages automatically." } }
+    { "@type": "Question", "name": "Will resizing ruin the quality?", "acceptedAnswer": { "@type": "Answer", "text": "Scaling down is clean and the video stays sharp. Scaling up can't invent detail, so the picture gets softer — the tool warns you before it happens." } },
+    { "@type": "Question", "name": "Is my video uploaded to a server?", "acceptedAnswer": { "@type": "Answer", "text": "No. The encoding engine runs inside your browser, so your file never leaves your device." } },
+    { "@type": "Question", "name": "Which size should I pick?", "acceptedAnswer": { "@type": "Answer", "text": "720p is the safe all-rounder for WhatsApp, Instagram and email. 1080p keeps full HD quality, and 360p is the smallest option for slow connections." } },
+    { "@type": "Question", "name": "Can I resize several videos at once?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — add as many files as you like and each one is processed in turn." } }
   ]
 }
 </script>
 </head>
-<body data-tool="text2pdf">
+<body data-tool="videoresize">
 
 <header class="navbar" id="navbar">
     <div class="logo">
@@ -82,8 +84,8 @@
 <div class="wrap">
 
   <header class="hero">
-    <h1>Text to PDF</h1>
-    <p class="tagline">Turn a .txt or .md note into a tidy PDF document you can email, print, or share.</p>
+    <h1>Resize Video</h1>
+    <p class="tagline">Change any video's resolution — 4K, 1080p, 720p, 480p, 360p, half size, or your own dimensions. Nothing is uploaded.</p>
   </header>
 
   <main class="panel">
@@ -98,7 +100,52 @@
 
     <ul class="filelist" id="fileList" aria-live="polite"></ul>
 
-    <button class="convert-btn" id="convertBtn" disabled>Convert</button>
+    <div class="tool-opts" id="resizeOpts">
+      <span class="opt-label">Resolution</span>
+      <div class="preset-row" role="group" aria-label="Resolution preset">
+        <button type="button" class="preset-btn" data-preset="uhd">4K</button>
+        <button type="button" class="preset-btn is-active" data-preset="fhd">1080p</button>
+        <button type="button" class="preset-btn" data-preset="hd">720p</button>
+        <button type="button" class="preset-btn" data-preset="sd">480p</button>
+        <button type="button" class="preset-btn" data-preset="low">360p</button>
+        <button type="button" class="preset-btn" data-preset="half">50%</button>
+        <button type="button" class="preset-btn" data-preset="quarter">25%</button>
+        <button type="button" class="preset-btn" data-preset="custom">Custom</button>
+      </div>
+
+      <div class="opt-grid">
+        <label class="opt-field" for="rsW">Width (px)
+          <input type="number" id="rsW" min="16" max="7680" step="2" value="1920" inputmode="numeric" />
+        </label>
+        <label class="opt-field" for="rsH">Height (px)
+          <input type="number" id="rsH" min="16" max="4320" step="2" value="1080" inputmode="numeric" />
+        </label>
+      </div>
+
+      <label class="opt-field" for="rsFit">Fit
+        <select id="rsFit">
+          <option value="contain" selected>Fit inside — keeps the whole frame</option>
+          <option value="cover">Fill &amp; crop — fills the box exactly</option>
+          <option value="stretch">Stretch — exact size, may distort</option>
+        </select>
+      </label>
+
+      <label class="opt-field" for="rsQuality">Quality
+        <select id="rsQuality">
+          <option value="high">High — best looking, larger file</option>
+          <option value="balanced" selected>Balanced — recommended</option>
+          <option value="small">Small file — smallest download</option>
+        </select>
+      </label>
+
+      <label class="opt-check">
+        <input type="checkbox" id="rsMute" />
+        Remove the audio track
+      </label>
+
+      <p class="opt-note" id="rsNote">Add a video and its resolution will appear here.</p>
+    </div>
+    <button class="convert-btn" id="convertBtn" disabled>Resize video</button>
 
     <div class="results" id="results" aria-live="polite"></div>
   </main>
@@ -106,32 +153,36 @@
   <section class="about">
     <h2>How it works</h2>
     <ol class="steps">
-      <li>Drop in your .txt or .md file.</li>
-      <li>Text is laid out into a formatted PDF.</li>
-      <li>Download your document.</li>
+      <li>Drop in your video file.</li>
+      <li>Pick a resolution preset, or type your own width and height.</li>
+      <li>Press Resize video and download the result.</li>
     </ol>
 
     <h3>Common questions</h3>
     <dl>
-      <dt>Do headers and bullet points convert?</dt>
-      <dd>Markdown basics like headings and lists are recognized. Plain text is wrapped into paragraphs.</dd>
-      <dt>Can I use it for long documents?</dt>
-      <dd>Yes — long text wraps onto multiple pages automatically.</dd>
+      <dt>Will resizing ruin the quality?</dt>
+      <dd>Scaling down is clean and the video stays sharp. Scaling up can't invent detail, so the picture gets softer — the tool warns you before it happens.</dd>
+      <dt>Is my video uploaded to a server?</dt>
+      <dd>No. The encoding engine runs inside your browser, so your file never leaves your device.</dd>
+      <dt>Which size should I pick?</dt>
+      <dd>720p is the safe all-rounder for WhatsApp, Instagram and email. 1080p keeps full HD quality, and 360p is the smallest option for slow connections.</dd>
+      <dt>Can I resize several videos at once?</dt>
+      <dd>Yes — add as many files as you like and each one is processed in turn.</dd>
     </dl>
   </section>
 
   <nav class="other-tools" aria-label="Other tools">
     <h3>Related tools</h3>
     <ul>
-      <li><a href="pdf-to-excel.html">Pdf To Excel</a></li>
-      <li><a href="excel-to-pdf.html">Excel To Pdf</a></li>
-      <li><a href="powerpoint-to-pdf.html">Powerpoint To Pdf</a></li>
-      <li><a href="pdf-to-powerpoint.html">Pdf To Powerpoint</a></li>
-      <li><a href="pdf-to-text.html">Pdf To Text</a></li>
-      <li><a href="html-to-pdf.html">Html To Pdf</a></li>
-      <li><a href="pdf-to-html.html">Pdf To Html</a></li>
-      <li><a href="epub-to-pdf.html">Epub To Pdf</a></li>
-      <li><a href="pdf-to-epub.html">Pdf To Epub</a></li>
+      <li><a href="avi-to-mp4.html">Avi To Mp4</a></li>
+      <li><a href="mov-to-mp4.html">Mov To Mp4</a></li>
+      <li><a href="mkv-to-mp4.html">Mkv To Mp4</a></li>
+      <li><a href="webm-to-mp4.html">Webm To Mp4</a></li>
+      <li><a href="mp4-to-avi.html">Mp4 To Avi</a></li>
+      <li><a href="mp4-to-mov.html">Mp4 To Mov</a></li>
+      <li><a href="mp4-to-gif.html">Mp4 To Gif</a></li>
+      <li><a href="gif-to-mp4.html">Gif To Mp4</a></li>
+      <li><a href="video-to-mp3.html">Video To Mp3</a></li>
       <li><a href="index.html">View all tools →</a></li>
     </ul>
   </nav>
