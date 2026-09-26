@@ -390,6 +390,30 @@
     border-color: var(--vibrant-blue);
 }
 
+/* Native file picker — the button needs its own contrast to sit inside a dark card. */
+.opt-field input[type="file"] {
+    padding: 7px 9px;
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+}
+
+.opt-field input[type="file"]::file-selector-button {
+    margin-right: 10px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    background: rgba(0, 229, 255, 0.12);
+    color: var(--vibrant-blue);
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.opt-field input[type="file"]::file-selector-button:hover {
+    border-color: var(--vibrant-blue);
+}
+
 .opt-check {
     display: flex;
     align-items: center;

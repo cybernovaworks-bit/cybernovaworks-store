@@ -307,6 +307,109 @@ add({ key: "videoresize", cat: "video", color: "tool-c-cyan", icon: "fa-expand",
       <p class="opt-note" id="rsNote">Add a video and its resolution will appear here.</p>
     </div>` });
 
+add({ key: "trimvideo", cat: "video", color: "tool-c-indigo", icon: "fa-scissors", file: "trim-video.html",
+  name: "Trim Video", h1: "Trim Video",
+  tagline: "Cut a long video down to just the part you need — perfect for reels, clips and highlights. Nothing is uploaded.",
+  desc: "Cut a video to a specific start time and length, entirely in your browser.",
+  steps: ["Drop in your video.", "Set where the clip should start and how long it should run.", "Press Cut clip and download the result."],
+  faq: [["Is the cut frame-accurate?", "Yes — the encoder re-encodes the range from the exact timestamp rather than snapping to a keyframe, so the clip starts where you asked."], ["Does trimming reduce quality?", "It re-encodes the kept section at a high quality setting, which is visually lossless. The discarded part is simply gone, so the file is much smaller."], ["Can I trim several videos at once?", "One video at a time for now, so you can check the result of each cut."]],
+  btnLabel: "Cut clip",
+  panelExtra: `    <div class="tool-opts" id="trimOpts">
+      <span class="opt-label">Quick length</span>
+      <div class="preset-row" role="group" aria-label="Quick clip length">
+        <button type="button" class="preset-btn" data-preset="clip">15s clip</button>
+        <button type="button" class="preset-btn is-active" data-preset="short">30s clip</button>
+        <button type="button" class="preset-btn" data-preset="long">60s clip</button>
+      </div>
+
+      <div class="opt-grid">
+        <label class="opt-field" for="trStart">Start at (seconds)
+          <input type="number" id="trStart" min="0" step="0.1" value="0" inputmode="decimal" />
+        </label>
+        <label class="opt-field" for="trLength">Length (seconds)
+          <input type="number" id="trLength" min="0.5" step="0.5" value="30" inputmode="decimal" />
+        </label>
+      </div>
+
+      <p class="opt-note" id="trNote">Set where the clip should start and how long it should run.</p>
+    </div>` });
+
+add({ key: "rotatevideo", cat: "video", color: "tool-c-orange", icon: "fa-rotate", file: "rotate-video.html",
+  name: "Rotate Video", h1: "Rotate Video",
+  tagline: "Turn a sideways phone video the right way up, or mirror a front-camera clip so it looks natural. Nothing is uploaded.",
+  desc: "Rotate or flip a video 90, 180 or 45 degrees, entirely in your browser.",
+  steps: ["Drop in your video.", "Choose the turn or flip you need.", "Press Rotate and download the fixed video."],
+  faq: [["Why do the dimensions change?", "A 90° turn swaps width and height, so a 1920×1080 clip becomes 1080×1920. That is what makes a sideways clip fill a phone screen properly."], ["Can I mirror a selfie video?", "Yes — pick Flip horizontal. Front cameras normally mirror what you see, so this puts it back the way other people see you."], ["Does rotating lose quality?", "It re-encodes at a high quality setting, so there is no visible loss."]],
+  btnLabel: "Rotate video",
+  panelExtra: `    <div class="tool-opts" id="rotateOpts">
+      <label class="opt-field" for="rotAngle">Turn / flip
+        <select id="rotAngle">
+          <option value="cw90" selected>Rotate 90° clockwise</option>
+          <option value="ccw90">Rotate 90° anticlockwise</option>
+          <option value="flip180">Rotate 180° (upside down)</option>
+          <option value="hflip">Flip horizontal (mirror)</option>
+          <option value="vflip">Flip vertical</option>
+          <option value="tilt45">Tilt 45°</option>
+        </select>
+      </label>
+      <p class="opt-note" id="rotNote">Turns the video 90°. Width and height swap.</p>
+    </div>` });
+
+add({ key: "videoframe", cat: "video", color: "tool-c-cyan", icon: "fa-camera", file: "video-to-image.html",
+  name: "Video to Image", h1: "Video to Image",
+  tagline: "Pull still JPG frames out of a video at any timestamp — for thumbnails, storyboards or slides. Nothing is uploaded.",
+  desc: "Save still images from any point in a video as JPG files, in your browser.",
+  steps: ["Drop in your video.", "Type the timestamps you want, separated by commas.", "Press Save frames and each image downloads."],
+  faq: [["Can I get several frames at once?", "Yes — type timestamps like 1, 5, 12 and each one is saved as its own JPG. Up to 20 at a time."], ["What quality are the images?", "Full resolution at high JPG quality, so they are sharp enough for a thumbnail or a slide."], ["What if a timestamp is past the end?", "That frame is skipped rather than failing the whole run."]],
+  btnLabel: "Save frames",
+  panelExtra: `    <div class="tool-opts" id="frameOpts">
+      <label class="opt-field" for="frTimes">Timestamps in seconds (comma separated)
+        <input type="text" id="frTimes" value="1" inputmode="decimal" />
+      </label>
+      <p class="opt-note" id="frNote">1 image will be saved, one per timestamp.</p>
+    </div>` });
+
+add({ key: "watermarkvideo", cat: "video", color: "tool-c-pink", icon: "fa-stamp", file: "watermark-video.html",
+  name: "Watermark Video", h1: "Watermark Video",
+  tagline: "Put your logo or channel name over a video to stop it being reposted without credit. Runs entirely on your device.",
+  desc: "Add a logo watermark to a video, in your browser, with position and opacity controls.",
+  steps: ["Drop in your video.", "Choose your logo image and where it should sit.", "Press Add watermark and download the result."],
+  faq: [["What image format should I use?", "A PNG with a transparent background works best, so only the logo shows and the box around it disappears. A JPG works but covers the video with a solid rectangle."], ["Does the logo get stretched?", "No — it is scaled to a percentage of your video's width, keeping its own proportions, so it stays sharp on a 4K clip."], ["Does it re-encode the whole video?", "Yes, an overlay has to be re-encoded. That is why it takes a little longer than a straight cut."]],
+  btnLabel: "Add watermark",
+  panelExtra: `    <div class="tool-opts" id="wmOpts">
+      <span class="opt-label">Logo size</span>
+      <div class="preset-row" role="group" aria-label="Logo size">
+        <button type="button" class="preset-btn" data-scale="small">Small</button>
+        <button type="button" class="preset-btn is-active" data-scale="medium">Medium</button>
+        <button type="button" class="preset-btn" data-scale="large">Large</button>
+      </div>
+
+      <label class="opt-field" for="wmImage">Logo image
+        <input type="file" id="wmImage" accept="image/*" />
+      </label>
+
+      <label class="opt-field" for="wmPos">Position
+        <select id="wmPos">
+          <option value="tl">Top left</option>
+          <option value="tr">Top right</option>
+          <option value="bl">Bottom left</option>
+          <option value="br" selected>Bottom right</option>
+          <option value="center">Centre</option>
+        </select>
+      </label>
+
+      <label class="opt-field" for="wmOpacity">Opacity
+        <select id="wmOpacity">
+          <option value="0.3">Faint — 30%</option>
+          <option value="0.5" selected>Medium — 50%</option>
+          <option value="0.75">Strong — 75%</option>
+          <option value="1">Solid — 100%</option>
+        </select>
+      </label>
+
+      <p class="opt-note" id="wmNote">The logo is drawn over the video as a transparent overlay.</p>
+    </div>` });
+
 // ---------- IMAGES ----------
 add({ key: "jpg2png", cat: "image", color: "tool-c-green", icon: "fa-image", file: "jpg-to-png.html",
   name: "JPG to PNG", h1: "JPG to PNG",

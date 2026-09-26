@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
+<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rotate Video Converter — Free, No Upload | Swapfile</title>
+<meta name="description" content="Rotate or flip a video 90, 180 or 45 degrees, entirely in your browser. Runs 100% in your browser — nothing is uploaded." />
+<link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/rotate-video.html" />
+<meta name="theme-color" content="#050510" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Rotate Video Converter — Free, No Upload | Swapfile" />
+<meta property="og:description" content="Rotate or flip a video 90, 180 or 45 degrees, entirely in your browser." />
+<meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/rotate-video.html" />
+<meta name="twitter:card" content="summary" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="styles.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Swapfile — Rotate Video",
+  "url": "https://cybernovaworks.store/tools/swapfile/rotate-video.html",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any (runs in browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Rotate or flip a video 90, 180 or 45 degrees, entirely in your browser."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Why do the dimensions change?", "acceptedAnswer": { "@type": "Answer", "text": "A 90° turn swaps width and height, so a 1920×1080 clip becomes 1080×1920. That is what makes a sideways clip fill a phone screen properly." } },
+    { "@type": "Question", "name": "Can I mirror a selfie video?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — pick Flip horizontal. Front cameras normally mirror what you see, so this puts it back the way other people see you." } },
+    { "@type": "Question", "name": "Does rotating lose quality?", "acceptedAnswer": { "@type": "Answer", "text": "It re-encodes at a high quality setting, so there is no visible loss." } }
+  ]
+}
+</script>
+</head>
+<body data-tool="rotatevideo">
+
+<header class="navbar" id="navbar">
+    <div class="logo">
+        <a href="../../index.html">
+            <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+        </a>
+    </div>
+
+    <div class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../about.html">About Us</a>
+        <a href="../../web-development.html">Services</a>
+        <a href="../../store.html" class="nav-store-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+        <a href="index.html" class="active">Tools</a>
+        <a href="../../blog/index.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+    </nav>
+    <div class="nav-action">
+        <a href="../../contact.html" class="btn btn-outline glow-blue">Get a Quote</a>
+    </div>
+</header>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Rotate Video</h1>
+    <p class="tagline">Turn a sideways phone video the right way up, or mirror a front-camera clip so it looks natural. Nothing is uploaded.</p>
+  </header>
+
+  <main class="panel">
+    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose files">
+      <input type="file" id="fileInput" hidden />
+      <svg class="drop-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <path d="M12 4v11m0-11l-4 4m4-4l4 4M5 17v2a2 2 0 002 2h10a2 2 0 002-2v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="drop-label" id="dropLabel">Drop a file here, or click to browse</p>
+      <p class="drop-hint" id="dropHint">No upload — everything runs in your browser</p>
+    </div>
+
+    <ul class="filelist" id="fileList" aria-live="polite"></ul>
+
+    <div class="tool-opts" id="rotateOpts">
+      <label class="opt-field" for="rotAngle">Turn / flip
+        <select id="rotAngle">
+          <option value="cw90" selected>Rotate 90° clockwise</option>
+          <option value="ccw90">Rotate 90° anticlockwise</option>
+          <option value="flip180">Rotate 180° (upside down)</option>
+          <option value="hflip">Flip horizontal (mirror)</option>
+          <option value="vflip">Flip vertical</option>
+          <option value="tilt45">Tilt 45°</option>
+        </select>
+      </label>
+      <p class="opt-note" id="rotNote">Turns the video 90°. Width and height swap.</p>
+    </div>
+    <button class="convert-btn" id="convertBtn" disabled>Rotate video</button>
+
+    <div class="results" id="results" aria-live="polite"></div>
+  </main>
+
+  <section class="about">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>Drop in your video.</li>
+      <li>Choose the turn or flip you need.</li>
+      <li>Press Rotate and download the fixed video.</li>
+    </ol>
+
+    <h3>Common questions</h3>
+    <dl>
+      <dt>Why do the dimensions change?</dt>
+      <dd>A 90° turn swaps width and height, so a 1920×1080 clip becomes 1080×1920. That is what makes a sideways clip fill a phone screen properly.</dd>
+      <dt>Can I mirror a selfie video?</dt>
+      <dd>Yes — pick Flip horizontal. Front cameras normally mirror what you see, so this puts it back the way other people see you.</dd>
+      <dt>Does rotating lose quality?</dt>
+      <dd>It re-encodes at a high quality setting, so there is no visible loss.</dd>
+    </dl>
+  </section>
+
+  <nav class="other-tools" aria-label="Other tools">
+    <h3>Related tools</h3>
+    <ul>
+      <li><a href="avi-to-mp4.html">Avi To Mp4</a></li>
+      <li><a href="mov-to-mp4.html">Mov To Mp4</a></li>
+      <li><a href="mkv-to-mp4.html">Mkv To Mp4</a></li>
+      <li><a href="webm-to-mp4.html">Webm To Mp4</a></li>
+      <li><a href="mp4-to-avi.html">Mp4 To Avi</a></li>
+      <li><a href="mp4-to-mov.html">Mp4 To Mov</a></li>
+      <li><a href="mp4-to-gif.html">Mp4 To Gif</a></li>
+      <li><a href="gif-to-mp4.html">Gif To Mp4</a></li>
+      <li><a href="video-to-mp3.html">Video To Mp3</a></li>
+      <li><a href="index.html">View all tools →</a></li>
+    </ul>
+  </nav>
+
+  
+
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <a href="../../index.html" style="text-decoration: none;">
+                <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+            </a>
+        </div>
+        <div class="footer-nav">
+            <a href="../../index.html">Home</a>
+            <a href="../../about.html">About</a>
+            <a href="../../web-development.html">Web Development</a>
+            <a href="../../app-development.html">App Development</a>
+            <a href="../../graphic-design.html">Graphic Design</a>
+            <a href="../../software-solutions.html">Software Solutions</a>
+            <a href="../../store.html">Store</a>
+            <a href="../../blog/index.html">Blog</a>
+            <a href="index.html">Free Tools</a>
+            <a href="../../contact.html">Contact</a>
+            <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://x.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/cybernovaworks-bit" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 CyberNovaWorks.store. All rights reserved.</p>
+    </div>
+</footer>
+
+<div id="stars-container"></div>
+
+<a href="https://wa.me/918092638177?text=Hi%20CyberNovaWorks!%20I%20need%20a%20quote." class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<script src="../../script.js"></script>
+<script src="converts.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
