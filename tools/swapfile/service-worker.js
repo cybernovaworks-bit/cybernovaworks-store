@@ -1,6 +1,9 @@
 // Bump CACHE_NAME whenever this list changes — cache-first means returning
 // visitors keep the old cache until the name changes.
-const CACHE_NAME = "swapfile-v2";
+// v3: forced bump. v2 had cached the app.js that crashed on load (duplicate
+// top-level const vs converts.js), so returning visitors were pinned to the
+// broken copy and would not pick up the fix without this rename.
+const CACHE_NAME = "swapfile-v3";
 
 // App shell only. Tool pages are deliberately NOT precached: there are 60+ of
 // them (~1 MB), and addAll() is atomic, so one bad URL would fail the whole
