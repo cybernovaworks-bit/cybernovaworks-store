@@ -513,9 +513,9 @@ let _mespeakReady = null;
 function ensureMeSpeak() {
   if (!_mespeakReady) {
     _mespeakReady = (async () => {
-      await loadScript("https://cdn.jsdelivr.net/npm/mespeak@1.2.5/mespeak.min.js");
-      meSpeak.loadConfig("https://cdn.jsdelivr.net/npm/mespeak@1.2.5/mespeak_config.json");
-      await new Promise((res) => meSpeak.loadVoice("https://cdn.jsdelivr.net/npm/mespeak@1.2.5/voices/en/en.json", res));
+      await loadScript("https://cdn.jsdelivr.net/npm/mespeak/mespeak.min.js");
+      meSpeak.loadConfig("https://cdn.jsdelivr.net/npm/mespeak/mespeak_config.json");
+      await new Promise((res) => meSpeak.loadVoice("https://cdn.jsdelivr.net/npm/mespeak/voices/en/en.json", res));
     })();
   }
   return _mespeakReady;
@@ -1293,18 +1293,29 @@ async function folderToZip(files) {
 // FONT: TTF → WOFF
 // =====================================================================
 
+let _fontEditorMod = null;
+function ensureFontEditor() {
+  if (!_fontEditorMod) {
+    _fontEditorMod = import("https://cdn.jsdelivr.net/npm/fonteditor-core@2.6.3/+esm").catch((err) => {
+      _fontEditorMod = null;
+      throw new Error("Could not load the font library (fonteditor-core). " + ((err && err.message) || ""));
+    });
+  }
+  return _fontEditorMod;
+}
+
 async function ttfToWoff(files) {
   const file = files[0];
-  await loadScript("https://cdn.jsdelivr.net/npm/fonteditor-core@2.1.2/dist/fonteditor.min.js");
-  const ab = await readAsArrayBuffer(file);
-  let fontObj;
-  if (typeof fonteditor !== "undefined" && fonteditor.ttf && fonteditor.ttf.read) {
-    fontObj = fonteditor.ttf.read(ab);
-  } else {
+  toolStatus("Loading font library…");
+  const fe = await ensureFontEditor();
+  if (!fe || typeof fe.createFont !== "function") {
     throw new Error("Font library not available in this browser.");
   }
-  const woffAb = fonteditor.woff.write(fontObj);
-  downloadBlob(new Blob([woffAb], { type: "font/woff" }), _baseName(file.name) + ".woff");
+  toolStatus("Converting " + _baseName(file.name) + " to WOFF…");
+  const ab = await readAsArrayBuffer(file);
+  const fontObj = fe.createFont(ab, { type: "ttf" });
+  const woff = fontObj.write({ type: "woff" });
+  downloadBlob(new Blob([woff], { type: "font/woff" }), _baseName(file.name) + ".woff");
   toolStatus("Web font (.woff) created from the TTF file.");
 }
 

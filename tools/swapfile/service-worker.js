@@ -11,7 +11,7 @@
 // CDN assets (unpkg/cdnjs, versioned + immutable) are left alone entirely: they
 // are not intercepted, so they keep using normal HTTP caching. Nothing depends
 // on a manual version bump any more.
-const CACHE_NAME = "swapfile-v4";
+const CACHE_NAME = "swapfile-v5";
 
 // App shell only. Tool pages are deliberately NOT precached: there are 60+ of
 // them (~1 MB), and addAll() is atomic, so one bad URL would fail the whole
