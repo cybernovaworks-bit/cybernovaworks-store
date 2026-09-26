@@ -1,7 +1,10 @@
 // Swapfile — extended conversion engine for the large tool set.
 // Loaded BEFORE app.js. Registers window.EXTRA_TOOLS; app.js merges them into TOOLS.
 
-const PDF_WORKER_SRC = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+// NOTE: must not collide with a top-level name in app.js. Both files are classic
+// scripts sharing one global lexical scope, so a duplicate const/let/class is a
+// parse-time SyntaxError that kills the whole second script. Prefix with _ here.
+const _pdfWorkerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 // ---------- Lazy script loader ----------
 const _loadedLibs = new Set();
@@ -89,11 +92,11 @@ function downloadBlob(blob, filename) {
 // ---------- PDF helpers ----------
 async function getPdfjs() {
   if (window.pdfjsLib) {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = _pdfWorkerSrc;
     return pdfjsLib;
   }
   await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js");
-  pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = _pdfWorkerSrc;
   return pdfjsLib;
 }
 
