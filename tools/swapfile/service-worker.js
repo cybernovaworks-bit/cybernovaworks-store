@@ -1,20 +1,22 @@
-const CACHE_NAME = "swapfile-v1";
+// Bump CACHE_NAME whenever this list changes — cache-first means returning
+// visitors keep the old cache until the name changes.
+const CACHE_NAME = "swapfile-v2";
+
+// App shell only. Tool pages are deliberately NOT precached: there are 60+ of
+// them (~1 MB), and addAll() is atomic, so one bad URL would fail the whole
+// install and leave the app with no offline support at all. Instead the fetch
+// handler below caches each page the first time it is visited, so a tool works
+// offline once you have opened it. This list is the same for every tool, so it
+// never needs updating when tools are added.
 const ASSETS = [
   "./",
   "./index.html",
-  "./image-to-pdf.html",
-  "./pdf-to-image.html",
-  "./word-to-pdf.html",
-  "./pdf-to-word.html",
-  "./merge-pdf.html",
-  "./split-pdf.html",
-  "./compress-pdf.html",
-  "./compress-image.html",
-  "./heic-to-jpg.html",
   "./styles.css",
+  "./converts.js",
   "./app.js",
   "./manifest.json",
   "./icon.svg",
+  "../../script.js",
 ];
 
 self.addEventListener("install", (event) => {

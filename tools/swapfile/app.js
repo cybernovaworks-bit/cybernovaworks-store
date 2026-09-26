@@ -141,6 +141,8 @@ function handleFiles(fileListLike) {
   resultsEl.innerHTML = "";
   renderFileList();
   updateConvertState();
+  // Tools with an options panel (e.g. video resize) use this to read the picked files.
+  if (typeof tool.onFiles === "function") tool.onFiles(selectedFiles);
 }
 
 function renderFileList() {
