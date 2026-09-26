@@ -33,6 +33,26 @@ the others, and the homepage hub links to all of them.
 `app.js` merges `window.EXTRA_TOOLS` into its own `TOOLS` map, so `converts.js` must
 stay loaded **before** `app.js` (the script order at the bottom of every page).
 
+> **Both files are classic scripts, so they share one global lexical scope.** A
+> top-level `const` / `let` / `class` declared in *both* files is a **parse-time
+> `SyntaxError`**, and it kills the *entire* second script — not just the duplicate
+> line. Because the merge and the dropzone wiring both live in `app.js`, one
+> colliding name silently turns every generated tool into a dead UI with no visible
+> error. This happened for real: both files had `const PDF_WORKER_SRC`, so all 57
+> generated tools were dead while `node --check` passed on each file in isolation.
+>
+> Rules: keep shared/internal names unique across the two files, and prefix anything
+> private to `converts.js` with `_` (as with `_pdfWorkerSrc`, `_loadedLibs`,
+> `_rsSource`). If you ever need a name in both, put it on `window` explicitly.
+
+**Check this before deploying.** `node --check` cannot detect it; the two files have
+to be loaded into one shared context:
+
+```
+node test-load.js .        # asserts both load together, and that every page's
+                           # data-tool resolves to a tool with a callable convert()
+```
+
 ### Adding a tool
 
 Add the `add({...})` entry in `generate.mjs`, add the function and the `EXTRA_TOOLS`
