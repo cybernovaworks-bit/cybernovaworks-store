@@ -1,23 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
-<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<script src="analytics.js" defer></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Store — Apps, Games &amp; Free Tools | CyberNovaWorks</title>
+    <title>Digital Store â€” Apps, Games &amp; Free Tools | CyberNovaWorks</title>
     <meta name="description" content="Download free apps and free PDF, Word &amp; image tools, or purchase premium digital products at CyberNovaWorks.store.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://cybernovaworks.store/store.html">
-    <meta property="og:title" content="Digital Store — Apps, Games & Free Tools | CyberNovaWorks">
+    <meta property="og:title" content="Digital Store â€” Apps, Games & Free Tools | CyberNovaWorks">
     <meta property="og:description" content="Download free apps and free online tools, or purchase premium digital products.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cybernovaworks.store/store.html">
@@ -30,17 +22,6 @@
     <link rel="stylesheet" href="pages.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Ad-block: protect navigation from ad hijacking -->
-    <script>
-        document.addEventListener('click', function(e) {
-            var link = e.target.closest('a[href]');
-            if (!link) return;
-            var href = link.getAttribute('href');
-            if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
-            e.stopPropagation();
-            window.location.href = href;
-        }, true);
-    </script>
 
     <style>
         .store-hero {
@@ -545,7 +526,7 @@
     <!-- Top Announcement Bar -->
     <div class="top-bar" id="topBar">
         <div class="top-bar-content">
-            <span class="top-bar-text"><i class="fa-solid fa-bolt"></i> Welcome to www.CyberNovaWorks.store — Transforming Ideas into Digital Reality!</span>
+            <span class="top-bar-text"><i class="fa-solid fa-bolt"></i> Welcome to www.CyberNovaWorks.store â€” Transforming Ideas into Digital Reality!</span>
             <button class="top-bar-close" id="topBarClose"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
@@ -638,7 +619,7 @@
                     <span class="app-badge badge-free badge-inrow">Free</span>
                 </div>
                 <p class="app-category">App > Jobs &amp; Work</p>
-                <p class="app-desc">Direct connect between workers and employers – free job posting, chat, alerts, referral rewards and identity verification. Made in India, for India.</p>
+                <p class="app-desc">Direct connect between workers and employers â€“ free job posting, chat, alerts, referral rewards and identity verification. Made in India, for India.</p>
                 <div class="app-meta">
                     <span class="app-release"><i class="fa-solid fa-rocket"></i> New Release</span>
                     <span><i class="fa-solid fa-moon"></i> 68 MB</span>
@@ -661,7 +642,7 @@
                     <span class="app-badge badge-free badge-inrow">Free</span>
                 </div>
                 <p class="app-category">App &gt; Lifestyle</p>
-                <p class="app-desc">Complete Islamic companion — Quran, prayer times &amp; Qibla compass, daily adhkar &amp; duas, hadith, tasbih, zakat, Islamic calendar, Ramadan tracker and more. Multi-language, works offline, 100% free.</p>
+                <p class="app-desc">Complete Islamic companion â€” Quran, prayer times &amp; Qibla compass, daily adhkar &amp; duas, hadith, tasbih, zakat, Islamic calendar, Ramadan tracker and more. Multi-language, works offline, 100% free.</p>
                 <div class="app-meta">
                     <span class="app-release"><i class="fa-solid fa-rocket"></i> New Release</span>
                     <span><i class="fa-solid fa-moon"></i> 4 MB</span>
@@ -736,19 +717,21 @@
         <!-- Game 2 -->
         <div class="app-card" data-type="game" data-price="free">
             <div class="app-icon-wrapper game-gradient">
-                <i class="fa-solid fa-chess app-icon" style="color: #FF007F;"></i>
-                <span class="app-badge badge-soon">Soon</span>
+                <i class="fa-solid fa-gem app-icon" style="color: #FFD34D;"></i>
+                <span class="app-badge badge-free badge-inrow">Free</span>
             </div>
             <div class="app-info">
-                <h3>Chess Master AI</h3>
-                <p class="app-category">Game > Strategy</p>
-                <p class="app-desc">Play chess against AI with adjustable difficulty levels. Supports online multiplayer.</p>
+                <div class="app-title-row">
+                    <h3>Gem Rush</h3>
+                </div>
+                <p class="app-category">Game > Puzzle</p>
+                <p class="app-desc">Colourful match-3 gem puzzle with special gems, combos and levels. Play instantly in your browser.</p>
                 <div class="app-meta">
-                    <span><i class="fa-solid fa-moon"></i> 28 MB</span>
+                    <span><i class="fa-solid fa-moon"></i> HTML5</span>
                 </div>
                 <div class="app-footer">
                     <span class="app-price free">FREE</span>
-                    <span class="app-download-btn btn-download-free app-soon"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
+                    <a href="/gem-rush.html" target="_blank" rel="noopener noreferrer" class="app-download-btn btn-download-free"><i class="fa-solid fa-play"></i> Play Now</a>
                 </div>
             </div>
         </div>
