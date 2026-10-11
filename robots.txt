@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Build intermediate — a copy-paste fragment for the homepage, never a real page.
+Disallow: /tools/swapfile/home-tools.html
+
 Sitemap: https://cybernovaworks.store/sitemap.xml
+Sitemap: https://cybernovaworks.store/tools/swapfile/sitemap.xml
+Sitemap: https://cybernovaworks.store/blog/sitemap-news.xml

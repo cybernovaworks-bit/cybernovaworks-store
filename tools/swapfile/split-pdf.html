@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
-<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<script src="../../analytics.js" defer></script>
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +13,18 @@
 <meta property="og:title" content="Split PDF Into Separate Pages — Free | Swapfile" />
 <meta property="og:description" content="Split a PDF into individual single-page PDF files for free, right in your browser. No upload, no sign-up." />
 <meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/split-pdf.html" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:site_name" content="Swapfile by CyberNovaWorks" />
+<meta property="og:image" content="https://cybernovaworks.store/images/og-image.png" />
+<meta property="og:image:secure_url" content="https://cybernovaworks.store/images/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Split PDF — free browser-based converter by Swapfile" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Split PDF Converter — Free, No Upload | Swapfile" />
+<meta name="twitter:description" content="Split a PDF into individual single-page PDF files for free, right in your browser. No upload, no sign-up." />
+<meta name="twitter:image" content="https://cybernovaworks.store/images/og-image.png" />
+<meta name="twitter:image:alt" content="Split PDF — free browser-based converter by Swapfile" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,22 +36,51 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Swapfile — Split PDF",
-  "url": "https://cybernovaworks.store/tools/swapfile/split-pdf.html",
-  "applicationCategory": "Utility",
-  "operatingSystem": "Any (runs in browser)",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "Split a PDF into individual single-page PDF files for free, right in your browser. No upload, no sign-up."
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "Can I split into custom page ranges instead of single pages?", "acceptedAnswer": { "@type": "Answer", "text": "Not yet \u2014 this tool currently splits into one PDF per page." } },
-    { "@type": "Question", "name": "Does splitting affect quality?", "acceptedAnswer": { "@type": "Answer", "text": "No \u2014 each page keeps its original quality and text stays selectable." } }
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://cybernovaworks.store/tools/swapfile/split-pdf.html#app",
+      "name": "Swapfile — Split PDF",
+      "url": "https://cybernovaworks.store/tools/swapfile/split-pdf.html",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "File Converter",
+      "operatingSystem": "Any (runs in browser)",
+      "browserRequirements": "Requires JavaScript. Works on Windows, macOS, Linux, Android and iOS.",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": ["No upload — files never leave your device", "No sign-up", "Works offline after first load", "Free forever"],
+      "description": "Split a PDF into individual single-page PDF files for free, right in your browser. No upload, no sign-up."
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://cybernovaworks.store/tools/swapfile/split-pdf.html#howto",
+      "name": "How to use the Split PDF converter",
+      "description": "Break a multi-page PDF into individual single-page files — handy for sharing just one page or reorganizing a document.",
+      "totalTime": "PT2M",
+      "tool": [{ "@type": "HowToTool", "name": "Any modern web browser" }],
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Drop or choose a PDF file", "text": "Drop or choose a PDF file." },
+        { "@type": "HowToStep", "position": 2, "name": "Press Convert to split it", "text": "Press Convert to split it." },
+        { "@type": "HowToStep", "position": 3, "name": "Download each page as its own PDF", "text": "Download each page as its own PDF." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://cybernovaworks.store/tools/swapfile/split-pdf.html#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "Can I split into custom page ranges instead of single pages?", "acceptedAnswer": { "@type": "Answer", "text": "Not yet — this tool currently splits into one PDF per page." } },
+        { "@type": "Question", "name": "Does splitting affect quality?", "acceptedAnswer": { "@type": "Answer", "text": "No — each page keeps its original quality and text stays selectable." } }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://cybernovaworks.store/tools/swapfile/split-pdf.html#crumbs",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cybernovaworks.store/" },
+        { "@type": "ListItem", "position": 2, "name": "Free Online Tools", "item": "https://cybernovaworks.store/tools/swapfile/index.html" },
+        { "@type": "ListItem", "position": 3, "name": "Split PDF", "item": "https://cybernovaworks.store/tools/swapfile/split-pdf.html" }
+      ]
+    }
   ]
 }
 </script>
@@ -82,6 +114,10 @@
 
 <div class="wrap">
 
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a> <span>/</span> <a href="index.html">Free Tools</a> <span>/</span> <span aria-current="page">Split PDF</span>
+  </nav>
+
   <header class="hero">
     <h1>Split PDF</h1>
     <p class="tagline">Break a multi-page PDF into individual single-page files — handy for sharing just one page or reorganizing a document.</p>
@@ -104,15 +140,30 @@
     <div class="results" id="results" aria-live="polite"></div>
   </main>
 
-  <section class="about">
-    <h2>How it works</h2>
+    <section class="about">
+    <h2>How to use the Split PDF converter</h2>
     <ol class="steps">
       <li>Drop or choose a PDF file.</li>
       <li>Press Convert to split it.</li>
       <li>Download each page as its own PDF.</li>
     </ol>
 
-    <h3>Common questions</h3>
+    <h2>What you can convert</h2>
+    <p>Drop in PDF documents. One file at a time keeps the output predictable, and the convert button stays disabled until a file is in place.</p>
+    <p>The result comes back as one single-page PDF per page.</p>
+
+    <h2>Why run it in your browser</h2>
+    <p>Most online converters work the same way: you upload a file, it lands on somebody's server, gets written to a temporary folder, and is deleted afterwards. That is fine right up until the day you are converting an unreleased product mockup, a signed contract, or a client's bank statement — because all you get is a promise, not a fact.
+
+Split PDF here never sends your file anywhere. The conversion runs with JavaScript inside the page you are already looking at, so the bytes never leave your device. That is why there is no upload bar, no "file too large" ceiling, and nothing left behind on a server to delete.
+
+There is no account to create and no watermark to remove. It also keeps working offline once loaded, which matters on a train or a patchy office Wi-Fi.</p>
+
+    <h2>Good to know before you start</h2>
+    <p>A 200-page scan produces 200 files, so pick the pages you need rather than splitting everything.</p>
+    <p>Keep the original file until you have checked the output. If the result is not what you expected, try one of the related tools below rather than converting the same file repeatedly.</p>
+
+    <h2>Common questions</h2>
     <dl>
       <dt>Can I split into custom page ranges instead of single pages?</dt>
       <dd>Not yet — this tool currently splits into one PDF per page.</dd>
@@ -121,19 +172,83 @@
     </dl>
   </section>
 
-  <nav class="other-tools" aria-label="Other tools">
-    <h3>Other tools</h3>
+  <nav class="other-tools" aria-label="All free file tools">
+    <h3>Related tools</h3>
     <ul>
+      <li><a href="pdf-to-excel.html">PDF to Excel</a></li>
+      <li><a href="excel-to-pdf.html">Excel to PDF</a></li>
+      <li><a href="powerpoint-to-pdf.html">PowerPoint to PDF</a></li>
+      <li><a href="pdf-to-powerpoint.html">PDF to PowerPoint</a></li>
+      <li><a href="pdf-to-text.html">PDF to Text</a></li>
+      <li><a href="text-to-pdf.html">Text to PDF</a></li>
+      <li><a href="html-to-pdf.html">HTML to PDF</a></li>
+      <li><a href="pdf-to-html.html">PDF to HTML</a></li>
+      <li><a href="epub-to-pdf.html">EPUB to PDF</a></li>
+      <li><a href="pdf-to-epub.html">PDF to EPUB</a></li>
+      <li><a href="word-to-text.html">Word to Text</a></li>
+      <li><a href="odt-to-pdf.html">ODT to PDF</a></li>
       <li><a href="image-to-pdf.html">Image to PDF</a></li>
       <li><a href="pdf-to-image.html">PDF to Image</a></li>
       <li><a href="word-to-pdf.html">Word to PDF</a></li>
       <li><a href="pdf-to-word.html">PDF to Word</a></li>
       <li><a href="merge-pdf.html">Merge PDF</a></li>
       <li><a href="compress-pdf.html">Compress PDF</a></li>
+      <li><a href="mp4-to-mp3.html">MP4 to MP3</a></li>
+      <li><a href="mp3-to-wav.html">MP3 to WAV</a></li>
+      <li><a href="wav-to-mp3.html">WAV to MP3</a></li>
+      <li><a href="m4a-to-mp3.html">M4A to MP3</a></li>
+      <li><a href="aac-to-mp3.html">AAC to MP3</a></li>
+      <li><a href="flac-to-mp3.html">FLAC to MP3</a></li>
+      <li><a href="ogg-to-mp3.html">OGG to MP3</a></li>
+      <li><a href="text-to-audio.html">Text to Audio</a></li>
+      <li><a href="pdf-to-audiobook.html">PDF to Audiobook</a></li>
+      <li><a href="avi-to-mp4.html">AVI to MP4</a></li>
+      <li><a href="mov-to-mp4.html">MOV to MP4</a></li>
+      <li><a href="mkv-to-mp4.html">MKV to MP4</a></li>
+      <li><a href="webm-to-mp4.html">WEBM to MP4</a></li>
+      <li><a href="mp4-to-avi.html">MP4 to AVI</a></li>
+      <li><a href="mp4-to-mov.html">MP4 to MOV</a></li>
+      <li><a href="mp4-to-gif.html">MP4 to GIF</a></li>
+      <li><a href="gif-to-mp4.html">GIF to MP4</a></li>
+      <li><a href="video-to-mp3.html">Video to MP3</a></li>
+      <li><a href="compress-video.html">Compress Video</a></li>
+      <li><a href="3gp-to-mp4.html">3GP to MP4</a></li>
+      <li><a href="flv-to-mp4.html">FLV to MP4</a></li>
+      <li><a href="resize-video.html">Resize Video</a></li>
+      <li><a href="trim-video.html">Trim Video</a></li>
+      <li><a href="rotate-video.html">Rotate Video</a></li>
+      <li><a href="video-to-image.html">Video to Image</a></li>
+      <li><a href="watermark-video.html">Watermark Video</a></li>
+      <li><a href="jpg-to-png.html">JPG to PNG</a></li>
+      <li><a href="png-to-jpg.html">PNG to JPG</a></li>
+      <li><a href="webp-to-jpg.html">WEBP to JPG</a></li>
+      <li><a href="bmp-to-jpg.html">BMP to JPG</a></li>
+      <li><a href="svg-to-png.html">SVG to PNG</a></li>
+      <li><a href="tiff-to-jpg.html">TIFF to JPG</a></li>
+      <li><a href="png-to-svg.html">PNG to SVG</a></li>
+      <li><a href="image-to-base64.html">Image to Base64</a></li>
       <li><a href="compress-image.html">Compress Image</a></li>
       <li><a href="heic-to-jpg.html">HEIC to JPG</a></li>
+      <li><a href="csv-to-excel.html">CSV to Excel</a></li>
+      <li><a href="excel-to-csv.html">Excel to CSV</a></li>
+      <li><a href="json-to-csv.html">JSON to CSV</a></li>
+      <li><a href="csv-to-json.html">CSV to JSON</a></li>
+      <li><a href="xml-to-json.html">XML to JSON</a></li>
+      <li><a href="json-to-xml.html">JSON to XML</a></li>
+      <li><a href="excel-to-google-sheets.html">Excel to Google Sheets</a></li>
+      <li><a href="folder-to-zip.html">Folder to ZIP</a></li>
+      <li><a href="ttf-to-woff.html">TTF to WOFF</a></li>
+      <li><a href="obj-to-stl.html">OBJ to STL</a></li>
+      <li><a href="image-to-text.html">Image to Text</a></li>
+      <li><a href="index.html">View all tools →</a></li>
     </ul>
   </nav>
+
+  <section class="about">
+    <h2>Need this built into your own product?</h2>
+    <p>These tools cover one-off jobs. If you need a converter inside your app, a pipeline that handles thousands of files, or a team set up with the right tooling, that is a build job — and we do those.</p>
+    <p><a href="../../software-solutions.html">Software solutions</a> · <a href="../../web-development.html">Web development</a> · <a href="../../contact.html">Ask us directly</a></p>
+  </section>
 
   
 

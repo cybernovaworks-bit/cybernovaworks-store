@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CyberNovaWorks Blog</title>
+    <link>https://cybernovaworks.store/blog/index.html</link>
+    <atom:link href="https://cybernovaworks.store/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Guides on website cost, app development cost and picking the right development company in India.</description>
+    <language>en-in</language>
+    <lastBuildDate>Sun, 27 Sep 2026 04:02:40 GMT</lastBuildDate>
+    <item>
+      <title>How Much Does a Logo Cost in India in 2026? (0 to ₹50,000+)</title>
+      <link>https://cybernovaworks.store/blog/logo-design-cost-india.html</link>
+      <guid isPermaLink="true">https://cybernovaworks.store/blog/logo-design-cost-india.html</guid>
+      <pubDate>Fri, 18 Sep 2026 09:00:00 GMT</pubDate>
+      <description>Logo design cost in India in 2026: free generators ₹0, freelance ₹1,000–₹10,000, professional agencies ₹5,000–₹25,000, custom branding ₹25,000+. Honest price guide.</description>
+    </item>
+    <item>
+      <title>How Much Does a Mobile App Cost in India in 2026? (Honest Guide)</title>
+      <link>https://cybernovaworks.store/blog/mobile-app-cost-india.html</link>
+      <guid isPermaLink="true">https://cybernovaworks.store/blog/mobile-app-cost-india.html</guid>
+      <pubDate>Thu, 17 Sep 2026 09:00:00 GMT</pubDate>
+      <description>Mobile app development cost in India in 2026: simple apps ₹80,000–₹2,00,000, MVP ₹80,000–₹2.5L, full-featured apps ₹2,00,000+. Transparent price breakdown for Indian startups.</description>
+    </item>
+    <item>
+      <title>How to Choose a Web Development Company in India (12-Point Checklist)</title>
+      <link>https://cybernovaworks.store/blog/choose-web-development-company.html</link>
+      <guid isPermaLink="true">https://cybernovaworks.store/blog/choose-web-development-company.html</guid>
+      <pubDate>Wed, 16 Sep 2026 09:00:00 GMT</pubDate>
+      <description>How to choose a web development company in India: 12-point checklist covering portfolio, pricing, source code ownership, communication, support and local delivery.</description>
+    </item>
+    <item>
+      <title>How Much Does a Website Cost in India in 2026? (Honest Price Guide)</title>
+      <link>https://cybernovaworks.store/blog/website-cost-india.html</link>
+      <guid isPermaLink="true">https://cybernovaworks.store/blog/website-cost-india.html</guid>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 GMT</pubDate>
+      <description>Website cost in India in 2026: business sites ₹15,000–₹40,000, e-commerce ₹40,000–₹1.5L, custom web apps more. A transparent price guide for Indian businesses.</description>
+    </item>
+    <item>
+      <title>Top Web Design Trends in 2026 Every Business Should Know</title>
+      <link>https://cybernovaworks.store/blog/web-design-trends-2026.html</link>
+      <guid isPermaLink="true">https://cybernovaworks.store/blog/web-design-trends-2026.html</guid>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 GMT</pubDate>
+      <description>The web design trends that matter for Indian businesses in 2026 — AI-personalised experiences, performance-first design, bold typography and mobile-first everything.</description>
+    </item>
+    <item>
+      <title>How to Choose the Best App Development Company for Startups in India</title>
+      <link>https://cybernovaworks.store/blog/choose-app-development-company.html</link>
+      <guid isPermaLink="true">https://cybernovaworks.store/blog/choose-app-development-company.html</guid>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 GMT</pubDate>
+      <description>A 7-point checklist for evaluating app development agencies in India — portfolio, tech stack, pricing transparency, communication and post-launch support.</description>
+    </item>
+  </channel>
+</rss>

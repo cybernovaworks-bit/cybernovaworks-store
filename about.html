@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
-<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<script src="analytics.js" defer></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,17 +52,6 @@
         "https://github.com/cybernovaworks-bit"
       ]
     }
-    </script>
-<!-- Ad-block: protect navigation from ad hijacking -->
-    <script>
-        document.addEventListener('click', function(e) {
-            var link = e.target.closest('a[href]');
-            if (!link) return;
-            var href = link.getAttribute('href');
-            if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
-            e.stopPropagation();
-            window.location.href = href;
-        }, true);
     </script>
 </head>
 <body>

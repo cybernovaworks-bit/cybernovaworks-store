@@ -1,26 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
-<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<script src="analytics.js" defer></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberNovaWorks.store — Digital Solutions & IT Services</title>
-    <meta name="description" content="CyberNovaWorks.store provides cutting-edge web development, UI/UX design, graphic design, and software solutions. Transform your ideas into digital reality.">
-    <meta name="keywords" content="web development, UI/UX design, graphic design, software solutions, IT services, digital agency">
+    <meta name="description" content="CyberNovaWorks.store offers cutting-edge web development, software solutions, and 60+ free online file tools including PDF to image, compress PDF, image converter, video converter, and CSV/JSON tools.">
+    <meta name="keywords" content="pdf to image, compress pdf, merge pdf, image converter, video converter, csv to json, excel to pdf, free online tools, web development, UI/UX design, software solutions, CyberNovaWorks, cybernovaworks.store">
     <meta name="author" content="www.CyberNovaWorks.store">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://cybernovaworks.store/">
-    <meta property="og:title" content="CyberNovaWorks.store — Digital Solutions & IT Services">
-    <meta property="og:description" content="Building Future-Ready Digital Solutions. Web Development, UI/UX, Graphic Design & Software Solutions.">
+    <meta property="og:title" content="CyberNovaWorks.store — Digital Solutions & 60+ Free Online Tools">
+    <meta property="og:description" content="Free online tools (PDF to image, compress PDF, converters) & professional web development, UI/UX design, and software solutions by CyberNovaWorks.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cybernovaworks.store/">
     <meta property="og:image" content="https://cybernovaworks.store/images/og-image.png">
@@ -28,39 +20,49 @@
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+<link rel="preconnect" href="https://www.googletagmanager.com" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Ad-block: protect navigation from ad hijacking -->
-    <script>
-        document.addEventListener('click', function(e) {
-            var link = e.target.closest('a[href]');
-            if (!link) return;
-            var href = link.getAttribute('href');
-            if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
-            e.stopPropagation();
-            window.location.href = href;
-        }, true);
-    </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": ["Organization", "LocalBusiness"],
-      "@id": "https://cybernovaworks.store/#org",
-      "name": "CyberNovaWorks",
-      "legalName": "CyberNovaWorks.store",
-      "alternateName": "CyberNovaWorks",
-      "url": "https://cybernovaworks.store/",
-      "logo": "https://cybernovaworks.store/images/logo.svg",
-      "image": "https://cybernovaworks.store/images/og-image.png",
-      "email": "cybernovaworks@gmail.com",
-      "telephone": "+91-8092638177",
-      "address": { "@type": "PostalAddress", "addressLocality": "Ramgarh", "addressRegion": "Jharkhand", "addressCountry": "IN" },
-      "sameAs": [
-        "https://www.facebook.com/profile.php?id=61593993853617",
-        "https://www.linkedin.com/company/cybernovaworks",
-        "https://x.com/cybernovaworks",
-        "https://www.instagram.com/cybernovaworks",
-        "https://github.com/cybernovaworks-bit"
+      "@graph": [
+        {
+          "@type": ["Organization", "LocalBusiness"],
+          "@id": "https://cybernovaworks.store/#org",
+          "name": "CyberNovaWorks",
+          "legalName": "CyberNovaWorks.store",
+          "alternateName": "CyberNovaWorks",
+          "url": "https://cybernovaworks.store/",
+          "logo": "https://cybernovaworks.store/images/logo.svg",
+          "image": "https://cybernovaworks.store/images/og-image.png",
+          "email": "cybernovaworks@gmail.com",
+          "telephone": "+91-8092638177",
+          "address": { "@type": "PostalAddress", "addressLocality": "Ramgarh", "addressRegion": "Jharkhand", "addressCountry": "IN" },
+          "sameAs": [
+            "https://www.facebook.com/profile.php?id=61593993853617",
+            "https://www.linkedin.com/company/cybernovaworks",
+            "https://x.com/cybernovaworks",
+            "https://www.instagram.com/cybernovaworks",
+            "https://github.com/cybernovaworks-bit"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://cybernovaworks.store/#website",
+          "url": "https://cybernovaworks.store/",
+          "name": "CyberNovaWorks",
+          "description": "Digital Solutions, IT Services & 60+ Free Online Tools (PDF to Image, Compress PDF, Converters)",
+          "publisher": { "@id": "https://cybernovaworks.store/#org" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://cybernovaworks.store/tools/swapfile/index.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
       ]
     }
     </script>

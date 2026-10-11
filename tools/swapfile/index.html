@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
-<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<script src="../../analytics.js" defer></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Free File Tools — 60+ Converters (PDF, Word, Image, Video & More) | Swapfile</title>
@@ -28,6 +20,9 @@
 <meta name="twitter:image" content="https://cybernovaworks.store/images/og-image.png" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 <link rel="stylesheet" href="../../styles.css" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -373,14 +368,14 @@
 <!-- Tools sub-navigation bar -->
 <div class="tools-subnav" id="toolsSubnav">
     <span class="tools-subnav-label"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</span>
-    <a class="tool-pill" href="#cat-doc"><i class="fa-solid fa-file-lines"></i> Documents</a>
-    <a class="tool-pill" href="#cat-audio"><i class="fa-solid fa-music"></i> Audio</a>
-    <a class="tool-pill" href="#cat-video"><i class="fa-solid fa-video"></i> Video</a>
-    <a class="tool-pill" href="#cat-image"><i class="fa-solid fa-image"></i> Images</a>
-    <a class="tool-pill" href="#cat-data"><i class="fa-solid fa-table"></i> Data & Spreadsheets</a>
-    <a class="tool-pill" href="#cat-archive"><i class="fa-solid fa-box-archive"></i> Archive</a>
-    <a class="tool-pill" href="#cat-font"><i class="fa-solid fa-font"></i> Fonts & Code</a>
-    <a class="tool-pill" href="#cat-special"><i class="fa-solid fa-wand-magic-sparkles"></i> Accessibility & AI</a>
+    <a class="tool-pill" href="cat/pdf-and-document-tools.html"><i class="fa-solid fa-file-lines"></i> Documents</a>
+    <a class="tool-pill" href="cat/audio-converter-tools.html"><i class="fa-solid fa-music"></i> Audio</a>
+    <a class="tool-pill" href="cat/video-converter-tools.html"><i class="fa-solid fa-video"></i> Video</a>
+    <a class="tool-pill" href="cat/image-converter-tools.html"><i class="fa-solid fa-image"></i> Images</a>
+    <a class="tool-pill" href="cat/csv-json-excel-tools.html"><i class="fa-solid fa-table"></i> Data & Spreadsheets</a>
+    <a class="tool-pill" href="cat/zip-and-archive-tools.html"><i class="fa-solid fa-box-archive"></i> Archive</a>
+    <a class="tool-pill" href="cat/font-and-code-tools.html"><i class="fa-solid fa-font"></i> Fonts & Code</a>
+    <a class="tool-pill" href="cat/ocr-and-accessibility-tools.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Accessibility & AI</a>
 </div>
 
 <section class="page-hero">
@@ -397,7 +392,7 @@
 
     <section class="tools-section tool-section" id="cat-doc">
         <div class="section-header cat-head">
-            <h3><i class="fa-solid fa-file-lines"></i> Documents</h3>
+            <h3><i class="fa-solid fa-file-lines"></i> Documents <a class="cat-more" href="cat/pdf-and-document-tools.html">All documents tools →</a></h3>
             <p>PDF, Word, Excel, PowerPoint & more</p>
         </div>
         <div class="tool-grid">
@@ -520,7 +515,7 @@
 
     <section class="tools-section tool-section" id="cat-audio">
         <div class="section-header cat-head">
-            <h3><i class="fa-solid fa-music"></i> Audio</h3>
+            <h3><i class="fa-solid fa-music"></i> Audio <a class="cat-more" href="cat/audio-converter-tools.html">All audio tools →</a></h3>
             <p>Convert, extract & turn text into speech</p>
         </div>
         <div class="tool-grid">
@@ -583,7 +578,7 @@
 
     <section class="tools-section tool-section" id="cat-video">
         <div class="section-header cat-head">
-            <h3><i class="fa-solid fa-video"></i> Video</h3>
+            <h3><i class="fa-solid fa-video"></i> Video <a class="cat-more" href="cat/video-converter-tools.html">All video tools →</a></h3>
             <p>Re-encode, remux, compress & rip</p>
         </div>
         <div class="tool-grid">
@@ -694,7 +689,7 @@
 
     <section class="tools-section tool-section" id="cat-image">
         <div class="section-header cat-head">
-            <h3><i class="fa-solid fa-image"></i> Images</h3>
+            <h3><i class="fa-solid fa-image"></i> Images <a class="cat-more" href="cat/image-converter-tools.html">All images tools →</a></h3>
             <p>Convert between every common format</p>
         </div>
         <div class="tool-grid">
@@ -763,7 +758,7 @@
 
     <section class="tools-section tool-section" id="cat-data">
         <div class="section-header cat-head">
-            <h3><i class="fa-solid fa-table"></i> Data & Spreadsheets</h3>
+            <h3><i class="fa-solid fa-table"></i> Data & Spreadsheets <a class="cat-more" href="cat/csv-json-excel-tools.html">All data & spreadsheets tools →</a></h3>
             <p>CSV, JSON, XML & Excel</p>
         </div>
         <div class="tool-grid">
@@ -814,7 +809,7 @@
 
     <section class="tools-section tool-section" id="cat-archive">
         <div class="section-header cat-head">
-            <h3><i class="fa-solid fa-box-archive"></i> Archive</h3>
+            <h3><i class="fa-solid fa-box-archive"></i> Archive <a class="cat-more" href="cat/zip-and-archive-tools.html">All archive tools →</a></h3>
             <p>Folders into compressed ZIPs</p>
         </div>
         <div class="tool-grid">
@@ -829,7 +824,7 @@
 
     <section class="tools-section tool-section" id="cat-font">
         <div class="section-header cat-head">
-            <h3><i class="fa-solid fa-font"></i> Fonts & Code</h3>
+            <h3><i class="fa-solid fa-font"></i> Fonts & Code <a class="cat-more" href="cat/font-and-code-tools.html">All fonts & code tools →</a></h3>
             <p>Web fonts & 3D models</p>
         </div>
         <div class="tool-grid">
@@ -850,7 +845,7 @@
 
     <section class="tools-section tool-section" id="cat-special">
         <div class="section-header cat-head">
-            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Accessibility & AI</h3>
+            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Accessibility & AI <a class="cat-more" href="cat/ocr-and-accessibility-tools.html">All accessibility & ai tools →</a></h3>
             <p>OCR, text-to-speech, vector tracing</p>
         </div>
         <div class="tool-grid">

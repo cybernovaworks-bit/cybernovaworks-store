@@ -1,17 +1,182 @@
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, readFileSync, readdirSync, mkdirSync } from "node:fs";
+import { join } from "node:path";
 
 const BASE = "https://cybernovaworks.store/tools/swapfile";
 const SITE = "https://cybernovaworks.store";
+const OG_IMAGE = `${SITE}/images/og-image.png`;
+const OG_W = 1200;
+const OG_H = 630;
+
+// ---------- runtime metadata, read from converts.js ----------
+// The copy on a tool page has to match what the tool actually accepts, so it is
+// not typed in twice. This reads the real EXTRA_TOOLS table at build time, which
+// means a changed `accept` in converts.js can never leave a stale sentence behind.
+const RUNTIME = {};
+{
+  const src = readFileSync("converts.js", "utf8");
+  const start = src.indexOf("const EXTRA_TOOLS = {");
+  if (start === -1) throw new Error("converts.js: EXTRA_TOOLS not found");
+  const block = src.slice(start, src.indexOf("\n};", start));
+  const field = (line, name) => {
+    const m = line.match(new RegExp(name + ':\\s*(?:"([^"]*)"|([a-z]+))'));
+    return m ? (m[1] !== undefined ? m[1] : m[2]) : undefined;
+  };
+  for (const line of block.split("\n")) {
+    const key = line.match(/^\s{2}(\w+):\s*\{/);
+    if (!key) continue;
+    RUNTIME[key[1]] = {
+      accept: field(line, "accept") ?? "",
+      multiple: field(line, "multiple") === "true",
+      dropLabel: field(line, "dropLabel") ?? "",
+      dropHint: field(line, "dropHint") ?? "",
+    };
+  }
+}
+
+// Turns an `accept` value into something a person can read.
+const ACCEPT_LABEL = {
+  "": "any file this browser can read",
+  "application/pdf": "PDF documents",
+  "image/*": "JPG, PNG, WEBP and other images",
+  "audio/*": "any audio file",
+  "video/*": "any video file",
+  "audio/*,video/*": "any audio or video file",
+};
+const acceptLabel = (accept) => {
+  if (ACCEPT_LABEL[accept]) return ACCEPT_LABEL[accept];
+  const exts = accept.split(",").filter((a) => a.startsWith("."));
+  if (exts.length) return exts.map((e) => e.slice(1).toUpperCase()).join(", ") + " files";
+  return accept.split(",").map((a) => a.trim()).join(" or ");
+};
+
+// What comes out. Kept next to the page data because it is a product decision,
+// not something that can be read off the drop handler.
+const OUTPUT = {
+  pdf2excel: "an editable .xlsx workbook", excel2pdf: "a PDF document",
+  pptx2pdf: "a PDF of the slide text", pdf2pptx: "a .pptx deck",
+  pdf2text: "a .txt file", text2pdf: "a PDF document",
+  html2pdf: "a PDF that keeps the page styling", pdf2html: "a styled .html file",
+  epub2pdf: "a PDF of the book", pdf2epub: "a text-only .epub",
+  word2text: "a .txt file", odt2pdf: "a PDF document",
+  mp42mp3: "a 128kbps MP3", mp32wav: "an uncompressed WAV",
+  wav2mp3: "a 128kbps MP3", m4a2mp3: "a 128kbps MP3", aac2mp3: "a 128kbps MP3",
+  flac2mp3: "a 128kbps MP3", ogg2mp3: "a 128kbps MP3",
+  txt2audio: "a spoken WAV file", pdf2audio: "a spoken WAV audiobook",
+  jpg2png: "PNG images", png2jpg: "JPG images", webp2jpg: "JPG images",
+  bmp2jpg: "JPG images", svg2png: "PNG images", tiff2jpg: "JPG images",
+  png2svg: "a vector .svg", img2base64: "a .txt file of Base64 data URLs",
+  csv2excel: "an .xlsx workbook", excel2csv: "a .csv file",
+  json2csv: "a .csv file", csv2json: "a .json file",
+  xml2json: "a .json file", json2xml: "an .xml file",
+  excel2sheets: "a clean .csv that pastes straight into Google Sheets",
+  folder2zip: "a .zip archive", ttf2woff: "a .woff web font",
+  img2text: "the extracted text", obj2stl: "a binary .stl for 3D printing",
+  avi2mp4: "a web-friendly MP4", mov2mp4: "an MP4 (fast remux, no re-encode)",
+  mkv2mp4: "an MP4", webm2mp4: "an MP4", mp42avi: "an AVI",
+  mp42mov: "a MOV (fast remux)", mp42gif: "an animated GIF", gif2mp4: "an MP4 video",
+  video2audio: "an MP3 of the audio track", videocompress: "a smaller video file",
+  threegp2mp4: "an MP4", flv2mp4: "an MP4", videoresize: "a video at the size you pick",
+  trimvideo: "a video cut to just the part you kept", rotatevideo: "a correctly oriented video",
+  videoframe: "JPG stills from the video", watermarkvideo: "a watermarked video",
+};
+
+// The honest caveat, per tool. This is the part users actually get burned by, so
+// it is stated plainly instead of being left to the FAQ.
+const LIMIT = {
+  pdf2excel: "A table that is really a drawing, or a multi-column layout, may come through with merged cells. Conversion runs on your own machine, so it costs nothing to try and check the result.",
+  excel2pdf: "Only the first sheet is rendered, and layout is approximated by printing the page rather than by Excel's own renderer.",
+  pptx2pdf: "Slide text is exported. Images, animations, speaker notes and transitions are not carried over.",
+  pdf2pptx: "One slide per page, built from the text found on each page. This is a starting point for editing, not a faithful copy of the original deck.",
+  pdf2text: "Only a real text layer is read. A scanned PDF has no text layer, so it comes back empty — run it through Image to Text (OCR) instead.",
+  text2pdf: "Markdown basics such as headings and lists are recognised. Plain text is simply wrapped into paragraphs.",
+  html2pdf: "Rendering depends on how much CSS the page uses, and anything pulled from the internet will not travel with the file.",
+  pdf2html: "Content is exported as a styled web page. Complex multi-column layouts can need tidying afterwards.",
+  epub2pdf: "The book's text is rendered to pages. Chapter art and original page styling are not reproduced.",
+  pdf2epub: "The result is text only, so it is fine for reading on a phone but it is not the illustrated edition.",
+  word2text: "Headers, footers and text boxes are skipped — you get the body text only.",
+  odt2pdf: "Text is exported. Writer-specific styling, headers and footnotes are not reproduced.",
+  mp42mp3: "The audio track is taken as-is and re-encoded, so a 5.1 source comes out as stereo.",
+  mp32wav: "WAV is uncompressed, so the file gets dramatically larger — it is for editing, not for sharing.",
+  wav2mp3: "128kbps is a deliberate quality/size trade-off. For anything archival, keep the original WAV.",
+  m4a2mp3: "The file is re-encoded rather than repackaged, so the size drops but so does quality slightly.",
+  aac2mp3: "128kbps stereo. Raise it if the source is a lossy file and you want to avoid stacking artefacts.",
+  flac2mp3: "FLAC is lossless, so converting to 128kbps MP3 is a deliberate quality trade-off. Keep the FLAC as your master.",
+  ogg2mp3: "128kbps stereo MP3, which plays everywhere including older phones and car stereos.",
+  txt2audio: "Speech is synthesised, so pronunciation of names and jargon is a guess. Listen before relying on it.",
+  pdf2audio: "Only the text is read aloud — images, tables and figures are skipped. A very long book takes a while.",
+  jpg2png: "No quality is lost, but JPG artefacts cannot be undone. PNG is also much larger for photos.",
+  png2jpg: "Transparency is flattened, because JPG cannot store it. Drop a background colour where it matters.",
+  webp2jpg: "The result is larger than the WEBP it came from, which is the usual reason people convert.",
+  bmp2jpg: "BMP is uncompressed and enormous, so this usually shrinks the file as well as converting it.",
+  svg2png: "You choose the output width. Text in an SVG needs a font available to the renderer, or it can come out substituted.",
+  tiff2jpg: "Multi-page TIFFs become a single JPG. Flatten the pages first if you need them all.",
+  png2svg: "This is automatic tracing, not a redraw. Fine detail and gradients are simplified — complex photos trace poorly.",
+  img2base64: "Base64 adds about a third to the file size. It is for embedding, not for shrinking.",
+  csv2excel: "The first row is treated as the header. Multi-sheet workbooks are not supported.",
+  excel2csv: "Only the first sheet is exported, and a cell containing a comma is quoted.",
+  json2csv: "The JSON must be an array of flat objects. Nested objects and arrays are skipped rather than nested in the CSV.",
+  csv2json: "Row values are kept as strings, so dates and numbers come out as text unless you cast them.",
+  xml2json: "The XML must be well-formed and free of namespaces; comments and processing instructions are dropped.",
+  json2xml: "A JSON object becomes XML elements using its keys as tag names, so keys must be valid XML names.",
+  excel2sheets: "A CSV is a plain text format, so it only carries values. Formatting and formulas do not survive.",
+  folder2zip: "The whole folder is read into memory, so very large folders can be slow on a phone.",
+  ttf2woff: "Only convert fonts you are licensed to embed. The licence does not change by converting the file.",
+  img2text: "Accuracy depends entirely on the image. Sharp, straight-on, well-lit text does well; angled phone photos of a screen do badly.",
+  obj2stl: "STL stores geometry only. Materials, colours and texture maps are dropped, and very detailed models can produce enormous files.",
+  avi2mp4: "The video is fully re-encoded, so it takes a while and the file shrinks. The first run also downloads a video engine.",
+  mov2mp4: "This is a remux, so it is fast and lossless — but the source has to already be H.264, or the output will not play everywhere.",
+  mkv2mp4: "Re-encoded, so expect to wait. Very long clips can exhaust the memory of a low-end phone.",
+  webm2mp4: "Re-encoded to H.264 and AAC, which is what makes it play on iPhones and in older players.",
+  mp42avi: "AVI is a much older container. It is lossless here, but the resulting file is far larger than the MP4 you started with.",
+  mp42mov: "A remux, so it is fast and lossless. Use it only when a specific tool insists on MOV.",
+  mp42gif: "GIF is limited to 256 colours, so gradients and skin tones band badly. Keep clips short.",
+  gif2mp4: "One frame per frame of the GIF, so a long GIF becomes a long video — trim it if that matters.",
+  video2audio: "You get the audio track only; the picture is discarded. Quality is fixed at a sensible 128kbps.",
+  videocompress: "Re-encoding trades quality for size. Below about 720p it gets visibly soft, so the presets matter.",
+  threegp2mp4: "3GP is an old, low-bitrate format, so the converted MP4 cannot restore detail that was never there.",
+  flv2mp4: "FLV is an old Flash-era format. It re-encodes to H.264 so it plays in a browser or on a phone.",
+  videoresize: "Every output dimension is rounded to an even number, because H.264 cannot encode odd sizes.",
+  trimvideo: "The cut is frame-accurate but the clip is re-encoded, so trimming a large file takes time.",
+  rotatevideo: "This re-encodes the clip. Rotation metadata in a phone video can also be cleared as a side effect.",
+  videoframe: "You pick the timestamps. A JPG still is fine for a screenshot, but use a PNG if text in the frame has to stay sharp.",
+  watermarkvideo: "The clip is re-encoded end to end. A JPG logo appears as a solid block — use a transparent PNG.",
+};
+
+const LIMIT_DEFAULT = "Output is produced locally, so nothing about your file is affected by an upload limit or a queue.";
 
 const CATEGORIES = [
-  { id: "doc", label: "Documents", blurb: "PDF, Word, Excel, PowerPoint & more", icon: "fa-file-lines" },
-  { id: "audio", label: "Audio", blurb: "Convert, extract & turn text into speech", icon: "fa-music" },
-  { id: "video", label: "Video", blurb: "Re-encode, remux, compress & rip", icon: "fa-video" },
-  { id: "image", label: "Images", blurb: "Convert between every common format", icon: "fa-image" },
-  { id: "data", label: "Data & Spreadsheets", blurb: "CSV, JSON, XML & Excel", icon: "fa-table" },
-  { id: "archive", label: "Archive", blurb: "Folders into compressed ZIPs", icon: "fa-box-archive" },
-  { id: "font", label: "Fonts & Code", blurb: "Web fonts & 3D models", icon: "fa-font" },
-  { id: "special", label: "Accessibility & AI", blurb: "OCR, text-to-speech, vector tracing", icon: "fa-wand-magic-sparkles" },
+  { id: "doc", label: "Documents", blurb: "PDF, Word, Excel, PowerPoint & more", icon: "fa-file-lines",
+    slug: "pdf-and-document-tools", title: "Free PDF & Document Tools",
+    h1: "Free PDF & Document Tools",
+    intro: "Every PDF, Word, Excel and PowerPoint converter here runs in your browser. Nothing is uploaded, nothing is watermarked, and there is no sign-up." },
+  { id: "audio", label: "Audio", blurb: "Convert, extract & turn text into speech", icon: "fa-music",
+    slug: "audio-converter-tools", title: "Free Audio Converter Tools",
+    h1: "Free Audio Converter Tools",
+    intro: "Convert between MP3, WAV, M4A, AAC, FLAC and OGG, pull the audio out of a video, or turn text into speech — all on your own device." },
+  { id: "video", label: "Video", blurb: "Re-encode, remux, compress & rip", icon: "fa-video",
+    slug: "video-converter-tools", title: "Free Video Converter Tools",
+    h1: "Free Video Converter Tools",
+    intro: "Convert MKV, AVI, MOV, WEBM, FLV and 3GP to MP4, compress a video for sharing, resize it, trim it, rotate it or pull stills out of it." },
+  { id: "image", label: "Images", blurb: "Convert between every common format", icon: "fa-image",
+    slug: "image-converter-tools", title: "Free Image Converter Tools",
+    h1: "Free Image Converter Tools",
+    intro: "Convert between JPG, PNG, WEBP, BMP, TIFF, HEIC and SVG, compress a photo for sharing, or trace a bitmap into a vector." },
+  { id: "data", label: "Data & Spreadsheets", blurb: "CSV, JSON, XML & Excel", icon: "fa-table",
+    slug: "csv-json-excel-tools", title: "Free CSV, JSON & Excel Tools",
+    h1: "Free CSV, JSON & Excel Tools",
+    intro: "Move data between CSV, JSON, XML and Excel without pasting it into a web form. Everything is parsed in the browser." },
+  { id: "archive", label: "Archive", blurb: "Folders into compressed ZIPs", icon: "fa-box-archive",
+    slug: "zip-and-archive-tools", title: "Free ZIP & Archive Tools",
+    h1: "Free ZIP & Archive Tools",
+    intro: "Turn a whole folder into a ZIP without uploading a single file to anyone else's server." },
+  { id: "font", label: "Fonts & Code", blurb: "Web fonts & 3D models", icon: "fa-font",
+    slug: "font-and-code-tools", title: "Free Font & Developer Tools",
+    h1: "Free Font & Developer Tools",
+    intro: "Convert a desktop TTF into a WOFF web font, or turn an OBJ model into an STL ready for a 3D printer." },
+  { id: "special", label: "Accessibility & AI", blurb: "OCR, text-to-speech, vector tracing", icon: "fa-wand-magic-sparkles",
+    slug: "ocr-and-accessibility-tools", title: "Free OCR & Accessibility Tools",
+    h1: "Free OCR & Accessibility Tools",
+    intro: "Read text out of a photo or a scan, and turn written text into spoken audio. Both run locally, so scanned documents never leave your device." },
 ];
 
 const T = [];
@@ -587,7 +752,7 @@ function cardHTML(t) {
 
 function pillHTML() {
   const pills = CATEGORIES.map((c) =>
-    `<a class="tool-pill" href="#cat-${c.id}"><i class="fa-solid ${c.icon}"></i> ${c.label}</a>`
+    `<a class="tool-pill" href="cat/${c.slug}.html"><i class="fa-solid ${c.icon}"></i> ${c.label}</a>`
   ).join("\n    ");
   return `    <span class="tools-subnav-label"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</span>
     ${pills}`;
@@ -600,7 +765,7 @@ function categorySectionsHTML() {
     const cards = [...tools.map(cardHTML), ...existing.map((k) => cardHTML({ key: k }))].join("\n");
     return `    <section class="tools-section tool-section" id="cat-${c.id}">
         <div class="section-header cat-head">
-            <h3><i class="fa-solid ${c.icon}"></i> ${c.label}</h3>
+            <h3><i class="fa-solid ${c.icon}"></i> ${c.label} <a class="cat-more" href="cat/${c.slug}.html">All ${c.label.toLowerCase()} tools →</a></h3>
             <p>${c.blurb}</p>
         </div>
         <div class="tool-grid">
@@ -626,26 +791,89 @@ function toolPage(t) {
   ).join(",\n");
   const stepsOL = t.steps.map((s) => `      <li>${s}</li>`).join("\n");
   const faqDL = t.faq.map(([q, a]) => `      <dt>${esc(q)}</dt>\n      <dd>${esc(a)}</dd>`).join("\n");
-  const related = byCat(t.cat).filter((x) => x.key !== t.key);
-  const relatedExisting = Object.entries(EXISTING).filter(([, v]) => v.cat === t.cat).map(([k]) => k);
-  const relatedHTML = [...related.map((x) => x.file), ...relatedExisting.map((k) => EXISTING[k].file)]
-    .slice(0, 9)
-    .map((f) => `      <li><a href="${f}">${f.replace(".html", "").replaceAll("-", " ").replace(/\b\w/g, (c) => c.toUpperCase())}</a></li>`)
-    .join("\n");
-  const stepsNo = t.faq.length === 2 ? 2 : t.faq.length;
+  const url = `${BASE}/${t.file}`;
+  const title = `${t.h1} Converter — Free, No Upload | Swapfile`;
+  const rt = RUNTIME[t.key] || { accept: "", multiple: false, dropHint: "" };
+  const acceptText = acceptLabel(rt.accept);
+  const outText = OUTPUT[t.key] || "a converted file";
+  const limitText = LIMIT[t.key] || LIMIT_DEFAULT;
+
+  // Structured data: one graph, so WebApplication / HowTo / FAQ / breadcrumbs
+  // share @ids instead of being four disconnected blobs.
+  const stepNames = ["Add your file", "Run the conversion", "Download the result"];
+  const stepJSON = t.steps.map((s, i) => {
+    const first = s.split(/[.,—]/)[0].trim();
+    const name = first.length > 3 && first.length < 60 ? first : stepNames[i] || "Convert";
+    return `    { "@type": "HowToStep", "position": ${i + 1}, "name": ${JSON.stringify(name)}, "text": ${JSON.stringify(s)} }`;
+  }).join(",\n");
+
+  const ld = `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "${url}#app",
+      "name": "Swapfile — ${t.h1}",
+      "url": "${url}",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "File Converter",
+      "operatingSystem": "Any (runs in browser)",
+      "browserRequirements": "Requires JavaScript. Works on Windows, macOS, Linux, Android and iOS.",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": ["No upload — files never leave your device", "No sign-up", "Works offline after first load", "Free forever"],
+      "description": ${JSON.stringify(t.desc)}
+    },
+    {
+      "@type": "HowTo",
+      "@id": "${url}#howto",
+      "name": ${JSON.stringify(`How to use the ${t.h1} converter`)},
+      "description": ${JSON.stringify(t.tagline)},
+      "totalTime": "PT2M",
+      "tool": [{ "@type": "HowToTool", "name": "Any modern web browser" }],
+      "step": [
+${stepJSON}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "${url}#faq",
+      "mainEntity": [
+${faq}
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "${url}#crumbs",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "${SITE}/" },
+        { "@type": "ListItem", "position": 2, "name": "Free Online Tools", "item": "${BASE}/index.html" },
+        { "@type": "ListItem", "position": 3, "name": ${JSON.stringify(t.h1)}, "item": "${url}" }
+      ]
+    }
+  ]
+}
+</script>`;
+
+  // Related tools: same category first, then the rest, so every page passes
+  // authority sideways instead of dead-ending on a 160-word page.
+  const sameCat = [
+    ...byCat(t.cat).filter((x) => x.key !== t.key).map((x) => ({ file: x.file, name: x.name })),
+    ...Object.entries(EXISTING).filter(([, v]) => v.cat === t.cat).map(([, v]) => ({ file: v.file, name: v.name })),
+  ];
+  const otherCat = [
+    ...T.filter((x) => x.cat !== t.cat).map((x) => ({ file: x.file, name: x.name })),
+    ...Object.entries(EXISTING).filter(([, v]) => v.cat !== t.cat).map(([, v]) => ({ file: v.file, name: v.name })),
+  ];
+  const link = (x) => `      <li><a href="${x.file}">${esc(x.name)}</a></li>`;
+  const relatedHTML = sameCat.map(link).join("\n");
+  const otherHTML = otherCat.map(link).join("\n");
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
-<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<script src="../../analytics.js" defer></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${t.h1} Converter — Free, No Upload | Swapfile</title>
@@ -653,39 +881,33 @@ function toolPage(t) {
 <link rel="canonical" href="${BASE}/${t.file}" />
 <meta name="theme-color" content="#050510" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="${t.h1} Converter — Free, No Upload | Swapfile" />
+<meta property="og:site_name" content="Swapfile by CyberNovaWorks" />
+<meta property="og:title" content="${title}" />
 <meta property="og:description" content="${t.desc}" />
-<meta property="og:url" content="${BASE}/${t.file}" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:url" content="${url}" />
+<meta property="og:image" content="${OG_IMAGE}" />
+<meta property="og:image:secure_url" content="${OG_IMAGE}" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="${OG_W}" />
+<meta property="og:image:height" content="${OG_H}" />
+<meta property="og:image:alt" content="${esc(t.h1)} — free browser-based converter by Swapfile" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="${title}" />
+<meta name="twitter:description" content="${t.desc}" />
+<meta name="twitter:image" content="${OG_IMAGE}" />
+<meta name="twitter:image:alt" content="${esc(t.h1)} — free browser-based converter by Swapfile" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="${OG_IMAGE}" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<link rel="preconnect" href="https://www.googletagmanager.com" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <link rel="stylesheet" href="../../styles.css" />
 <link rel="stylesheet" href="styles.css" />
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Swapfile — ${t.h1}",
-  "url": "${BASE}/${t.file}",
-  "applicationCategory": "Utility",
-  "operatingSystem": "Any (runs in browser)",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "${t.desc}"
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-${faq}
-  ]
-}
-</script>
+${ld}
 </head>
 <body data-tool="${t.key}">
 
@@ -716,6 +938,10 @@ ${faq}
 
 <div class="wrap">
 
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a> <span>/</span> <a href="index.html">Free Tools</a> <span>/</span> <span aria-current="page">${esc(t.h1)}</span>
+  </nav>
+
   <header class="hero">
     <h1>${t.h1}</h1>
     <p class="tagline">${t.tagline}</p>
@@ -739,26 +965,52 @@ ${t.panelExtra ? t.panelExtra + "\n" : ""}    <button class="convert-btn" id="co
   </main>
 
   <section class="about">
-    <h2>How it works</h2>
+    <h2>How to use the ${esc(t.h1)} converter</h2>
     <ol class="steps">
 ${stepsOL}
     </ol>
 
-    <h3>Common questions</h3>
+    <h2>What you can convert</h2>
+    <p>Drop in ${esc(acceptText)}. ${rt.multiple
+      ? "You can add several files in one go and convert them together, which saves time when you are working through a whole folder."
+      : "One file at a time keeps the output predictable, and the convert button stays disabled until a file is in place."}</p>
+    <p>The result comes back as ${esc(outText)}.${rt.dropHint ? ` ${esc(rt.dropHint)}.` : ""}</p>
+
+    <h2>Why run it in your browser</h2>
+    <p>Most online converters work the same way: you upload a file, it lands on somebody's server, gets written to a temporary folder, and is deleted afterwards. That is fine right up until the day you are converting an unreleased product mockup, a signed contract, or a client's bank statement — because all you get is a promise, not a fact.</p>
+    <p>This converter never sends your file anywhere. The work happens with JavaScript inside the page you are already looking at, so the bytes never leave your device. That is why there is no upload bar, no "file too large" ceiling, and nothing left behind on a server to delete.</p>
+    <p>There is no account to create and no watermark to remove. It also keeps working offline once loaded, which matters on a train or a patchy office Wi-Fi. If you are converting the same kind of file constantly, an automated pipeline is the better route — that is what <a href="../../software-solutions.html">our software solutions</a> are for.</p>
+
+    <h2>Good to know before you start</h2>
+    <p>${esc(limitText)}</p>
+    <p>Keep the original file until you have checked the output. If the result is not what you expected, try one of the related tools below rather than converting the same file repeatedly.</p>
+
+    <h2>Common questions</h2>
     <dl>
 ${faqDL}
     </dl>
   </section>
 
-  <nav class="other-tools" aria-label="Other tools">
-    <h3>Related tools</h3>
+  <nav class="other-tools" aria-label="Related ${esc(t.cat)} tools">
+    <h3>Related ${esc((CATEGORIES.find((c) => c.id === t.cat) || {}).label || "tools").toLowerCase()} tools</h3>
     <ul>
 ${relatedHTML}
       <li><a href="index.html">View all tools →</a></li>
     </ul>
   </nav>
 
-  
+  <nav class="other-tools" aria-label="Every other free tool">
+    <h3>All other free tools</h3>
+    <ul>
+${otherHTML}
+    </ul>
+  </nav>
+
+  <section class="about">
+    <h2>Need this inside your own product?</h2>
+    <p>These tools cover one-off jobs. If you need a converter built into your app, a pipeline that handles thousands of files, or a team set up with the right tooling, that is a build job — and we do those.</p>
+    <p><a href="../../software-solutions.html">Software solutions</a> · <a href="../../web-development.html">Web development</a> · <a href="../../contact.html">Ask us directly</a></p>
+  </section>
 
 </div>
 
@@ -813,15 +1065,7 @@ function hubPage() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
-<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<script src="../../analytics.js" defer></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Free File Tools — 60+ Converters (PDF, Word, Image, Video & More) | Swapfile</title>
@@ -840,6 +1084,9 @@ function hubPage() {
 <meta name="twitter:image" content="${SITE}/images/og-image.png" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 <link rel="stylesheet" href="../../styles.css" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -1238,10 +1485,16 @@ function cardHomeChip(t) {
 }
 
 // Every page the hub links to, so the sitemap can never drift from the tool list again.
+// lastmod is stamped at build time: without it Google has no signal that a page changed.
 function swapfileSitemap() {
-  const files = ["index.html", ...T.map((t) => t.file), ...Object.values(EXISTING).map((v) => v.file)];
-  const urls = files
-    .map((f) => `  <url><loc>${BASE}/${f}</loc></url>`)
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = [
+    { loc: `${BASE}/index.html`, priority: "0.9", freq: "weekly" },
+    ...catHubFiles().map((f) => ({ loc: `${BASE}/${f.file}`, priority: "0.8", freq: "weekly" })),
+    ...T.map((t) => ({ loc: `${BASE}/${t.file}`, priority: "0.7", freq: "monthly" })),
+    ...Object.values(EXISTING).map((v) => ({ loc: `${BASE}/${v.file}`, priority: "0.7", freq: "monthly" })),
+  ]
+    .map((u) => `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${u.freq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`)
     .join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -1250,15 +1503,391 @@ ${urls}
 `;
 }
 
+// ---------- Category hub pages ----------
+// Individual tool pages rank for "pdf to word" and similar. These exist for the
+// broader, more valuable queries — "free pdf tools", "image converter online" —
+// which have no single tool to point at. Without them that traffic has nowhere
+// on the site to land.
+const catHubFiles = () => CATEGORIES.map((c) => ({ file: `cat/${c.slug}.html`, cat: c }));
+
+function categoryPage(c) {
+  const url = `${BASE}/cat/${c.slug}.html`;
+  const tools = byCat(c.id).map((t) => ({ file: t.file, name: t.name, desc: t.desc, icon: t.icon, color: t.color }));
+  const existing = Object.entries(EXISTING)
+    .filter(([, v]) => v.cat === c.id)
+    .map(([, v]) => ({ file: v.file, name: v.name, desc: v.desc, icon: v.icon, color: v.color }));
+  const all = [...tools, ...existing];
+
+  const card = (t) => `        <a class="tool-card ${t.color}" href="../${t.file}">
+            <span class="tool-card-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span class="tool-card-icon"><i class="fa-solid ${t.icon}"></i></span>
+            <span class="tool-card-name">${esc(t.name)}</span>
+            <span class="tool-card-desc">${esc(t.desc)}</span>
+        </a>`;
+
+  // A plain-language list of what each tool does, so the page reads as a useful
+  // index even before the grid is scanned.
+  const itemList = all.map((t, i) =>
+    `    { "@type": "ListItem", "position": ${i + 1}, "name": ${JSON.stringify(t.name)}, "url": "${BASE}/${t.file}" }`
+  ).join(",\n");
+
+  const siblings = CATEGORIES.filter((x) => x.id !== c.id)
+    .map((x) => `      <li><a href="${x.slug}.html">${esc(x.label)} tools</a></li>`).join("\n");
+
+  const faq = [
+    [`Are these ${c.label.toLowerCase()} tools really free?`,
+     "Yes. Every tool on this page is free, with no account, no watermark and no usage limit. They are funded by our development work, not by charging for conversions."],
+    ["Do my files get uploaded?",
+     "No. Each tool converts your file with JavaScript inside your own browser, so the file never travels to a server. That also means the only size limit is your device's memory."],
+    ["Can I use these on my phone?",
+     "Yes. The tools work on Android and iOS as well as desktop, and they keep working offline once the page has loaded."],
+    ["Something went wrong. Why?",
+     "The usual causes are a very large file on a low-memory phone, or an unusual variant of the format. Converters that re-encode video are the slowest, because they do real work rather than just repackaging."],
+  ];
+  const faqLD = faq.map(([q, a]) =>
+    `    { "@type": "Question", "name": ${JSON.stringify(q)}, "acceptedAnswer": { "@type": "Answer", "text": ${JSON.stringify(a)} } }`
+  ).join(",\n");
+  const faqHTML = faq.map(([q, a]) => `      <dt>${esc(q)}</dt>\n      <dd>${esc(a)}</dd>`).join("\n");
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="../../../analytics.js" defer></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>${c.title} — ${all.length} Free Online Tools | Swapfile</title>
+<meta name="description" content="${esc(c.intro)}" />
+<link rel="canonical" href="${url}" />
+<meta name="theme-color" content="#050510" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Swapfile by CyberNovaWorks" />
+<meta property="og:title" content="${c.title} — ${all.length} Free Online Tools" />
+<meta property="og:description" content="${esc(c.intro)}" />
+<meta property="og:url" content="${url}" />
+<meta property="og:image" content="${OG_IMAGE}" />
+<meta property="og:image:width" content="${OG_W}" />
+<meta property="og:image:height" content="${OG_H}" />
+<meta property="og:image:alt" content="${esc(c.h1)} by Swapfile" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="${c.title} — ${all.length} Free Online Tools" />
+<meta name="twitter:description" content="${esc(c.intro)}" />
+<meta name="twitter:image" content="${OG_IMAGE}" />
+<link rel="manifest" href="../manifest.json" />
+<link rel="icon" href="../icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="../../../styles.css" />
+<link rel="stylesheet" href="../styles.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "${url}#page",
+      "url": "${url}",
+      "name": ${JSON.stringify(c.title)},
+      "description": ${JSON.stringify(c.intro)},
+      "inLanguage": "en",
+      "isPartOf": { "@id": "${BASE}/index.html#page" },
+      "breadcrumb": { "@id": "${url}#crumbs" }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "${url}#list",
+      "name": ${JSON.stringify(c.title)},
+      "numberOfItems": ${all.length},
+      "itemListElement": [
+${itemList}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "${url}#faq",
+      "mainEntity": [
+${faqLD}
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "${url}#crumbs",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "${SITE}/" },
+        { "@type": "ListItem", "position": 2, "name": "Free Online Tools", "item": "${BASE}/index.html" },
+        { "@type": "ListItem", "position": 3, "name": ${JSON.stringify(c.label)}, "item": "${url}" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+    <div class="logo">
+        <a href="../../../index.html">
+            <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+        </a>
+    </div>
+
+    <div class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav class="nav-links">
+        <a href="../../../index.html">Home</a>
+        <a href="../../../about.html">About Us</a>
+        <a href="../../../web-development.html">Services</a>
+        <a href="../../../store.html" class="nav-store-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+        <a href="../index.html" class="active"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</a>
+        <a href="../../../blog/index.html">Blog</a>
+        <a href="../../../contact.html">Contact</a>
+    </nav>
+    <div class="nav-action">
+        <a href="../../../contact.html" class="btn btn-outline glow-blue">Get a Quote</a>
+    </div>
+</header>
+
+<div class="wrap">
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../../index.html">Home</a> <span>/</span> <a href="../index.html">Free Tools</a> <span>/</span> <span aria-current="page">${esc(c.label)}</span>
+  </nav>
+
+  <header class="hero">
+    <h1>${esc(c.h1)}</h1>
+    <p class="tagline">${esc(c.intro)}</p>
+  </header>
+
+  <section class="tools-section tool-section">
+    <div class="section-header cat-head">
+      <h3><i class="fa-solid ${c.icon}"></i> ${esc(c.label)} — ${all.length} tools</h3>
+      <p>${esc(c.blurb)}</p>
+    </div>
+    <div class="tool-grid">
+${all.map(card).join("\n")}
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>How to pick the right ${esc(c.label.toLowerCase())} tool</h2>
+    <p>Every tool on this page does one job well, and the name says which job. If you are converting a file once, just take the one that matches your format pair. If you are converting dozens on a schedule, a dedicated tool in a browser is the wrong shape — that is a workflow problem, and it is worth automating properly.</p>
+    <p>Two things are worth checking before you start. First, whether your file needs a full re-encode (slower) or just a repackage (instant) — a converter that says "re-encodes" will take noticeably longer. Second, whether the output format supports what you need: MP3 for sharing, WAV for editing, JPG for photos, PNG for anything with text or transparency.</p>
+
+    <h2>Why these tools run in your browser</h2>
+    <p>Free online converters usually pay for themselves with your data. The file is uploaded, written to a temporary folder, and deleted "after a while" — which is fine for a holiday photo and a bad idea for a signed contract, an unreleased design, or anything belonging to a client.</p>
+    <p>Every tool here runs with JavaScript on your own device instead. Nothing is uploaded, so there is no file-size limit, no queue and nothing to delete. It also means the tools keep working with no connection once loaded, which is useful when the Wi-Fi is the actual problem.</p>
+
+    <h2>Common questions</h2>
+    <dl>
+${faqHTML}
+    </dl>
+  </section>
+
+  <nav class="other-tools" aria-label="Other tool categories">
+    <h3>Other categories</h3>
+    <ul>
+${siblings}
+      <li><a href="../index.html">View all ${all.length > 0 ? "66" : ""} tools →</a></li>
+    </ul>
+  </nav>
+
+  <section class="about">
+    <h2>Need this done at scale?</h2>
+    <p>These tools are built for one file at a time. If you need the same conversion run automatically over hundreds of files, or wired into an app you already have, that is a build job — and we do those.</p>
+    <p><a href="../../../software-solutions.html">Software solutions</a> · <a href="../../../web-development.html">Web development</a> · <a href="../../../contact.html">Ask us directly</a></p>
+  </section>
+
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <a href="../../../index.html" style="text-decoration: none;">
+                <span class="logo-text">CyberNovaWorks</span><span class="logo-dot">.</span><span class="logo-store">store</span>
+            </a>
+        </div>
+        <div class="footer-nav">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../about.html">About</a>
+            <a href="../../../web-development.html">Web Development</a>
+            <a href="../../../app-development.html">App Development</a>
+            <a href="../../../graphic-design.html">Graphic Design</a>
+            <a href="../../../software-solutions.html">Software Solutions</a>
+            <a href="../../../store.html">Store</a>
+            <a href="../../../blog/index.html">Blog</a>
+            <a href="../index.html">Free Tools</a>
+            <a href="../../../contact.html">Contact</a>
+            <a href="../../../privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://x.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/cybernovaworks" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/cybernovaworks-bit" target="_blank" rel="noopener noreferrer" aria-label="CyberNovaWorks on GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 CyberNovaWorks.store. All rights reserved.</p>
+    </div>
+</footer>
+
+<a href="https://wa.me/918092638177?text=Hi%20CyberNovaWorks!%20I%20need%20a%20quote." class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span class="wa-tooltip">Chat on WhatsApp</span>
+</a>
+
+<script src="../../../script.js"></script>
+</body>
+</html>
+`;
+}
+
+// ---------- site-wide sitemap, blog feed and news sitemap ----------
+// These used to be hand-maintained, which the README notes meant every new tool
+// had to be added in three places by hand. They are generated from what is
+// actually on disk now, so a page cannot be live and missing from the sitemap.
+
+const ROOT = "../..";
+const xmlEsc = (s) => s
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  .replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+const today = () => new Date().toISOString().slice(0, 10);
+
+// Paths that should never be advertised to a crawler.
+const NOINDEX = new Set([
+  "404.html", "thank-you.html", "tools/swapfile/home-tools.html",
+]);
+
+function listHTML(dir, base = "") {
+  const out = [];
+  for (const name of readdirSync(dir, { withFileTypes: true })) {
+    if (name.isDirectory()) {
+      if (["apk", "node_modules", ".git", ".gradle", "build", ".idea"].includes(name.name)) continue;
+      out.push(...listHTML(join(dir, name.name), `${base}${name.name}/`));
+    } else if (name.name.endsWith(".html")) {
+      out.push(`${base}${name.name}`);
+    }
+  }
+  return out;
+}
+
+const priorityOf = (p) => {
+  if (p === "index.html") return "1.0";
+  if (p === "tools/swapfile/index.html") return "0.9";
+  if (p.startsWith("tools/swapfile/cat/")) return "0.8";
+  if (/\/index\.html$/.test(p)) return "0.6";
+  if (p.startsWith("tools/swapfile/")) return "0.7";
+  if (p.startsWith("blog/")) return "0.6";
+  if (["privacy.html", "contact.html"].includes(p)) return "0.3";
+  return "0.9";
+};
+
+function siteSitemap() {
+  const pages = listHTML(ROOT)
+    .filter((p) => !NOINDEX.has(p))
+    .sort();
+  const urls = pages.map((p) => `  <url>
+    <loc>${SITE}/${p === "index.html" ? "" : p}</loc>
+    <lastmod>${today()}</lastmod>
+    <changefreq>${p.endsWith("index.html") ? "weekly" : "monthly"}</changefreq>
+    <priority>${priorityOf(p)}</priority>
+  </url>`).join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`;
+}
+
+// Pulls the fields the feed needs straight out of each post, so a new post only
+// has to be written once.
+function blogPosts() {
+  const dir = join(ROOT, "blog");
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".html") && f !== "index.html")
+    .map((f) => {
+      const src = readFileSync(join(dir, f), "utf8");
+      const pick = (re) => (src.match(re) || [, ""])[1].trim();
+      const title = pick(/<title>([\s\S]*?)<\/title>/).replace(/\s*\|\s*CyberNovaWorks\s*$/, "");
+      return {
+        file: f,
+        url: `${SITE}/blog/${f}`,
+        title,
+        desc: pick(/<meta name="description" content="([^"]*)"/),
+        date: pick(/"datePublished":\s*"([\d-]+)"/),
+        h1: pick(/<h1[^>]*>([\s\S]*?)<\/h1>/).replace(/<[^>]+>/g, ""),
+      };
+    })
+    .filter((p) => p.title && p.date)
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+function blogFeed() {
+  const posts = blogPosts();
+  const items = posts.map((p) => `    <item>
+      <title>${xmlEsc(p.title)}</title>
+      <link>${p.url}</link>
+      <guid isPermaLink="true">${p.url}</guid>
+      <pubDate>${new Date(p.date + "T09:00:00Z").toUTCString()}</pubDate>
+      <description>${xmlEsc(p.desc)}</description>
+    </item>`).join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CyberNovaWorks Blog</title>
+    <link>${SITE}/blog/index.html</link>
+    <atom:link href="${SITE}/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Guides on website cost, app development cost and picking the right development company in India.</description>
+    <language>en-in</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+${items}
+  </channel>
+</rss>
+`;
+}
+
+// A news sitemap gets fresh blog pages into the index faster than the main one.
+function newsSitemap() {
+  const items = blogPosts().map((p) => `  <url>
+    <loc>${p.url}</loc>
+    <lastmod>${p.date}</lastmod>
+    <news:news>
+      <news:publication>
+        <news:name>CyberNovaWorks.store</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>${p.date}</news:publication_date>
+      <news:title>${xmlEsc(p.h1 || p.title)}</news:title>
+    </news:news>
+  </url>`).join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+${items}
+</urlset>
+`;
+}
+
 // ---------- Main ----------
-mkdirSync(".", { recursive: true });
+mkdirSync("cat", { recursive: true });
 let count = 0;
 for (const t of T) {
   writeFileSync(t.file, toolPage(t));
   count++;
   console.log("wrote", t.file);
 }
+for (const c of CATEGORIES) {
+  writeFileSync(`cat/${c.slug}.html`, categoryPage(c));
+  console.log("wrote", `cat/${c.slug}.html`);
+}
 writeFileSync("index.html", hubPage());
 writeFileSync("home-tools.html", homeToolsHTML());
 writeFileSync("sitemap.xml", swapfileSitemap());
-console.log(`Generated ${count} tool pages + index.html + home-tools.html + sitemap.xml`);
+writeFileSync(join(ROOT, "sitemap.xml"), siteSitemap());
+writeFileSync(join(ROOT, "blog", "feed.xml"), blogFeed());
+writeFileSync(join(ROOT, "blog", "sitemap-news.xml"), newsSitemap());
+console.log(`Generated ${count} tool pages + ${CATEGORIES.length} category pages + index.html + home-tools.html + sitemap.xml`);
+console.log(`Also wrote ${ROOT}/sitemap.xml, ${ROOT}/blog/feed.xml, ${ROOT}/blog/sitemap-news.xml`);

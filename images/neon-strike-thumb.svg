@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#03041a"/>
+      <stop offset="0.55" stop-color="#2b0e57"/>
+      <stop offset="1" stop-color="#10062a"/>
+    </linearGradient>
+    <linearGradient id="strike" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3df5ff"/>
+      <stop offset="1" stop-color="#8dffe3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#3df5ff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#3df5ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="cyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="mag" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="800" height="300" fill="url(#bg)"/>
+  <circle cx="655" cy="70" r="150" fill="url(#glow)"/>
+  <circle cx="655" cy="70" r="46" fill="none" stroke="#3df5ff" stroke-opacity="0.55" stroke-width="1.5"/>
+  <ellipse cx="655" cy="70" rx="72" ry="20" fill="none" stroke="#ff3d8b" stroke-opacity="0.7" stroke-width="2" transform="rotate(-22 655 70)"/>
+  <g stroke="#160c43" stroke-width="12">
+    <path d="M0 255 L80 255"/>
+    <path d="M0 228 L140 228"/>
+    <path d="M0 270 L46 270"/>
+    <path d="M90 295 L520 295"/>
+    <path d="M560 295 L800 282"/>
+  </g>
+  <g fill="#3df5ff" filter="url(#cyan)">
+    <rect x="700" y="44" width="6" height="44" rx="2"/>
+    <rect x="640" y="52" width="6" height="44" rx="2"/>
+  </g>
+  <path d="M398 52 L294 166 L378 166 L330 248 L442 122 L352 122 Z" fill="#3df5ff" filter="url(#cyan)" opacity="0.95"/>
+  <text x="120" y="168" font-family="'Chakra Petch','Segoe UI',Arial,sans-serif" font-size="96" font-weight="700" letter-spacing="-2">
+    <tspan fill="url(#strike)" filter="url(#cyan)">NEON</tspan>
+  </text>
+  <text x="126" y="242" font-family="'Chakra Petch','Segoe UI',Arial,sans-serif" font-size="72" font-weight="700" letter-spacing="4" fill="#ff3d8b" filter="url(#mag)">STRIKE</text>
+  <circle cx="503" cy="280" r="3" fill="#ffb347"/>
+  <circle cx="520" cy="272" r="2" fill="#3df5ff"/>
+  <circle cx="535" cy="285" r="2.5" fill="#ff3d8b"/>
+</svg>

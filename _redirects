@@ -1,7 +1,9 @@
 # Allow static game files to bypass SPA fallback
-/games/gem-rush.html  /games/gem-rush.html  200!
-/gem-rush.html        /gem-rush.html        200!
-/games/*              /games/:splat         200!
+/games/gem-rush.html    /games/gem-rush.html    200!
+/gem-rush.html          /gem-rush.html          200!
+/games/neon-strike.html /games/neon-strike.html 200!
+/neon-strike.html       /neon-strike.html       200!
+/games/*                /games/:splat           200!
 /assets/*             /assets/:splat       200!
 /data/*               /data/:splat         200!
 /js/*                 /js/:splat           200!

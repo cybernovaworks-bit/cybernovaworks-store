@@ -2689,3 +2689,86 @@ html.theme-light .faq-accordion-q:hover {
         font-size: 26px;
     }
 }
+
+/* ---------- 404 ---------- */
+.nf-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 90px 24px 70px;
+    text-align: center;
+}
+.nf-code {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(80px, 18vw, 170px);
+    font-weight: 800;
+    line-height: 1;
+    margin: 0 0 8px;
+    background: linear-gradient(135deg, #3b82f6, #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.nf-wrap h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(26px, 4.5vw, 40px);
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: var(--text, #fff);
+}
+.nf-lead {
+    max-width: 620px;
+    margin: 0 auto 32px;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--muted, #a1a1b5);
+}
+.nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+.nf-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 26px;
+    text-align: left;
+}
+.nf-col {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px 22px;
+}
+.nf-col h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 14px;
+    color: #60a5fa;
+}
+.nf-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14.5px;
+    line-height: 1.6;
+}
+.nf-list li {
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--muted, #a1a1b5);
+}
+.nf-list li:last-child { border-bottom: 0; }
+.nf-list a { color: #cbd5e1; text-decoration: none; }
+.nf-list a:hover { color: #60a5fa; }
+.nf-help {
+    margin: 16px 0 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--muted, #a1a1b5);
+}
+.nf-help a { color: #60a5fa; }

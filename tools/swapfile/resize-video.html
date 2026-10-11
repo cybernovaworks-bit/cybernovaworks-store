@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
-<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<script src="../../analytics.js" defer></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Resize Video Converter — Free, No Upload | Swapfile</title>
@@ -17,14 +9,28 @@
 <link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/resize-video.html" />
 <meta name="theme-color" content="#050510" />
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="Swapfile by CyberNovaWorks" />
 <meta property="og:title" content="Resize Video Converter — Free, No Upload | Swapfile" />
 <meta property="og:description" content="Resize a video to 1080p, 720p, 480p, 360p or any custom resolution, right in your browser." />
 <meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/resize-video.html" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://cybernovaworks.store/images/og-image.png" />
+<meta property="og:image:secure_url" content="https://cybernovaworks.store/images/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Resize Video — free browser-based converter by Swapfile" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Resize Video Converter — Free, No Upload | Swapfile" />
+<meta name="twitter:description" content="Resize a video to 1080p, 720p, 480p, 360p or any custom resolution, right in your browser." />
+<meta name="twitter:image" content="https://cybernovaworks.store/images/og-image.png" />
+<meta name="twitter:image:alt" content="Resize Video — free browser-based converter by Swapfile" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="https://cybernovaworks.store/images/og-image.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<link rel="preconnect" href="https://www.googletagmanager.com" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <link rel="stylesheet" href="../../styles.css" />
@@ -32,24 +38,53 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Swapfile — Resize Video",
-  "url": "https://cybernovaworks.store/tools/swapfile/resize-video.html",
-  "applicationCategory": "Utility",
-  "operatingSystem": "Any (runs in browser)",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "Resize a video to 1080p, 720p, 480p, 360p or any custom resolution, right in your browser."
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://cybernovaworks.store/tools/swapfile/resize-video.html#app",
+      "name": "Swapfile — Resize Video",
+      "url": "https://cybernovaworks.store/tools/swapfile/resize-video.html",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "File Converter",
+      "operatingSystem": "Any (runs in browser)",
+      "browserRequirements": "Requires JavaScript. Works on Windows, macOS, Linux, Android and iOS.",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": ["No upload — files never leave your device", "No sign-up", "Works offline after first load", "Free forever"],
+      "description": "Resize a video to 1080p, 720p, 480p, 360p or any custom resolution, right in your browser."
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://cybernovaworks.store/tools/swapfile/resize-video.html#howto",
+      "name": "How to use the Resize Video converter",
+      "description": "Change any video's resolution — 4K, 1080p, 720p, 480p, 360p, half size, or your own dimensions. Nothing is uploaded.",
+      "totalTime": "PT2M",
+      "tool": [{ "@type": "HowToTool", "name": "Any modern web browser" }],
+      "step": [
+    { "@type": "HowToStep", "position": 1, "name": "Drop in your video file", "text": "Drop in your video file." },
+    { "@type": "HowToStep", "position": 2, "name": "Pick a resolution preset", "text": "Pick a resolution preset, or type your own width and height." },
+    { "@type": "HowToStep", "position": 3, "name": "Press Resize video and download the result", "text": "Press Resize video and download the result." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://cybernovaworks.store/tools/swapfile/resize-video.html#faq",
+      "mainEntity": [
     { "@type": "Question", "name": "Will resizing ruin the quality?", "acceptedAnswer": { "@type": "Answer", "text": "Scaling down is clean and the video stays sharp. Scaling up can't invent detail, so the picture gets softer — the tool warns you before it happens." } },
     { "@type": "Question", "name": "Is my video uploaded to a server?", "acceptedAnswer": { "@type": "Answer", "text": "No. The encoding engine runs inside your browser, so your file never leaves your device." } },
     { "@type": "Question", "name": "Which size should I pick?", "acceptedAnswer": { "@type": "Answer", "text": "720p is the safe all-rounder for WhatsApp, Instagram and email. 1080p keeps full HD quality, and 360p is the smallest option for slow connections." } },
     { "@type": "Question", "name": "Can I resize several videos at once?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — add as many files as you like and each one is processed in turn." } }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://cybernovaworks.store/tools/swapfile/resize-video.html#crumbs",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cybernovaworks.store/" },
+        { "@type": "ListItem", "position": 2, "name": "Free Online Tools", "item": "https://cybernovaworks.store/tools/swapfile/index.html" },
+        { "@type": "ListItem", "position": 3, "name": "Resize Video", "item": "https://cybernovaworks.store/tools/swapfile/resize-video.html" }
+      ]
+    }
   ]
 }
 </script>
@@ -82,6 +117,10 @@
 </header>
 
 <div class="wrap">
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a> <span>/</span> <a href="index.html">Free Tools</a> <span>/</span> <span aria-current="page">Resize Video</span>
+  </nav>
 
   <header class="hero">
     <h1>Resize Video</h1>
@@ -151,14 +190,27 @@
   </main>
 
   <section class="about">
-    <h2>How it works</h2>
+    <h2>How to use the Resize Video converter</h2>
     <ol class="steps">
       <li>Drop in your video file.</li>
       <li>Pick a resolution preset, or type your own width and height.</li>
       <li>Press Resize video and download the result.</li>
     </ol>
 
-    <h3>Common questions</h3>
+    <h2>What you can convert</h2>
+    <p>Drop in any video file. You can add several files in one go and convert them together, which saves time when you are working through a whole folder.</p>
+    <p>The result comes back as a video at the size you pick. 4K, 1080p, 720p, 480p, 360p or any custom size.</p>
+
+    <h2>Why run it in your browser</h2>
+    <p>Most online converters work the same way: you upload a file, it lands on somebody's server, gets written to a temporary folder, and is deleted afterwards. That is fine right up until the day you are converting an unreleased product mockup, a signed contract, or a client's bank statement — because all you get is a promise, not a fact.</p>
+    <p>This converter never sends your file anywhere. The work happens with JavaScript inside the page you are already looking at, so the bytes never leave your device. That is why there is no upload bar, no "file too large" ceiling, and nothing left behind on a server to delete.</p>
+    <p>There is no account to create and no watermark to remove. It also keeps working offline once loaded, which matters on a train or a patchy office Wi-Fi. If you are converting the same kind of file constantly, an automated pipeline is the better route — that is what <a href="../../software-solutions.html">our software solutions</a> are for.</p>
+
+    <h2>Good to know before you start</h2>
+    <p>Every output dimension is rounded to an even number, because H.264 cannot encode odd sizes.</p>
+    <p>Keep the original file until you have checked the output. If the result is not what you expected, try one of the related tools below rather than converting the same file repeatedly.</p>
+
+    <h2>Common questions</h2>
     <dl>
       <dt>Will resizing ruin the quality?</dt>
       <dd>Scaling down is clean and the video stays sharp. Scaling up can't invent detail, so the picture gets softer — the tool warns you before it happens.</dd>
@@ -171,23 +223,89 @@
     </dl>
   </section>
 
-  <nav class="other-tools" aria-label="Other tools">
-    <h3>Related tools</h3>
+  <nav class="other-tools" aria-label="Related video tools">
+    <h3>Related video tools</h3>
     <ul>
-      <li><a href="avi-to-mp4.html">Avi To Mp4</a></li>
-      <li><a href="mov-to-mp4.html">Mov To Mp4</a></li>
-      <li><a href="mkv-to-mp4.html">Mkv To Mp4</a></li>
-      <li><a href="webm-to-mp4.html">Webm To Mp4</a></li>
-      <li><a href="mp4-to-avi.html">Mp4 To Avi</a></li>
-      <li><a href="mp4-to-mov.html">Mp4 To Mov</a></li>
-      <li><a href="mp4-to-gif.html">Mp4 To Gif</a></li>
-      <li><a href="gif-to-mp4.html">Gif To Mp4</a></li>
-      <li><a href="video-to-mp3.html">Video To Mp3</a></li>
+      <li><a href="avi-to-mp4.html">AVI to MP4</a></li>
+      <li><a href="mov-to-mp4.html">MOV to MP4</a></li>
+      <li><a href="mkv-to-mp4.html">MKV to MP4</a></li>
+      <li><a href="webm-to-mp4.html">WEBM to MP4</a></li>
+      <li><a href="mp4-to-avi.html">MP4 to AVI</a></li>
+      <li><a href="mp4-to-mov.html">MP4 to MOV</a></li>
+      <li><a href="mp4-to-gif.html">MP4 to GIF</a></li>
+      <li><a href="gif-to-mp4.html">GIF to MP4</a></li>
+      <li><a href="video-to-mp3.html">Video to MP3</a></li>
+      <li><a href="compress-video.html">Compress Video</a></li>
+      <li><a href="3gp-to-mp4.html">3GP to MP4</a></li>
+      <li><a href="flv-to-mp4.html">FLV to MP4</a></li>
+      <li><a href="trim-video.html">Trim Video</a></li>
+      <li><a href="rotate-video.html">Rotate Video</a></li>
+      <li><a href="video-to-image.html">Video to Image</a></li>
+      <li><a href="watermark-video.html">Watermark Video</a></li>
       <li><a href="index.html">View all tools →</a></li>
     </ul>
   </nav>
 
-  
+  <nav class="other-tools" aria-label="Every other free tool">
+    <h3>All other free tools</h3>
+    <ul>
+      <li><a href="pdf-to-excel.html">PDF to Excel</a></li>
+      <li><a href="excel-to-pdf.html">Excel to PDF</a></li>
+      <li><a href="powerpoint-to-pdf.html">PowerPoint to PDF</a></li>
+      <li><a href="pdf-to-powerpoint.html">PDF to PowerPoint</a></li>
+      <li><a href="pdf-to-text.html">PDF to Text</a></li>
+      <li><a href="text-to-pdf.html">Text to PDF</a></li>
+      <li><a href="html-to-pdf.html">HTML to PDF</a></li>
+      <li><a href="pdf-to-html.html">PDF to HTML</a></li>
+      <li><a href="epub-to-pdf.html">EPUB to PDF</a></li>
+      <li><a href="pdf-to-epub.html">PDF to EPUB</a></li>
+      <li><a href="word-to-text.html">Word to Text</a></li>
+      <li><a href="odt-to-pdf.html">ODT to PDF</a></li>
+      <li><a href="mp4-to-mp3.html">MP4 to MP3</a></li>
+      <li><a href="mp3-to-wav.html">MP3 to WAV</a></li>
+      <li><a href="wav-to-mp3.html">WAV to MP3</a></li>
+      <li><a href="m4a-to-mp3.html">M4A to MP3</a></li>
+      <li><a href="aac-to-mp3.html">AAC to MP3</a></li>
+      <li><a href="flac-to-mp3.html">FLAC to MP3</a></li>
+      <li><a href="ogg-to-mp3.html">OGG to MP3</a></li>
+      <li><a href="text-to-audio.html">Text to Audio</a></li>
+      <li><a href="pdf-to-audiobook.html">PDF to Audiobook</a></li>
+      <li><a href="jpg-to-png.html">JPG to PNG</a></li>
+      <li><a href="png-to-jpg.html">PNG to JPG</a></li>
+      <li><a href="webp-to-jpg.html">WEBP to JPG</a></li>
+      <li><a href="bmp-to-jpg.html">BMP to JPG</a></li>
+      <li><a href="svg-to-png.html">SVG to PNG</a></li>
+      <li><a href="tiff-to-jpg.html">TIFF to JPG</a></li>
+      <li><a href="png-to-svg.html">PNG to SVG</a></li>
+      <li><a href="image-to-base64.html">Image to Base64</a></li>
+      <li><a href="csv-to-excel.html">CSV to Excel</a></li>
+      <li><a href="excel-to-csv.html">Excel to CSV</a></li>
+      <li><a href="json-to-csv.html">JSON to CSV</a></li>
+      <li><a href="csv-to-json.html">CSV to JSON</a></li>
+      <li><a href="xml-to-json.html">XML to JSON</a></li>
+      <li><a href="json-to-xml.html">JSON to XML</a></li>
+      <li><a href="excel-to-google-sheets.html">Excel to Google Sheets</a></li>
+      <li><a href="folder-to-zip.html">Folder to ZIP</a></li>
+      <li><a href="ttf-to-woff.html">TTF to WOFF</a></li>
+      <li><a href="obj-to-stl.html">OBJ to STL</a></li>
+      <li><a href="image-to-text.html">Image to Text</a></li>
+      <li><a href="image-to-pdf.html">Image to PDF</a></li>
+      <li><a href="pdf-to-image.html">PDF to Image</a></li>
+      <li><a href="word-to-pdf.html">Word to PDF</a></li>
+      <li><a href="pdf-to-word.html">PDF to Word</a></li>
+      <li><a href="merge-pdf.html">Merge PDF</a></li>
+      <li><a href="split-pdf.html">Split PDF</a></li>
+      <li><a href="compress-pdf.html">Compress PDF</a></li>
+      <li><a href="compress-image.html">Compress Image</a></li>
+      <li><a href="heic-to-jpg.html">HEIC to JPG</a></li>
+    </ul>
+  </nav>
+
+  <section class="about">
+    <h2>Need this inside your own product?</h2>
+    <p>These tools cover one-off jobs. If you need a converter built into your app, a pipeline that handles thousands of files, or a team set up with the right tooling, that is a build job — and we do those.</p>
+    <p><a href="../../software-solutions.html">Software solutions</a> · <a href="../../web-development.html">Web development</a> · <a href="../../contact.html">Ask us directly</a></p>
+  </section>
 
 </div>
 
