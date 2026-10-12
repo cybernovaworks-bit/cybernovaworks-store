@@ -1,48 +1,147 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#03041a"/>
-      <stop offset="0.55" stop-color="#2b0e57"/>
-      <stop offset="1" stop-color="#10062a"/>
+    <!-- Background Gradient: Deep night sky to jungle horizon -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#020412"/>
+      <stop offset="0.4" stop-color="#0b0f2e"/>
+      <stop offset="0.8" stop-color="#180e3a"/>
+      <stop offset="1" stop-color="#090514"/>
     </linearGradient>
-    <linearGradient id="strike" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#3df5ff"/>
-      <stop offset="1" stop-color="#8dffe3"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#3df5ff" stop-opacity="0.35"/>
+
+    <!-- Moon Glow -->
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#e0f4ff" stop-opacity="0.9"/>
+      <stop offset="0.3" stop-color="#8ce1ff" stop-opacity="0.4"/>
       <stop offset="1" stop-color="#3df5ff" stop-opacity="0"/>
     </radialGradient>
-    <filter id="cyan" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="3" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+
+    <!-- Explosion Gradient -->
+    <radialGradient id="blast" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.2" stop-color="#fff176"/>
+      <stop offset="0.5" stop-color="#ff9100"/>
+      <stop offset="0.8" stop-color="#ff3d00" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#990000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Searchlight beam -->
+    <linearGradient id="searchlight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#3df5ff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Neon Cyan Glow -->
+    <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
-    <filter id="mag" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="4" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+
+    <!-- Neon Yellow/Orange Glow -->
+    <filter id="orangeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
   </defs>
-  <rect width="800" height="300" fill="url(#bg)"/>
-  <circle cx="655" cy="70" r="150" fill="url(#glow)"/>
-  <circle cx="655" cy="70" r="46" fill="none" stroke="#3df5ff" stroke-opacity="0.55" stroke-width="1.5"/>
-  <ellipse cx="655" cy="70" rx="72" ry="20" fill="none" stroke="#ff3d8b" stroke-opacity="0.7" stroke-width="2" transform="rotate(-22 655 70)"/>
-  <g stroke="#160c43" stroke-width="12">
-    <path d="M0 255 L80 255"/>
-    <path d="M0 228 L140 228"/>
-    <path d="M0 270 L46 270"/>
-    <path d="M90 295 L520 295"/>
-    <path d="M560 295 L800 282"/>
+
+  <!-- Sky Background -->
+  <rect width="800" height="300" fill="url(#sky)"/>
+
+  <!-- Stars -->
+  <g fill="#ffffff" opacity="0.6">
+    <circle cx="150" cy="40" r="1.5"/><circle cx="280" cy="70" r="1"/><circle cx="420" cy="30" r="1.5"/>
+    <circle cx="720" cy="50" r="1"/><circle cx="80" cy="90" r="1.2"/><circle cx="350" cy="110" r="1"/>
   </g>
-  <g fill="#3df5ff" filter="url(#cyan)">
-    <rect x="700" y="44" width="6" height="44" rx="2"/>
-    <rect x="640" y="52" width="6" height="44" rx="2"/>
+
+  <!-- Moon & Glow -->
+  <circle cx="530" cy="95" r="90" fill="url(#moonGlow)"/>
+  <circle cx="530" cy="95" r="38" fill="#e8f8ff"/>
+  <!-- Moon craters / details -->
+  <circle cx="515" cy="80" r="7" fill="#cbe4f2" opacity="0.6"/>
+  <circle cx="545" cy="110" r="5" fill="#cbe4f2" opacity="0.6"/>
+  <circle cx="530" cy="100" r="4" fill="#cbe4f2" opacity="0.5"/>
+
+  <!-- Helicopter & Searchlight Beam -->
+  <polygon points="630,70 480,210 560,230 645,80" fill="url(#searchlight)"/>
+  <g transform="translate(635, 65)">
+    <!-- Chopper body -->
+    <ellipse cx="0" cy="0" rx="22" ry="10" fill="#2c3e50"/>
+    <rect x="-8" y="4" width="16" height="6" fill="#1a252f"/>
+    <!-- Rotor blades -->
+    <line x1="-35" y1="-8" x2="35" y2="-8" stroke="#bdc3c7" stroke-width="3" stroke-linecap="round"/>
+    <!-- Tail -->
+    <line x1="-22" y1="-2" x2="-45" y2="-8" stroke="#34495e" stroke-width="3"/>
   </g>
-  <path d="M398 52 L294 166 L378 166 L330 248 L442 122 L352 122 Z" fill="#3df5ff" filter="url(#cyan)" opacity="0.95"/>
-  <text x="120" y="168" font-family="'Chakra Petch','Segoe UI',Arial,sans-serif" font-size="96" font-weight="700" letter-spacing="-2">
-    <tspan fill="url(#strike)" filter="url(#cyan)">NEON</tspan>
-  </text>
-  <text x="126" y="242" font-family="'Chakra Petch','Segoe UI',Arial,sans-serif" font-size="72" font-weight="700" letter-spacing="4" fill="#ff3d8b" filter="url(#mag)">STRIKE</text>
-  <circle cx="503" cy="280" r="3" fill="#ffb347"/>
-  <circle cx="520" cy="272" r="2" fill="#3df5ff"/>
-  <circle cx="535" cy="285" r="2.5" fill="#ff3d8b"/>
+
+  <!-- Background Structure / Tower on Right -->
+  <g fill="#0c0e1c">
+    <rect x="680" y="110" width="85" height="190"/>
+    <polygon points="675,110 722,65 770,110"/>
+    <!-- Windows / lights -->
+    <rect x="700" y="130" width="12" height="16" fill="#ff3d3d" opacity="0.8" filter="url(#cyanGlow)"/>
+    <rect x="735" y="130" width="12" height="16" fill="#ff3d3d" opacity="0.8" filter="url(#cyanGlow)"/>
+    <rect x="700" y="165" width="47" height="8" fill="#3df5ff" opacity="0.5"/>
+  </g>
+
+  <!-- Jungle Silhouette (Midground & Foreground) -->
+  <!-- Distant jungle ridge -->
+  <path d="M0 220 Q 80 180, 180 200 T 380 190 T 580 210 T 800 180 L 800 300 L 0 300 Z" fill="#080f1d"/>
+
+  <!-- Foreground jungle foliage & ruins (Left & Bottom) -->
+  <path d="M0 300 L0 240 Q 40 230, 70 250 T 130 235 T 190 255 L240 300 Z" fill="#050a14"/>
+  <path d="M700 300 L710 230 Q 740 210, 770 240 L800 230 L800 300 Z" fill="#050a14"/>
+
+  <!-- Tank & Massive Explosion on Right -->
+  <g transform="translate(620, 210)">
+    <!-- Explosion Blast Behind Tank -->
+    <circle cx="10" cy="10" r="75" fill="url(#blast)"/>
+    <circle cx="-5" cy="5" r="45" fill="#ffea00" filter="url(#orangeGlow)"/>
+
+    <!-- Tank Body & Turret -->
+    <rect x="-35" y="20" width="75" height="30" rx="6" fill="#1b2a26"/>
+    <rect x="-20" y="0" width="45" height="25" rx="4" fill="#243833"/>
+    <!-- Tank Cannon Barrel -->
+    <rect x="25" y="6" width="45" height="8" rx="2" fill="#111816"/>
+    <!-- Red glowing sensor/eye on tank -->
+    <circle cx="0" cy="10" r="5" fill="#ff1744" filter="url(#orangeGlow)"/>
+    <line x1="-35" y1="50" x2="40" y2="50" stroke="#000" stroke-width="6"/>
+  </g>
+
+  <!-- Soldier 1 (Player on Left shooting) -->
+  <g transform="translate(160, 220)">
+    <!-- Red headband / hair -->
+    <path d="M-8 -15 Q 0 -22, 10 -15" stroke="#ff1744" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <!-- Body -->
+    <rect x="-6" y="-8" width="14" height="26" rx="3" fill="#1e3a8a"/>
+    <!-- Gun -->
+    <rect x="6" y="2" width="22" height="6" fill="#111827"/>
+    <!-- Muzzle Flash -->
+    <polygon points="28,1 46,-4 38,5 50,5 34,12" fill="#ffea00" filter="url(#orangeGlow)"/>
+    <!-- Tracer beam -->
+    <line x1="45" y1="5" x2="620" y2="235" stroke="#3df5ff" stroke-width="2.5" opacity="0.85" filter="url(#cyanGlow)"/>
+  </g>
+
+  <!-- Flying Drone Enemy -->
+  <g transform="translate(360, 105)" filter="url(#cyanGlow)">
+    <ellipse cx="0" cy="0" rx="14" ry="6" fill="#311014"/>
+    <ellipse cx="0" cy="-2" rx="18" ry="2" fill="#ff1744" opacity="0.9"/>
+    <circle cx="0" cy="2" r="4" fill="#ff1744"/>
+    <!-- Laser beam firing down-left -->
+    <line x1="-5" y1="3" x2="-200" y2="130" stroke="#ff1744" stroke-width="2" opacity="0.85"/>
+  </g>
+
+  <!-- NEON STRIKE Title Overlay (Top Left) -->
+  <!-- Drop Shadow / Glow -->
+  <text x="38" y="78" font-family="'Chakra Petch','Segoe UI',Arial,sans-serif" font-size="54" font-weight="800" font-style="italic" fill="#000000" opacity="0.8" letter-spacing="1">NEON STRIKE</text>
+
+  <!-- Main NEON (Vibrant Cyan) -->
+  <text x="36" y="76" font-family="'Chakra Petch','Segoe UI',Arial,sans-serif" font-size="54" font-weight="800" font-style="italic" fill="#3df5ff" filter="url(#cyanGlow)" letter-spacing="1">NEON</text>
+
+  <!-- Main STRIKE (Vibrant Fiery Orange/Yellow matching user screenshot) -->
+  <text x="36" y="128" font-family="'Chakra Petch','Segoe UI',Arial,sans-serif" font-size="54" font-weight="800" font-style="italic" fill="#ffaa00" filter="url(#orangeGlow)" letter-spacing="2">STRIKE</text>
 </svg>
