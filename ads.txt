@@ -1,4 +1,1 @@
-# Replace pub-XXXXXXXXXXXXXXXX with your real AdSense publisher ID,
-# then keep ads.js's ADS_CLIENT in sync. AdSense will only start
-# crawling once both match your verified ID.
-google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+google.com, pub-9104500841041054, DIRECT, f08c47fec0942fa0
