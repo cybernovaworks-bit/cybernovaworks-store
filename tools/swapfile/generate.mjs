@@ -874,6 +874,7 @@ ${faq}
 <html lang="en">
 <head>
 <script src="../../analytics.js" defer></script>
+<script src="../../ads.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${t.h1} Converter — Free, No Upload | Swapfile</title>
@@ -947,6 +948,14 @@ ${ld}
     <p class="tagline">${t.tagline}</p>
   </header>
 
+  <div class="ad-spot ad-adsense">
+      <div class="ad-inner">
+          <span class="ad-label">Advertisement</span>
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+  </div>
+
   <main class="panel">
     <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose files">
       <input type="file" id="fileInput" hidden />
@@ -963,6 +972,14 @@ ${t.panelExtra ? t.panelExtra + "\n" : ""}    <button class="convert-btn" id="co
 
     <div class="results" id="results" aria-live="polite"></div>
   </main>
+
+  <div class="ad-spot ad-adsense">
+      <div class="ad-inner">
+          <span class="ad-label">Advertisement</span>
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+  </div>
 
   <section class="about">
     <h2>How to use the ${esc(t.h1)} converter</h2>
@@ -1066,6 +1083,7 @@ function hubPage() {
 <html lang="en">
 <head>
 <script src="../../analytics.js" defer></script>
+<script src="../../ads.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Free File Tools — 60+ Converters (PDF, Word, Image, Video & More) | Swapfile</title>
@@ -1400,6 +1418,14 @@ ${categorySectionsHTML()}
     </dl>
 </section>
 
+<div class="ad-spot ad-adsense">
+    <div class="ad-inner">
+        <span class="ad-label">Advertisement</span>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+</div>
+
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-logo">
@@ -1553,6 +1579,7 @@ function categoryPage(c) {
 <html lang="en">
 <head>
 <script src="../../../analytics.js" defer></script>
+<script src="../../../ads.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${c.title} — ${all.length} Free Online Tools | Swapfile</title>
@@ -1700,6 +1727,14 @@ ${siblings}
     <p>These tools are built for one file at a time. If you need the same conversion run automatically over hundreds of files, or wired into an app you already have, that is a build job — and we do those.</p>
     <p><a href="../../../software-solutions.html">Software solutions</a> · <a href="../../../web-development.html">Web development</a> · <a href="../../../contact.html">Ask us directly</a></p>
   </section>
+
+  <div class="ad-spot ad-adsense">
+      <div class="ad-inner">
+          <span class="ad-label">Advertisement</span>
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+  </div>
 
 </div>
 
