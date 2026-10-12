@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Analytics + Search Console: REPLACE G-XXXXXXXXXX and YOUR_VERIFICATION_TOKEN with your real values -->
-<meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<script src="../../analytics.js" defer></script>
+<script src="../../ads.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Excel to PDF Converter — Free, No Upload | Swapfile</title>
@@ -17,14 +10,28 @@
 <link rel="canonical" href="https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html" />
 <meta name="theme-color" content="#050510" />
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="Swapfile by CyberNovaWorks" />
 <meta property="og:title" content="Excel to PDF Converter — Free, No Upload | Swapfile" />
 <meta property="og:description" content="Turn an Excel workbook into a clean, shareable PDF without uploading it anywhere." />
 <meta property="og:url" content="https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://cybernovaworks.store/images/og-image.png" />
+<meta property="og:image:secure_url" content="https://cybernovaworks.store/images/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Excel to PDF — free browser-based converter by Swapfile" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Excel to PDF Converter — Free, No Upload | Swapfile" />
+<meta name="twitter:description" content="Turn an Excel workbook into a clean, shareable PDF without uploading it anywhere." />
+<meta name="twitter:image" content="https://cybernovaworks.store/images/og-image.png" />
+<meta name="twitter:image:alt" content="Excel to PDF — free browser-based converter by Swapfile" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="https://cybernovaworks.store/images/og-image.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<link rel="preconnect" href="https://www.googletagmanager.com" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <link rel="stylesheet" href="../../styles.css" />
@@ -32,22 +39,51 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Swapfile — Excel to PDF",
-  "url": "https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html",
-  "applicationCategory": "Utility",
-  "operatingSystem": "Any (runs in browser)",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "Turn an Excel workbook into a clean, shareable PDF without uploading it anywhere."
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html#app",
+      "name": "Swapfile — Excel to PDF",
+      "url": "https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "File Converter",
+      "operatingSystem": "Any (runs in browser)",
+      "browserRequirements": "Requires JavaScript. Works on Windows, macOS, Linux, Android and iOS.",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": ["No upload — files never leave your device", "No sign-up", "Works offline after first load", "Free forever"],
+      "description": "Turn an Excel workbook into a clean, shareable PDF without uploading it anywhere."
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html#howto",
+      "name": "How to use the Excel to PDF converter",
+      "description": "Turn an Excel workbook into a clean, shareable PDF. The first sheet is rendered and downloadable straight from your browser.",
+      "totalTime": "PT2M",
+      "tool": [{ "@type": "HowToTool", "name": "Any modern web browser" }],
+      "step": [
+    { "@type": "HowToStep", "position": 1, "name": "Add the", "text": "Add the .xlsx, .xls or .xlsm file." },
+    { "@type": "HowToStep", "position": 2, "name": "The first sheet is rendered as a PDF", "text": "The first sheet is rendered as a PDF." },
+    { "@type": "HowToStep", "position": 3, "name": "Download and share it", "text": "Download and share it — no account needed." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html#faq",
+      "mainEntity": [
     { "@type": "Question", "name": "Do all sheets get converted?", "acceptedAnswer": { "@type": "Answer", "text": "Currently the active first sheet is rendered. Print your sheet from the browser for exact styling." } },
     { "@type": "Question", "name": "Can large workbooks convert?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, as long as they fit in your device's memory. Huge files take a few seconds more." } }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html#crumbs",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cybernovaworks.store/" },
+        { "@type": "ListItem", "position": 2, "name": "Free Online Tools", "item": "https://cybernovaworks.store/tools/swapfile/index.html" },
+        { "@type": "ListItem", "position": 3, "name": "Excel to PDF", "item": "https://cybernovaworks.store/tools/swapfile/excel-to-pdf.html" }
+      ]
+    }
   ]
 }
 </script>
@@ -81,6 +117,10 @@
 
 <div class="wrap">
 
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a> <span>/</span> <a href="index.html">Free Tools</a> <span>/</span> <span aria-current="page">Excel to PDF</span>
+  </nav>
+
   <header class="hero">
     <h1>Excel to PDF</h1>
     <p class="tagline">Turn an Excel workbook into a clean, shareable PDF. The first sheet is rendered and downloadable straight from your browser.</p>
@@ -104,14 +144,27 @@
   </main>
 
   <section class="about">
-    <h2>How it works</h2>
+    <h2>How to use the Excel to PDF converter</h2>
     <ol class="steps">
       <li>Add the .xlsx, .xls or .xlsm file.</li>
       <li>The first sheet is rendered as a PDF.</li>
       <li>Download and share it — no account needed.</li>
     </ol>
 
-    <h3>Common questions</h3>
+    <h2>What you can convert</h2>
+    <p>Drop in XLSX, XLSM, XLS files. One file at a time keeps the output predictable, and the convert button stays disabled until a file is in place.</p>
+    <p>The result comes back as a PDF document. First sheet rendered to PDF.</p>
+
+    <h2>Why run it in your browser</h2>
+    <p>Most online converters work the same way: you upload a file, it lands on somebody's server, gets written to a temporary folder, and is deleted afterwards. That is fine right up until the day you are converting an unreleased product mockup, a signed contract, or a client's bank statement — because all you get is a promise, not a fact.</p>
+    <p>This converter never sends your file anywhere. The work happens with JavaScript inside the page you are already looking at, so the bytes never leave your device. That is why there is no upload bar, no "file too large" ceiling, and nothing left behind on a server to delete.</p>
+    <p>There is no account to create and no watermark to remove. It also keeps working offline once loaded, which matters on a train or a patchy office Wi-Fi. If you are converting the same kind of file constantly, an automated pipeline is the better route — that is what <a href="../../software-solutions.html">our software solutions</a> are for.</p>
+
+    <h2>Good to know before you start</h2>
+    <p>Only the first sheet is rendered, and layout is approximated by printing the page rather than by Excel's own renderer.</p>
+    <p>Keep the original file until you have checked the output. If the result is not what you expected, try one of the related tools below rather than converting the same file repeatedly.</p>
+
+    <h2>Common questions</h2>
     <dl>
       <dt>Do all sheets get converted?</dt>
       <dd>Currently the active first sheet is rendered. Print your sheet from the browser for exact styling.</dd>
@@ -120,23 +173,89 @@
     </dl>
   </section>
 
-  <nav class="other-tools" aria-label="Other tools">
-    <h3>Related tools</h3>
+  <nav class="other-tools" aria-label="Related doc tools">
+    <h3>Related documents tools</h3>
     <ul>
-      <li><a href="pdf-to-excel.html">Pdf To Excel</a></li>
-      <li><a href="powerpoint-to-pdf.html">Powerpoint To Pdf</a></li>
-      <li><a href="pdf-to-powerpoint.html">Pdf To Powerpoint</a></li>
-      <li><a href="pdf-to-text.html">Pdf To Text</a></li>
-      <li><a href="text-to-pdf.html">Text To Pdf</a></li>
-      <li><a href="html-to-pdf.html">Html To Pdf</a></li>
-      <li><a href="pdf-to-html.html">Pdf To Html</a></li>
-      <li><a href="epub-to-pdf.html">Epub To Pdf</a></li>
-      <li><a href="pdf-to-epub.html">Pdf To Epub</a></li>
+      <li><a href="pdf-to-excel.html">PDF to Excel</a></li>
+      <li><a href="powerpoint-to-pdf.html">PowerPoint to PDF</a></li>
+      <li><a href="pdf-to-powerpoint.html">PDF to PowerPoint</a></li>
+      <li><a href="pdf-to-text.html">PDF to Text</a></li>
+      <li><a href="text-to-pdf.html">Text to PDF</a></li>
+      <li><a href="html-to-pdf.html">HTML to PDF</a></li>
+      <li><a href="pdf-to-html.html">PDF to HTML</a></li>
+      <li><a href="epub-to-pdf.html">EPUB to PDF</a></li>
+      <li><a href="pdf-to-epub.html">PDF to EPUB</a></li>
+      <li><a href="word-to-text.html">Word to Text</a></li>
+      <li><a href="odt-to-pdf.html">ODT to PDF</a></li>
+      <li><a href="image-to-pdf.html">Image to PDF</a></li>
+      <li><a href="pdf-to-image.html">PDF to Image</a></li>
+      <li><a href="word-to-pdf.html">Word to PDF</a></li>
+      <li><a href="pdf-to-word.html">PDF to Word</a></li>
+      <li><a href="merge-pdf.html">Merge PDF</a></li>
+      <li><a href="split-pdf.html">Split PDF</a></li>
+      <li><a href="compress-pdf.html">Compress PDF</a></li>
       <li><a href="index.html">View all tools →</a></li>
     </ul>
   </nav>
 
-  
+  <nav class="other-tools" aria-label="Every other free tool">
+    <h3>All other free tools</h3>
+    <ul>
+      <li><a href="mp4-to-mp3.html">MP4 to MP3</a></li>
+      <li><a href="mp3-to-wav.html">MP3 to WAV</a></li>
+      <li><a href="wav-to-mp3.html">WAV to MP3</a></li>
+      <li><a href="m4a-to-mp3.html">M4A to MP3</a></li>
+      <li><a href="aac-to-mp3.html">AAC to MP3</a></li>
+      <li><a href="flac-to-mp3.html">FLAC to MP3</a></li>
+      <li><a href="ogg-to-mp3.html">OGG to MP3</a></li>
+      <li><a href="text-to-audio.html">Text to Audio</a></li>
+      <li><a href="pdf-to-audiobook.html">PDF to Audiobook</a></li>
+      <li><a href="avi-to-mp4.html">AVI to MP4</a></li>
+      <li><a href="mov-to-mp4.html">MOV to MP4</a></li>
+      <li><a href="mkv-to-mp4.html">MKV to MP4</a></li>
+      <li><a href="webm-to-mp4.html">WEBM to MP4</a></li>
+      <li><a href="mp4-to-avi.html">MP4 to AVI</a></li>
+      <li><a href="mp4-to-mov.html">MP4 to MOV</a></li>
+      <li><a href="mp4-to-gif.html">MP4 to GIF</a></li>
+      <li><a href="gif-to-mp4.html">GIF to MP4</a></li>
+      <li><a href="video-to-mp3.html">Video to MP3</a></li>
+      <li><a href="compress-video.html">Compress Video</a></li>
+      <li><a href="3gp-to-mp4.html">3GP to MP4</a></li>
+      <li><a href="flv-to-mp4.html">FLV to MP4</a></li>
+      <li><a href="resize-video.html">Resize Video</a></li>
+      <li><a href="trim-video.html">Trim Video</a></li>
+      <li><a href="rotate-video.html">Rotate Video</a></li>
+      <li><a href="video-to-image.html">Video to Image</a></li>
+      <li><a href="watermark-video.html">Watermark Video</a></li>
+      <li><a href="jpg-to-png.html">JPG to PNG</a></li>
+      <li><a href="png-to-jpg.html">PNG to JPG</a></li>
+      <li><a href="webp-to-jpg.html">WEBP to JPG</a></li>
+      <li><a href="bmp-to-jpg.html">BMP to JPG</a></li>
+      <li><a href="svg-to-png.html">SVG to PNG</a></li>
+      <li><a href="tiff-to-jpg.html">TIFF to JPG</a></li>
+      <li><a href="png-to-svg.html">PNG to SVG</a></li>
+      <li><a href="image-to-base64.html">Image to Base64</a></li>
+      <li><a href="csv-to-excel.html">CSV to Excel</a></li>
+      <li><a href="excel-to-csv.html">Excel to CSV</a></li>
+      <li><a href="json-to-csv.html">JSON to CSV</a></li>
+      <li><a href="csv-to-json.html">CSV to JSON</a></li>
+      <li><a href="xml-to-json.html">XML to JSON</a></li>
+      <li><a href="json-to-xml.html">JSON to XML</a></li>
+      <li><a href="excel-to-google-sheets.html">Excel to Google Sheets</a></li>
+      <li><a href="folder-to-zip.html">Folder to ZIP</a></li>
+      <li><a href="ttf-to-woff.html">TTF to WOFF</a></li>
+      <li><a href="obj-to-stl.html">OBJ to STL</a></li>
+      <li><a href="image-to-text.html">Image to Text</a></li>
+      <li><a href="compress-image.html">Compress Image</a></li>
+      <li><a href="heic-to-jpg.html">HEIC to JPG</a></li>
+    </ul>
+  </nav>
+
+  <section class="about">
+    <h2>Need this inside your own product?</h2>
+    <p>These tools cover one-off jobs. If you need a converter built into your app, a pipeline that handles thousands of files, or a team set up with the right tooling, that is a build job — and we do those.</p>
+    <p><a href="../../software-solutions.html">Software solutions</a> · <a href="../../web-development.html">Web development</a> · <a href="../../contact.html">Ask us directly</a></p>
+  </section>
 
 </div>
 

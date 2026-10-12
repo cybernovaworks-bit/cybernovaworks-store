@@ -1,0 +1,402 @@
+[
+ {
+  "file": "csv-to-json.html",
+  "tool": "csv2json",
+  "inputs": "data.csv",
+  "verdict": "OUTPUT",
+  "downloads": "data.json",
+  "blobs": 1,
+  "bytes": 191,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "csv-to-excel.html",
+  "tool": "csv2excel",
+  "inputs": "data.csv",
+  "verdict": "OUTPUT",
+  "downloads": "data.xlsx",
+  "blobs": 1,
+  "bytes": 16199,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "excel-to-csv.html",
+  "tool": "excel2csv",
+  "inputs": "data.csv",
+  "verdict": "OUTPUT",
+  "downloads": "data.csv",
+  "blobs": 1,
+  "bytes": 60,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "json-to-csv.html",
+  "tool": "json2csv",
+  "inputs": "data.json",
+  "verdict": "OUTPUT",
+  "downloads": "data.csv",
+  "blobs": 1,
+  "bytes": 31,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "xml-to-json.html",
+  "tool": "xml2json",
+  "inputs": "data.xml",
+  "verdict": "OUTPUT",
+  "downloads": "data.json",
+  "blobs": 1,
+  "bytes": 70,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "image-to-base64.html",
+  "tool": "img2base64",
+  "inputs": "photo.png",
+  "verdict": "OUTPUT",
+  "downloads": "photo-base64.txt",
+  "blobs": 1,
+  "bytes": 3117,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "image-to-pdf.html",
+  "tool": "img2pdf",
+  "inputs": "photo.png",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 46833,
+  "error": "Uncaught [ReferenceError: Worker is not defined]"
+ },
+ {
+  "file": "png-to-jpg.html",
+  "tool": "png2jpg",
+  "inputs": "photo.png",
+  "verdict": "OUTPUT",
+  "downloads": "photo.jpg",
+  "blobs": 1,
+  "bytes": 2033,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "jpg-to-png.html",
+  "tool": "jpg2png",
+  "inputs": "photo.jpg",
+  "verdict": "OUTPUT",
+  "downloads": "photo.png",
+  "blobs": 1,
+  "bytes": 487,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "webp-to-jpg.html",
+  "tool": "webp2jpg",
+  "inputs": "photo.jpg",
+  "verdict": "OUTPUT",
+  "downloads": "photo.jpg",
+  "blobs": 1,
+  "bytes": 1150,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "svg-to-png.html",
+  "tool": "svg2png",
+  "inputs": "photo.png",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 4161,
+  "error": "Could not load img: \"blob:mock/1\""
+ },
+ {
+  "file": "png-to-svg.html",
+  "tool": "png2svg",
+  "inputs": "photo.png",
+  "verdict": "OUTPUT",
+  "downloads": "photo.svg",
+  "blobs": 1,
+  "bytes": 2956,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "bmp-to-jpg.html",
+  "tool": "bmp2jpg",
+  "inputs": "photo.png",
+  "verdict": "OUTPUT",
+  "downloads": "photo.jpg",
+  "blobs": 1,
+  "bytes": 2033,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "tiff-to-jpg.html",
+  "tool": "tiff2jpg",
+  "inputs": "photo.png",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "ImageData is not defined"
+ },
+ {
+  "file": "webp-to-jpg.html",
+  "tool": "webp2jpg",
+  "inputs": "photo.jpg",
+  "verdict": "OUTPUT",
+  "downloads": "photo.jpg",
+  "blobs": 1,
+  "bytes": 1150,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "json-to-xml.html",
+  "tool": "json2xml",
+  "inputs": "data.json",
+  "verdict": "OUTPUT",
+  "downloads": "data.xml",
+  "blobs": 1,
+  "bytes": 128,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "mp3-to-wav.html",
+  "tool": "mp32wav",
+  "inputs": "clip.wav",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "(window.AudioContext || window.webkitAudioContext) is not a constructor"
+ },
+ {
+  "file": "word-to-text.html",
+  "tool": "word2text",
+  "inputs": "data.txt",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "Can't find end of central directory : is this a zip file ? If it is, see https://stuk.github.io/jszip/documentation/howt"
+ },
+ {
+  "file": "pdf-to-html.html",
+  "tool": "pdf2html",
+  "inputs": "doc.pdf",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 90,
+  "error": "structuredClone is not defined"
+ },
+ {
+  "file": "pdf-to-excel.html",
+  "tool": "pdf2excel",
+  "inputs": "doc.pdf",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 90,
+  "error": "structuredClone is not defined"
+ },
+ {
+  "file": "ttf-to-woff.html",
+  "tool": "ttf2woff",
+  "inputs": "data.txt",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "Failed to load https://cdn.jsdelivr.net/npm/fonteditor-core@2.1.2/dist/fonteditor.min.js"
+ },
+ {
+  "file": "obj-to-stl.html",
+  "tool": "obj2stl",
+  "inputs": "data.txt",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "No valid vertices/faces found in the OBJ file."
+ },
+ {
+  "file": "pdf-to-epub.html",
+  "tool": "pdf2epub",
+  "inputs": "doc.pdf",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 90,
+  "error": "structuredClone is not defined"
+ },
+ {
+  "file": "merge-pdf.html",
+  "tool": "pdfmerge",
+  "inputs": "doc.pdf,doc2.pdf",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 843,
+  "error": "Uncaught [ReferenceError: Worker is not defined]"
+ },
+ {
+  "file": "split-pdf.html",
+  "tool": "pdfsplit",
+  "inputs": "multi.pdf",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 3,
+  "bytes": 2157,
+  "error": "Uncaught [ReferenceError: Worker is not defined]"
+ },
+ {
+  "file": "compress-pdf.html",
+  "tool": "pdfcompress",
+  "inputs": "doc.pdf",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 90,
+  "error": "structuredClone is not defined"
+ },
+ {
+  "file": "pdf-to-image.html",
+  "tool": "pdf2img",
+  "inputs": "doc.pdf",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 90,
+  "error": "structuredClone is not defined"
+ },
+ {
+  "file": "pdf-to-text.html",
+  "tool": "pdf2text",
+  "inputs": "doc.pdf",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 90,
+  "error": "structuredClone is not defined"
+ },
+ {
+  "file": "folder-to-zip.html",
+  "tool": "folder2zip",
+  "inputs": "data.txt,data.csv",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "timeout 25s"
+ },
+ {
+  "file": "html-to-pdf.html",
+  "tool": "html2pdf",
+  "inputs": "data.html",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "Attempting to parse an unsupported color function \"var\""
+ },
+ {
+  "file": "text-to-pdf.html",
+  "tool": "text2pdf",
+  "inputs": "data.txt",
+  "verdict": "OUTPUT",
+  "downloads": "data.pdf",
+  "blobs": 1,
+  "bytes": 3323,
+  "error": "Not implemented: navigation to another Document"
+ },
+ {
+  "file": "compress-image.html",
+  "tool": "imgcompress",
+  "inputs": "photo.jpg",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 1148,
+  "error": "Uncaught [ReferenceError: Worker is not defined]"
+ },
+ {
+  "file": "wav-to-mp3.html",
+  "tool": "wav2mp3",
+  "inputs": "clip.wav",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "(window.AudioContext || window.webkitAudioContext) is not a constructor"
+ },
+ {
+  "file": "image-to-text.html",
+  "tool": "img2text",
+  "inputs": "photo.png",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "Worker is not defined"
+ },
+ {
+  "file": "text-to-audio.html",
+  "tool": "txt2audio",
+  "inputs": "data.txt",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "Failed to load https://cdn.jsdelivr.net/npm/mespeak@1.2.5/mespeak.min.js"
+ },
+ {
+  "file": "trim-video.html",
+  "tool": "trimvideo",
+  "inputs": "clip.wav",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 1,
+  "bytes": 16044,
+  "error": "fetch is not defined"
+ },
+ {
+  "file": "rotate-video.html",
+  "tool": "rotatevideo",
+  "inputs": "clip.wav",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "fetch is not defined"
+ },
+ {
+  "file": "watermark-video.html",
+  "tool": "watermarkvideo",
+  "inputs": "clip.wav",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "Choose a logo image (PNG with transparency works best) first."
+ },
+ {
+  "file": "video-to-image.html",
+  "tool": "videoframe",
+  "inputs": "clip.wav",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "fetch is not defined"
+ },
+ {
+  "file": "video-to-mp3.html",
+  "tool": "video2audio",
+  "inputs": "clip.wav",
+  "verdict": "NO OUTPUT",
+  "downloads": "",
+  "blobs": 0,
+  "bytes": 0,
+  "error": "fetch is not defined"
+ }
+]
