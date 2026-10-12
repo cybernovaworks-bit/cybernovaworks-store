@@ -948,14 +948,6 @@ ${ld}
     <p class="tagline">${t.tagline}</p>
   </header>
 
-  <div class="ad-spot ad-adsense">
-      <div class="ad-inner">
-          <span class="ad-label">Advertisement</span>
-          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9104500841041054" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-  </div>
-
   <main class="panel">
     <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose files">
       <input type="file" id="fileInput" hidden />
@@ -972,14 +964,6 @@ ${t.panelExtra ? t.panelExtra + "\n" : ""}    <button class="convert-btn" id="co
 
     <div class="results" id="results" aria-live="polite"></div>
   </main>
-
-  <div class="ad-spot ad-adsense">
-      <div class="ad-inner">
-          <span class="ad-label">Advertisement</span>
-          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9104500841041054" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-  </div>
 
   <section class="about">
     <h2>How to use the ${esc(t.h1)} converter</h2>
@@ -1418,14 +1402,6 @@ ${categorySectionsHTML()}
     </dl>
 </section>
 
-<div class="ad-spot ad-adsense">
-    <div class="ad-inner">
-        <span class="ad-label">Advertisement</span>
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9104500841041054" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-</div>
-
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-logo">
@@ -1727,14 +1703,6 @@ ${siblings}
     <p>These tools are built for one file at a time. If you need the same conversion run automatically over hundreds of files, or wired into an app you already have, that is a build job — and we do those.</p>
     <p><a href="../../../software-solutions.html">Software solutions</a> · <a href="../../../web-development.html">Web development</a> · <a href="../../../contact.html">Ask us directly</a></p>
   </section>
-
-  <div class="ad-spot ad-adsense">
-      <div class="ad-inner">
-          <span class="ad-label">Advertisement</span>
-          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9104500841041054" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-  </div>
 
 </div>
 
