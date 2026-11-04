@@ -4,8 +4,6 @@
 // NOTE: must not collide with a top-level name in app.js. Both files are classic
 // scripts sharing one global lexical scope, so a duplicate const/let/class is a
 // parse-time SyntaxError that kills the whole second script. Prefix with _ here.
-const _pdfWorkerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-
 // ---------- Lazy script loader ----------
 const _loadedLibs = new Set();
 function loadScript(src) {
@@ -60,6 +58,10 @@ function readAsArrayBuffer(file) {
   return file.arrayBuffer();
 }
 
+function _loadPdfDocument(pdfjs, data) {
+  return pdfjs.getDocument({ data, isEvalSupported: false }).promise;
+}
+
 function readAsDataURL(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -91,13 +93,7 @@ function downloadBlob(blob, filename) {
 
 // ---------- PDF helpers ----------
 async function getPdfjs() {
-  if (window.pdfjsLib) {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = _pdfWorkerSrc;
-    return pdfjsLib;
-  }
-  await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js");
-  pdfjsLib.GlobalWorkerOptions.workerSrc = _pdfWorkerSrc;
-  return pdfjsLib;
+  return loadPdfjs();
 }
 
 async function pdfExtractText(pdf) {
@@ -119,7 +115,7 @@ async function pdfToExcel(files) {
   const file = files[0];
   await loadScript("https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js");
   const pdfjs = await getPdfjs();
-  const pdf = await pdfjs.getDocument({ data: await readAsArrayBuffer(file) }).promise;
+  const pdf = await _loadPdfDocument(pdfjs, await readAsArrayBuffer(file));
   const wb = XLSX.utils.book_new();
   for (let p = 1; p <= pdf.numPages; p++) {
     const page = await pdf.getPage(p);
@@ -214,7 +210,7 @@ async function pptxToPdf(files) {
 async function pdfToPptx(files) {
   const file = files[0];
   await loadScript("https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js");
-  const pdf = await (await getPdfjs()).getDocument({ data: await readAsArrayBuffer(file) }).promise;
+  const pdf = await _loadPdfDocument(await getPdfjs(), await readAsArrayBuffer(file));
   const texts = await pdfExtractText(pdf);
   const pptx = new PptxGenJS();
   texts.forEach((t, i) => {
@@ -229,7 +225,7 @@ async function pdfToPptx(files) {
 
 async function pdfToText(files) {
   const file = files[0];
-  const pdf = await (await getPdfjs()).getDocument({ data: await readAsArrayBuffer(file) }).promise;
+  const pdf = await _loadPdfDocument(await getPdfjs(), await readAsArrayBuffer(file));
   const texts = await pdfExtractText(pdf);
   const txt = texts.map((t, i) => "=== PAGE " + (i + 1) + " ===\n" + t).join("\n\n");
   downloadBlob(new Blob([txt], { type: "text/plain;charset=utf-8" }), _baseName(file.name) + ".txt");
@@ -263,27 +259,51 @@ async function htmlToPdf(files) {
   const file = files[0];
   await loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js");
   const html = await readAsText(file);
-  const container = document.createElement("div");
-  container.innerHTML = html;
-  container.style.position = "fixed";
-  container.style.left = "-9999px";
-  container.style.background = "#fff";
-  document.body.appendChild(container);
+  const parsedHtml = new DOMParser().parseFromString(html, "text/html");
+  parsedHtml.querySelectorAll("script, iframe, object, embed, base, meta[http-equiv]").forEach((element) => element.remove());
+  const contentPolicy = document.createElement("meta");
+  contentPolicy.httpEquiv = "Content-Security-Policy";
+  contentPolicy.content = "default-src 'none'; img-src data: blob:; style-src 'unsafe-inline'; font-src data:; media-src data: blob:; script-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'";
+  parsedHtml.head.prepend(contentPolicy);
+  for (const element of parsedHtml.querySelectorAll("*")) {
+    for (const attribute of Array.from(element.attributes)) {
+      if (/^on/i.test(attribute.name) ||
+          /^(href|src|xlink:href|action|formaction)$/i.test(attribute.name) &&
+          /^\s*(javascript|vbscript):/i.test(attribute.value)) {
+        element.removeAttribute(attribute.name);
+      }
+    }
+  }
+  const frame = document.createElement("iframe");
+  frame.setAttribute("sandbox", "allow-same-origin");
+  frame.setAttribute("aria-hidden", "true");
+  frame.tabIndex = -1;
+  frame.style.position = "fixed";
+  frame.style.left = "-9999px";
+  frame.style.width = "794px";
+  frame.style.height = "1123px";
+  frame.style.border = "0";
+  document.body.appendChild(frame);
   try {
+    const frameDocument = frame.contentDocument;
+    if (!frameDocument) throw new Error("Unable to create an isolated document for conversion");
+    frameDocument.open();
+    frameDocument.write("<!doctype html>" + parsedHtml.documentElement.outerHTML);
+    frameDocument.close();
     const worker = html2pdf()
       .set({ margin: 10, filename: _baseName(file.name) + ".pdf", html2canvas: { scale: 2 }, jsPDF: { unit: "mm", format: "a4" } })
-      .from(container);
+      .from(frameDocument.body);
     const blob = await worker.outputPdf("blob");
     downloadBlob(blob, _baseName(file.name) + ".pdf");
-    toolStatus("HTML page rendered to PDF. External CSS and images hosted elsewhere may not load.");
+    toolStatus("HTML page rendered to PDF. External stylesheets, images, and scripts are blocked for security.");
   } finally {
-    document.body.removeChild(container);
+    frame.remove();
   }
 }
 
 async function pdfToHtml(files) {
   const file = files[0];
-  const pdf = await (await getPdfjs()).getDocument({ data: await readAsArrayBuffer(file) }).promise;
+  const pdf = await _loadPdfDocument(await getPdfjs(), await readAsArrayBuffer(file));
   const texts = await pdfExtractText(pdf);
   const html =
     "<!DOCTYPE html><html><head><meta charset='utf-8'><title>" +
@@ -342,7 +362,7 @@ async function epubToPdf(files) {
 async function pdfToEpub(files) {
   const file = files[0];
   await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js");
-  const pdf = await (await getPdfjs()).getDocument({ data: await readAsArrayBuffer(file) }).promise;
+  const pdf = await _loadPdfDocument(await getPdfjs(), await readAsArrayBuffer(file));
   const texts = await pdfExtractText(pdf);
   const zip = new JSZip();
   let chapterHtml = "";
@@ -577,7 +597,7 @@ async function textToAudio(files) {
 async function pdfToAudiobook(files) {
   const file = files[0];
   await ensureMeSpeak();
-  const pdf = await (await getPdfjs()).getDocument({ data: await readAsArrayBuffer(file) }).promise;
+  const pdf = await _loadPdfDocument(await getPdfjs(), await readAsArrayBuffer(file));
   const texts = await pdfExtractText(pdf);
   toolStatus("Generating speech…");
   const blob = mespeakWav(texts.join("\n\n"));

@@ -89,7 +89,7 @@ const LIMIT = {
   pdf2pptx: "One slide per page, built from the text found on each page. This is a starting point for editing, not a faithful copy of the original deck.",
   pdf2text: "Only a real text layer is read. A scanned PDF has no text layer, so it comes back empty — run it through Image to Text (OCR) instead.",
   text2pdf: "Markdown basics such as headings and lists are recognised. Plain text is simply wrapped into paragraphs.",
-  html2pdf: "Rendering depends on how much CSS the page uses, and anything pulled from the internet will not travel with the file.",
+  html2pdf: "Inline styling is preserved, but scripts and network-loaded resources are blocked while rendering for security.",
   pdf2html: "Content is exported as a styled web page. Complex multi-column layouts can need tidying afterwards.",
   epub2pdf: "The book's text is rendered to pages. Chapter art and original page styling are not reproduced.",
   pdf2epub: "The result is text only, so it is fine for reading on a phone but it is not the illustrated edition.",
@@ -233,7 +233,7 @@ add({ key: "html2pdf", cat: "doc", color: "tool-c-indigo", icon: "fa-file-code",
   tagline: "Export an HTML page or snippet as a PDF with styles intact. Rendered locally, printed to PDF.",
   desc: "Save an HTML file or snippet as a styled PDF document.",
   steps: ["Drop in your .html file", "The page is rendered and printed to PDF.", "Download it — styles included."],
-  faq: [["Are CSS styles preserved?", "Yes, the page is rendered inside the browser before saving, so fonts, colors and layout carry across."], ["Does it run JavaScript on the page?", "Scripts that run when the page renders are executed; heavy external resources may be skipped."]] });
+  faq: [["Are CSS styles preserved?", "Yes, inline styles are rendered inside an isolated browser document. External stylesheets and resources are blocked."], ["Does it run JavaScript on the page?", "No. Scripts are disabled and network access is blocked while the HTML is rendered."]] });
 
 add({ key: "pdf2html", cat: "doc", color: "tool-c-indigo", icon: "fa-code", file: "pdf-to-html.html",
   name: "PDF to HTML", h1: "PDF to HTML",

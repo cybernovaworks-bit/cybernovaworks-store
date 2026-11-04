@@ -68,7 +68,29 @@ const TOOLS = {
 // Extra tools registered by converts.js (loaded before app.js on new tool pages).
 if (typeof EXTRA_TOOLS !== "undefined") Object.assign(TOOLS, EXTRA_TOOLS);
 
-const PDF_WORKER_SRC = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const PDFJS_MODULE_SRC = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
+const PDF_WORKER_SRC = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+
+async function loadPdfjs() {
+  if (!window._pdfjsPromise) {
+    window._pdfjsPromise = import(PDFJS_MODULE_SRC)
+      .then((pdfjs) => {
+        pdfjs.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
+        window.pdfjsLib = pdfjs;
+        return pdfjs;
+      })
+      .catch((error) => {
+        window._pdfjsPromise = null;
+        throw error;
+      });
+  }
+  return window._pdfjsPromise;
+}
+
+async function loadPdfDocument(data) {
+  const pdfjs = await loadPdfjs();
+  return pdfjs.getDocument({ data, isEvalSupported: false }).promise;
+}
 
 // ---------- State ----------
 let currentTool = document.body.dataset.tool;
@@ -265,8 +287,7 @@ async function imagesToPdf(files) {
 async function pdfToImages(files) {
   const file = files[0];
   const arrayBuffer = await file.arrayBuffer();
-  pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
-  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const pdf = await loadPdfDocument(arrayBuffer);
   for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
     const page = await pdf.getPage(pageNum);
     const viewport = page.getViewport({ scale: 2 });
@@ -318,8 +339,7 @@ function escapeHtml(str) {
 async function pdfToWord(files) {
   const file = files[0];
   const arrayBuffer = await file.arrayBuffer();
-  pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
-  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const pdf = await loadPdfDocument(arrayBuffer);
   let bodyHtml = "";
   for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
     const page = await pdf.getPage(pageNum);
@@ -371,8 +391,7 @@ async function splitPdf(files) {
 async function compressPdf(files) {
   const file = files[0];
   const arrayBuffer = await file.arrayBuffer();
-  pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
-  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const pdf = await loadPdfDocument(arrayBuffer);
   const { jsPDF } = window.jspdf;
   let outPdf;
   for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
